@@ -1,3 +1,35 @@
-baseURL = "http://example.org/"
+baseURL = "http://suntprogramator.dev/"
 languageCode = "en-us"
-title = "My New Hugo Site"
+title = "Sunt Programator!"
+theme = "LoveIt"
+
+[params]
+  # LoveIt theme version
+  version = "0.2.X"
+
+
+[menu]
+  [[menu.main]]
+    identifier = "posts"
+    pre = ""
+    post = ""
+    name = "Articole"
+    url = "/posts/"
+    title = ""
+    weight = 1
+  [[menu.main]]
+    identifier = "tags"
+    pre = ""
+    post = ""
+    name = "Taguri"
+    url = "/tags/"
+    title = ""
+    weight = 2
+  [[menu.main]]
+    identifier = "categories"
+    pre = ""
+    post = ""
+    name = "Categorii"
+    url = "/categories/"
+    title = ""
+    weight = 3
