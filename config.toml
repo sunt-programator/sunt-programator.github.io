@@ -6,30 +6,176 @@ theme = "LoveIt"
 [params]
   # LoveIt theme version
   version = "0.2.X"
+  description = "În acest blog veți cunoaște lucruri noi despre programare și despre lumea IT. Sunt Programator! Simte-te și tu mândru de ceea ce ești!"
+  defaultTheme = "dark"
+  dateFormat = "02.01.2006"
+  images = ["/logo.jpg"]
 
+[params.search]
+  enable = true
+  contentLength = 4000
+  placeholder = "Cautare prin colecția de articole..."
+  maxResultLength = 10
+  snippetLength = 30
+  highlightTag = "em"
+
+[params.header]
+  desktopMode = "fixed"
+  mobileMode = "auto"
+  [params.header.title]
+      logo = ""
+      name = "Sunt Programator!"
+      typeit = false
+
+[params.footer]
+  enable = true
+  hugo = true
+  copyright = true
+  author = true
+  since = 2020
+  license = '<a rel="license external nofollow noopener noreffer" href="https://creativecommons.org/licenses/by-nc/4.0/" target="_blank">CC BY-NC 4.0</a>'
+
+[params.section]
+  paginate = 20
+  dateFormat = "01-02"
+  rss = 10
+
+[params.list]
+  paginate = 20
+  dateFormat = "01-02"
+  rss = 10
+
+# Home page config
+[params.home]
+  rss = 10
+  # Home page profile
+  [params.home.profile]
+    enable = true
+    avatarURL = "/Logo-512x512-circle-min.png"
+    title = "Sunt Programator!"
+    subtitle = "Simte-te și tu mândru de ceea ce ești!"
+    typeit = true
+    social = true
+  [params.home.posts]
+    enable = true
+    paginate = 6
+    defaultHiddenFromHomePage = false
+
+[params.social]
+  Facebook = "sunt.programator"
+  Telegram = "sunt_programator"
+  GitHub = "victor-pogor"
+  Linkedin = "victor-pogor"
+  Youtubechannel = "UCyHqx_FO5SQT06Udq47vc6Q"
+  RSS = true
+
+[params.page]
+  [params.page.math]
+    enable = true
+    copyTex = true
+    mhchem = true
+  [params.page.code]
+    copy = true
+    maxShownLines = 10
+  [params.page.share]
+    enable = true
+    Twitter = true
+    Facebook = true
+    Linkedin = true
+    Whatsapp = true
+    VK = true
+    Odnoklassniki = true
+    Evernote = true
+    Skype = true
+  [params.page.comment]
+    enable = true
+    [params.page.comment.telegram]
+      enable = true
+      siteID = "Of4QeLxq"
+      limit = 5
+      colorful = true
+      dislikes = false
+      outlined = false
+
+[params.analytics]
+  enable = false
+  [params.analytics.google]
+    id = ""
+    anonymizeIP = true
+    cookie = false
+  [params.analytics.fathom]
+    id = ""
+    server = ""
+
+[markup]
+  [markup.highlight]
+    codeFences = true
+    guessSyntax = true
+    lineNos = true
+    lineNumbersInTable = true
+    noClasses = false
+  [markup.goldmark]
+    [markup.goldmark.extensions]
+      definitionList = true
+      footnote = true
+      linkify = true
+      strikethrough = true
+      table = true
+      taskList = true
+      typographer = true
+    [markup.goldmark.renderer]
+      unsafe = true
+  [markup.tableOfContents]
+    startLevel = 2
+    endLevel = 6
+
+[author]
+  name = "Victor Pogor"
+  email = "victor.pogor@outlook.com"
+  link = "https://www.linkedin.com/in/victor-pogor/"
+
+[sitemap]
+  changefreq = "weekly"
+  filename = "sitemap.xml"
+  priority = 0.5
+
+[Permalinks]
+  posts = ":year/:month/:filename"
+
+[privacy]
+  [privacy.googleAnalytics]
+  [privacy.youtube]
+    privacyEnhanced = true
+
+[mediaTypes]
+  [mediaTypes."text/plain"]
+    suffixes = ["md"]
+
+[outputFormats.MarkDown]
+  mediaType = "text/plain"
+  isPlainText = true
+  isHTML = false
+
+[outputs]
+  home = ["HTML", "RSS", "JSON"]
+  page = ["HTML", "MarkDown"]
+  section = ["HTML", "RSS"]
+  taxonomy = ["HTML", "RSS"]
+  taxonomyTerm = ["HTML"]
 
 [menu]
   [[menu.main]]
     identifier = "posts"
-    pre = ""
-    post = ""
     name = "Articole"
     url = "/posts/"
-    title = ""
     weight = 1
   [[menu.main]]
     identifier = "tags"
-    pre = ""
-    post = ""
     name = "Taguri"
     url = "/tags/"
-    title = ""
     weight = 2
   [[menu.main]]
     identifier = "categories"
-    pre = ""
-    post = ""
     name = "Categorii"
     url = "/categories/"
-    title = ""
     weight = 3
