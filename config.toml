@@ -2,6 +2,7 @@ baseURL = "http://suntprogramator.dev/"
 languageCode = "en-us"
 title = "Sunt Programator!"
 theme = "LoveIt"
+DefaultContentLanguage = "ro"
 
 [params]
   # LoveIt theme version
@@ -107,6 +108,9 @@ theme = "LoveIt"
     id = ""
     server = ""
 
+  [params.cookieconsent]
+  enable = true
+
 [markup]
   [markup.highlight]
     codeFences = true
@@ -163,19 +167,42 @@ theme = "LoveIt"
   taxonomy = ["HTML", "RSS"]
   taxonomyTerm = ["HTML"]
 
-[menu]
-  [[menu.main]]
-    identifier = "posts"
-    name = "Articole"
-    url = "/posts/"
+[languages]
+  [languages.ro]
     weight = 1
-  [[menu.main]]
-    identifier = "tags"
-    name = "Taguri"
-    url = "/tags/"
+    languageCode = "ro"
+    languageName = "Română"
+    [[languages.ro.menu.main]]
+      identifier = "posts"
+      name = "Articole"
+      url = "/posts/"
+      weight = 1
+    [[languages.ro.menu.main]]
+      identifier = "tags"
+      name = "Taguri"
+      url = "/tags/"
+      weight = 2
+    [[languages.ro.menu.main]]
+      identifier = "categories"
+      name = "Categorii"
+      url = "/categories/"
+      weight = 3
+  [languages.ru]
     weight = 2
-  [[menu.main]]
-    identifier = "categories"
-    name = "Categorii"
-    url = "/categories/"
-    weight = 3
+    languageCode = "ru"
+    languageName = "Русский"
+    [[languages.ru.menu.main]]
+      identifier = "posts"
+      name = "Статьи"
+      url = "/posts/"
+      weight = 1
+    [[languages.ru.menu.main]]
+      identifier = "tags"
+      name = "Тэги"
+      url = "/tags/"
+      weight = 2
+    [[languages.ru.menu.main]]
+      identifier = "categories"
+      name = "Категории"
+      url = "/categories/"
+      weight = 3
