@@ -1,8 +1,10 @@
 ---
 title: "QGIS Plugin: Implementarea serviciului Map.md API"
 date: 2019-08-04T12:09:51+00:00
-draft: true
+lastmod: 2020-05-15T20:03:38+03:00
+draft: false
 
+images: ["/images/2019/08/qgis-plugin-implementarea-serviciului-map-md-api/maxresdefault.jpg"]
 featuredImage: "/images/2019/08/qgis-plugin-implementarea-serviciului-map-md-api/maxresdefault.jpg"
 categories: ["Proiecte"]
 tags: ["pyqgis", "pyqt5", "python", "qgis"]
