@@ -208,7 +208,9 @@ $$
 \frac{\psi_b - \psi_a}{\psi_i} = \frac{3.25 - 0.05}{0.05} = 64
 $$
 
-### Setări generale ale graficului fiecărui cadru
+### Setări generale ale mediului tikzpicture fiecărui cadru
+
+Comenzile de desen `tikz` (inclusiv și `pgfplots`) trebuie să fie închise într-un mediu `tikzpicture`.
 
 ```latex
 \begin{tikzpicture}
@@ -222,6 +224,74 @@ $$
     ]
     ...
 \end{tikzpicture}
+```
+
+Ca opțiune a mediului `tikzpicture` noi vom declara funcțiile necesare pentru construirea graficelor. În cod vedem 4 funcții însă în realitate merge vorba de doar două, deoarece în perechi acestea alcătuiesc reprezentări parametrice.
+
+> În matematică, o ecuație parametrică definește un grup de cantități ca funcții ale uneia sau mai multor variabile independente numite parametri. Ecuațiile parametrice sunt utilizate în mod obișnuit pentru a exprima coordonatele punctelor care alcătuiesc un obiect geometric, cum ar fi o curbă sau o suprafață, caz în care ecuațiile sunt numite colectiv reprezentare parametrică sau parametrizare (ortografiată alternativ ca parametrisare) a obiectului [^parametric-equation-wiki].
+
+Ecuațiile parametrice pentru reprezentarea grafică a evolventei sunt indicate mai jos, unde $r$ este raza cercului și $\psi$ -- unghiul de "depanare a aței de pe mosor" 😄.
+
+$$
+x = r(\cos\psi + \psi\sin\psi)
+$$
+
+$$
+y = r(\sin\psi - \psi\cos\psi)
+$$
+
+Celelalte două ecuații parametrice le vom folosi pentru a desena arcuri de cerc pe grafic, unde $r$ iarăși este raza cercului, $\psi$ -- unghiul arcului de cerc, iar $x_{\tiny 0}$ și $y_{\tiny 0}$ sunt coordinatele centrului cercului, în cazul în care acesta nu se află în origine.
+
+$$
+x = x_{\tiny 0} + r \cos\psi
+$$
+
+$$
+y = y_{\tiny 0} + r \sin\psi
+$$
+
+### Adaugarea variabilelor suplimentare
+
+La fiecare iterație vor fi efectuate careva calcule și rezultatele acestora vor fi stocate în variabile. Aceste variabile for fi de folos în continuare pentru afișarea textuală a rezultatelor calculelor.
+
+```latex
+\pgfmathsetmacro\rollAngleDeg{deg(\rollAngle)}
+\pgfmathsetmacro\arcLength{0.5 * \rollAngle * \radius^2}
+\pgfmathsetmacro\curvature{1 / (\radius * \rollAngle)}
+```
+
+Prima variabilă `rollAngleDeg` va stoca valoarea unghiului de depanare exprimată în grade.
+
+Ulterior vom stoca lungimea arcului evolventei în variabila `arcLength`. Aceasta are următoarea formulă:
+
+$$
+L = \frac{1}{2} \psi r^2
+$$
+
+În final, vom calcula curbarea și o vom stoca în variabila `curvature`. Formula pentru calcularea acesteia este următoarea:
+
+$$
+\kappa = \frac{1}{\psi r}
+$$
+
+### Setări generale ale axelor graficului fiecărui cadru
+
+```latex
+\begin{axis}[
+    name=plotAxis,
+    trig format=rad,
+    axis equal,
+    axis lines=center,
+    grid=both,
+    xlabel=$x$,
+    ylabel=$y$,
+    xmin=-5,xmax=5,
+    ymin=-3,ymax=7,
+    xticklabels=\empty,
+    yticklabels=\empty,
+]
+    ...
+\end{axis}
 ```
 
 <figure>
@@ -276,4 +346,5 @@ $$
 [^standalone]: [Standalone: class vs package. StackOverflow](https://tex.stackexchange.com/a/287559)
 [^standalone-package-1]: [Martin Scharrer. The standalone Package](http://mirrors.ibiblio.org/CTAN/macros/latex/contrib/standalone/standalone.pdf), v1.3a din 26.03.2018, p.1
 [^standalone-package-8]: [Martin Scharrer. The standalone Package](http://mirrors.ibiblio.org/CTAN/macros/latex/contrib/standalone/standalone.pdf), v1.3a din 26.03.2018, p.8
-[^pgfplots-overleaf]: [Pgfplots package. Overleaf](https://www.overleaf.com/learn/latex/pgfplots_package)
+[^pgfplots-overleaf]: Pgfplots package. [Overleaf](https://www.overleaf.com/learn/latex/pgfplots_package)
+[^parametric-equation-wiki]: Parametric equation. [Wikipedia](https://en.wikipedia.org/wiki/Parametric_equation)
