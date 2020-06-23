@@ -161,7 +161,7 @@ Configurarea `\pgfplotsset{compat=newest}` ne permite să utilizăm cele mai rec
 
 Pachetul `amsmath` îl voi folosi pentru alinierea formulelor matematice, însă funcționalul acestui pachet nu se limitează doar la alinierea formulelor. Cu acest pachet puteți construi matrice, fracții continue (fracții incluse în fracții), formule în chenar și [multe altele](http://ctan.mirror.ftn.uns.ac.rs/macros/latex/required/amsmath/amsldoc.pdf).
 
-## Definirea variabilelor necesare
+## Definirea variabilelor necesare {#colors}
 
 ```latex
 \pgfmathsetmacro\radius{2}
@@ -208,7 +208,7 @@ $$
 \frac{\psi_b - \psi_a}{\psi_i} = \frac{3.25 - 0.05}{0.05} = 64
 $$
 
-### Setări generale ale mediului tikzpicture fiecărui cadru
+### Setări generale ale mediului tikzpicture fiecărui cadru {#tikzpicture}
 
 Comenzile de desen `tikz` (inclusiv și `pgfplots`) trebuie să fie închise într-un mediu `tikzpicture`.
 
@@ -276,6 +276,8 @@ $$
 
 ### Setări generale ale axelor graficului fiecărui cadru
 
+Declarația de mediu `\begin {axis}` și `\end {axis}` va seta scalarea corectă a graficului. Noi vom folosi scalare simplă liniară, însă acest pachet are și [alte tipuri](https://www.overleaf.com/learn/latex/pgfplots_package#Reference_guide) de scalări care le puteți folosi pentru alte grafice.
+
 ```latex
 \begin{axis}[
     name=plotAxis,
@@ -294,43 +296,189 @@ $$
 \end{axis}
 ```
 
-<figure>
-    <video style="width: 70%;max-height: 100%;">
-        <source src="/images/2020/05/latex-involute-of-a-circle/involute-demo2.mp4" type="video/mp4">
-    </video>
-    <figcaption>test</figcaption>
-</figure>
+După cum observăm axele au un șir de opțiuni atribuite. Pe scurt vom desfășura semnificația și utilitatea fiecăruia.
+
+{{< image src="/images/2020/05/latex-involute-of-a-circle/involute-demo1.png" alt="Grafic cu axe localizate în centru, scalare liniară." caption="Grafic cu axe localizate în centru, scalare liniară.">}}
+
+#### Opțiunea *name*
+
+Opțiunea `name` setează numele graficului. Această opțiune ne va permite să afișăm în dreapta acestuia o casetă informativă cu toate calculele evolventei la fiecare pas.
+
+#### Opțiunea *trig format=rad*
+
+Pachetul `pgfplots` implicit lucrează cu `grade` în cazul când avem calcule ce conțin funcții trigonometrice. Eu am preferat lucrul cu `radiani`. Opțiunea `trig format` permite reconfigurarea formatului de intrare pentru funcții trigonometrice precum sinus, cosinus, tangentă și prietenii lor [^pgfplots-ctan-56].
+
+#### Opțiunea *axis equal*
+
+Cu ajutorul opțiunii `axis equal`, fiecare vector de unitate este setat la aceeași lungime, în timp ce dimensiunile axei rămân constante. După aceea, raporturile de mărime pentru fiecare unitate în `x` și `y` vor fi aceleași. Limitele axei vor fi extinse pentru a compensa efectul de scalare [^pgfplots-ctan-298].
+
+#### Opțiunea *axis lines=center*
+
+În mod implicit, liniile de axe sunt desenate ca o casetă, dar este posibil de modificat aspectul liniilor axelor `x` și `y`. Atribuirea unei din posibile valori ale acestei opțiuni, permite alegerea locației liniilor axelor graficului [^pgfplots-ctan-270-271].
+
+Noi vom seta valoarea `center`, ceea ce va însemna că axele se vor insersecta în coordinata `0`.
+
+#### Opțiunea *grid=both*
+
+Această opțiune permite desenarea liniilor de grilă pe grafic.
+
+#### Opțiunile *xlabel* și *ylabel*
+
+Aceste opțiuni setează etichetele axei cu orice text de tip $ \TeX $.
+
+#### Opțiunile *xmin*, *xmax*, *ymin* și *ymax*
+
+Aceste opțiuni permit definirea limitelor axei, adică colțul din stânga jos și cel din dreapta sus. Tot ce se va afla în afara acestor limite va fi tăiat [^pgfplots-ctan-327].
+
+#### Opțiunile *xticklabels* și *yticklabels*
+
+Aceste opțiuni permit atribuirea etichetelor pentru fiecare pas a axei (segmente ale axelor). În cazul nostru, nu avem nevoie de etichetele cu numerotarea fiecărui segment al axelor. Pentru aceasta noi vom seta la aceste opțiuni valoarea `\empty` (gol).
+
+### Adăugarea coordinatelor necesare pe grafic
+
+Ulterior, vom adăuga 3 coordinate pe grafic, și anume $O$, $L_{\tiny 1}$ și $L_{\tiny 2}$. Aceste coordinate ne vor permite să trasăm segmente.
+
+Sintaxa de adăugare a coordinatei pe grafic este următoarea:
+
+`\coordinate[<options>] (<name>) at (<coordinate>);`
+
+Deci, coordinatele $O$, $L_{\tiny 1}$ și $L_{\tiny 2}$ vor fi adaugate astfel:
+
+```latex
+\coordinate (O) at (0,0);
+\coordinate (L1) at ({arcx(\radius,0,\rollAngle)},{arcy(\radius,0,\rollAngle)});
+\coordinate (L2) at ({involutex(\radius,\rollAngle)},{involutey(\radius,\rollAngle)});
+```
+
+Segmentul $OL_{\tiny 1}$ va reprezenta raza cercului, iar unghiul dintre acest segment și segmentul $[0,r]$ va fi însăși unghiul de depanare.
+
+Segmentul $L_{\tiny 1}L_{\tiny 2}$ va reprezenta tangenta cercului, pornind de la perpendiculară spre punctul maxim al evolventei (calculând valoarile ecuațiilor parametrice în punctul `\rollAngle` de la fiecare iterație).
+
+{{< image src="/images/2020/05/latex-involute-of-a-circle/involute-demo-coords.png" alt="Coordinatele O, L1 și L2 pe grafic." caption="Coordinatele $O$, $L_1$ și $L_2$ pe grafic.">}}
+
+### Proiectarea arcului de cerc rămas după depanare
+
+Fiindcă am spus că evolventa o putem reprezenta ca depanarea aței de pe mosor, atunci la fiecare iterație, noi vom elimina o parte din cerc care corespunde cu unghiul `\rollAngle`.
 
 <figure>
-    <video style="width: 70%;max-height: 100%;">
+    <video controls style="width: 70%;max-height: 100%;">
+        <source src="/images/2020/05/latex-involute-of-a-circle/involute-demo2.mp4" type="video/mp4">
+    </video>
+    <figcaption>Arcul de cerc rămas după depanare.</figcaption>
+</figure>
+
+Comanda `\addplot` este principala comandă de construire a graficelor, disponibilă în fiecare mediu de axe. Aceasta poate fi folosită de una sau mai multe ori în cadrul unei axe pentru a adăuga mai multe grafice [^pgfplots-ctan-43].
+
+Sintaxa de adaugare a graficului pe axe este următoarea:
+
+```latex
+\addplot[<options>] <input data> <trailing path commands>;
+```
+
+Deci, pentru a constui graficul cu arcul de cerc rămas după depanare vom scrie următoarea comandă:
+
+```latex
+\addplot [domain=2*pi:\rollAngle,samples=200,remainingArcColor,thick,line cap=round]({arcx(\radius,0,x)},{arcy(\radius,0,x)});
+```
+
+Opțiunile setate la construirea graficului le vom desfășura în continuare, excepție fiind `remainingArcColor`. Această opțiune preia culoarea setată [în una din secțiunile anteriore](#colors).
+
+#### Opțiunea *domain* {#domain-option}
+
+Această opțiune ne permite de a seta domeniul de definiție al funcției. Expresiile graficelor bidimensionale sunt definite ca funcții $f: [x_{\tiny 1},x_{\tiny 2}] \to \mathbb{R}$ și $\langle x_{\tiny 1} \rangle$ și $\langle x_{\tiny 2} \rangle$ sunt setate cu opțiunea `domain` [^pgfplots-ctan-55].
+
+În cazul nostru, domeniul de definiție este $f: [2\pi:\psi] \to \mathbb{R}$, unde $\psi$ este unghiul curent de depanare, egal cu valoarea variabilei `\rollAngle`.
+
+Cu alte cuvinte, de la iterație la iterație cercul va pierde un arc, unghiul căruia va corespunde valorii variabilei `\rollAngle`.
+
+#### Opțiunea *samples*
+
+Această opțiune setează numărul de puncte de prelevare (sample points) [^pgfplots-ctan-56]. Este de menționat că aceste prelevări se vor conține în domeniul de definiție setat anterior.
+
+#### Stilul TikZ *thick*
+
+Această stil permite setarea lățimii liniei graficului. Stilul `thick`, pe care l-am selectat, corespunde cu lățimea de linie `0.8pt` [^tikz-wikibooks-line-width].
+
+TikZ oferă lățimi de linie predefinite, după cum urmează [^pgfplots-ctan-190]:
+
+* thin
+* ultra thin
+* very thin
+* semithick
+* thick
+* very thick
+* ultra thick
+
+#### Opțiunea *line cap*
+
+Această opțiune specifică modul în care liniile "se termină". Tipurile permise sunt `round`, `rect` și `butt`. Acestea au următoarele efecte [^tikz-ctan-175]:
+
+{{< image src="/images/2020/05/latex-involute-of-a-circle/tikz-line-cap.png" alt="Tipurile de terminații ale liniilor." caption="Tipurile de terminații ale liniilor. Credits:  [CTAN](http://ctan.mirror.ftn.uns.ac.rs/graphics/pgf/base/doc/pgfmanual.pdf)">}}
+
+Pentru reprezentarea grafică a tuturor ecuațiilor parametrice, vom folosi terminații de linii rotungite, adică vom folosi opțiunea `line cap=round`.
+
+Deoarece am desfășurat fiecare opțiune, vom adăuga și celelalte grafice.
+
+### Proiectarea arcului de cerc depanat
+
+Prin comanda de mai jos, vom contstrui la fiecare iterație un arc de cerc punctat (opțiunea `dashedLineColor`), care va reprezenta unghiul de depanare al evoventei pe cerc.
+
+Acest arc de cerc va avea domeniul de definiție exact invers cu cel [anterior](#domain-option), adică $f: [0:\psi] \to \mathbb{R}$.
+
+```latex
+\addplot [domain=0:\rollAngle,samples=200,dashedLineColor,dashed,line cap=round]({arcx(\radius,0,x)},{arcy(\radius,0,x)});
+```
+
+Ca rezultat, vizual vom avea un singur cerc, doar că odată cu mărirea unghiului de depanare se va puncta arcul de cerc.
+
+### Proiectarea evolventei
+
+Iată am ajuns și la cel mai important punct. Aici vom construi evolventa propriu-zisă. La construirea acesteia vom folosi ecuațiile parametrice discutate anterior [anterior](#tikzpicture).
+
+```latex
+\addplot [domain=0.01:\rollAngle,samples=200,involuteSplineColor,thick,line cap=round]({involutex(\radius,x)},{involutey(\radius,x)});
+```
+
+Unicul moment de menționat este că domeniul de definiție începe de la 0.01, deoarece întimpinam erori dacă începeam cu 0. Voi fi recunoscător pentru idei de ce se întimplă acest lucru 😏.
+
+Ca rezultat, obținem profilul evolventei:
+
+<figure>
+    <video controls style="width: 70%;max-height: 100%;">
         <source src="/images/2020/05/latex-involute-of-a-circle/involute-demo3.mp4" type="video/mp4">
     </video>
     <figcaption>test</figcaption>
 </figure>
 
+### Proiectarea liniei ce unește tangenta cu capătul evolventei
+
+```latex
+\draw[tangentLineColor,thick] (L1) -- (L2);
+```
+
 <figure>
-    <video style="width: 70%;max-height: 100%;">
+    <video controls style="width: 70%;max-height: 100%;">
         <source src="/images/2020/05/latex-involute-of-a-circle/involute-demo4.mp4" type="video/mp4">
     </video>
     <figcaption>test</figcaption>
 </figure>
 
 <figure>
-    <video style="width: 70%;max-height: 100%;">
+    <video controls style="width: 70%;max-height: 100%;">
         <source src="/images/2020/05/latex-involute-of-a-circle/involute-demo5.mp4" type="video/mp4">
     </video>
     <figcaption>test</figcaption>
 </figure>
 
 <figure>
-    <video style="width: 70%;max-height: 100%;">
+    <video controls style="width: 70%;max-height: 100%;">
         <source src="/images/2020/05/latex-involute-of-a-circle/involute-demo6.mp4" type="video/mp4">
     </video>
     <figcaption>test</figcaption>
 </figure>
 
 <figure>
-    <video style="width: 70%;max-height: 100%;">
+    <video controls style="width: 70%;max-height: 100%;">
         <source src="/images/2020/05/latex-involute-of-a-circle/involute-demo7.mp4" type="video/mp4">
     </video>
     <figcaption>test</figcaption>
@@ -346,5 +494,14 @@ $$
 [^standalone]: [Standalone: class vs package. StackOverflow](https://tex.stackexchange.com/a/287559)
 [^standalone-package-1]: [Martin Scharrer. The standalone Package](http://mirrors.ibiblio.org/CTAN/macros/latex/contrib/standalone/standalone.pdf), v1.3a din 26.03.2018, p.1
 [^standalone-package-8]: [Martin Scharrer. The standalone Package](http://mirrors.ibiblio.org/CTAN/macros/latex/contrib/standalone/standalone.pdf), v1.3a din 26.03.2018, p.8
+[^tikz-ctan-175]: [Till Tantau și alti autori. TikZ & PGF. Manual for Version 3.1.5b](http://ctan.mirror.ftn.uns.ac.rs/graphics/pgf/base/doc/pgfmanual.pdf), v3.1.5b din 08.01.2020, p.175
 [^pgfplots-overleaf]: Pgfplots package. [Overleaf](https://www.overleaf.com/learn/latex/pgfplots_package)
+[^pgfplots-ctan-43]: [Dr. Christian Feuersänger. Manual for Package pgfplots.](http://ctan.mirror.ftn.uns.ac.rs/graphics/pgf/contrib/pgfplots/doc/pgfplots.pdf), v1.17 din 29.02.2020, p.43
+[^pgfplots-ctan-56]: [Dr. Christian Feuersänger. Manual for Package pgfplots.](http://ctan.mirror.ftn.uns.ac.rs/graphics/pgf/contrib/pgfplots/doc/pgfplots.pdf), v1.17 din 29.02.2020, p.56
+[^pgfplots-ctan-270-271]: [Dr. Christian Feuersänger. Manual for Package pgfplots.](http://ctan.mirror.ftn.uns.ac.rs/graphics/pgf/contrib/pgfplots/doc/pgfplots.pdf), v1.17 din 29.02.2020, p.270-271
+[^pgfplots-ctan-298]: [Dr. Christian Feuersänger. Manual for Package pgfplots.](http://ctan.mirror.ftn.uns.ac.rs/graphics/pgf/contrib/pgfplots/doc/pgfplots.pdf), v1.17 din 29.02.2020, p.298
+[^pgfplots-ctan-327]: [Dr. Christian Feuersänger. Manual for Package pgfplots.](http://ctan.mirror.ftn.uns.ac.rs/graphics/pgf/contrib/pgfplots/doc/pgfplots.pdf), v1.17 din 29.02.2020, p.327
+[^pgfplots-ctan-55]: [Dr. Christian Feuersänger. Manual for Package pgfplots.](http://ctan.mirror.ftn.uns.ac.rs/graphics/pgf/contrib/pgfplots/doc/pgfplots.pdf), v1.17 din 29.02.2020, p.55
+[^pgfplots-ctan-190]: [Dr. Christian Feuersänger. Manual for Package pgfplots.](http://ctan.mirror.ftn.uns.ac.rs/graphics/pgf/contrib/pgfplots/doc/pgfplots.pdf), v1.17 din 29.02.2020, p.190
 [^parametric-equation-wiki]: Parametric equation. [Wikipedia](https://en.wikipedia.org/wiki/Parametric_equation)
+[^tikz-wikibooks-line-width]: LaTeX/PGF/TikZ. Line width. [Wikibooks](https://en.wikibooks.org/wiki/LaTeX/PGF/TikZ#Line_width)
