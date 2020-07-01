@@ -334,7 +334,7 @@ Aceste opțiuni permit definirea limitelor axei, adică colțul din stânga jos 
 
 Aceste opțiuni permit atribuirea etichetelor pentru fiecare pas a axei (segmente ale axelor). În cazul nostru, nu avem nevoie de etichetele cu numerotarea fiecărui segment al axelor. Pentru aceasta noi vom seta la aceste opțiuni valoarea `\empty` (gol).
 
-### Adăugarea coordinatelor necesare pe grafic
+### Adăugarea coordinatelor necesare pe grafic {#coordinates}
 
 Ulterior, vom adăuga 3 coordinate pe grafic, și anume $O$, $L_{\tiny 1}$ și $L_{\tiny 2}$. Aceste coordinate ne vor permite să trasăm segmente.
 
@@ -431,6 +431,13 @@ Acest arc de cerc va avea domeniul de definiție exact invers cu cel [anterior](
 
 Ca rezultat, vizual vom avea un singur cerc, doar că odată cu mărirea unghiului de depanare se va puncta arcul de cerc.
 
+<figure>
+    <video controls style="width: 70%;max-height: 100%;">
+        <source src="/images/2020/05/latex-involute-of-a-circle/involute-demo3.mp4" type="video/mp4">
+    </video>
+    <figcaption>Proiectarea arcului de cerc depanat.</figcaption>
+</figure>
+
 ### Proiectarea evolventei
 
 Iată am ajuns și la cel mai important punct. Aici vom construi evolventa propriu-zisă. La construirea acesteia vom folosi ecuațiile parametrice discutate anterior [anterior](#tikzpicture).
@@ -445,50 +452,73 @@ Ca rezultat, obținem profilul evolventei:
 
 <figure>
     <video controls style="width: 70%;max-height: 100%;">
-        <source src="/images/2020/05/latex-involute-of-a-circle/involute-demo3.mp4" type="video/mp4">
+        <source src="/images/2020/05/latex-involute-of-a-circle/involute-demo4.mp4" type="video/mp4">
     </video>
-    <figcaption>test</figcaption>
+    <figcaption>Profilul evolventei pe grafic.</figcaption>
 </figure>
 
 ### Proiectarea liniei ce unește tangenta cu capătul evolventei
+
+Următorul pas va fi trasarea liniei care unește tangenta cu capătul evolventei.
+
+Acest lucru îl vom realiza cu ajutorul comenzii `\draw`. Această linie va avea culoarea atribuită în variabila `tangentLineColor`, lățimea liniei va fi de tip `thick` și va avea coordinatele `L1` și `L2` care le-am declarat și inițializat în [una din secțiunile precedente](#coordinates).
 
 ```latex
 \draw[tangentLineColor,thick] (L1) -- (L2);
 ```
 
-<figure>
-    <video controls style="width: 70%;max-height: 100%;">
-        <source src="/images/2020/05/latex-involute-of-a-circle/involute-demo4.mp4" type="video/mp4">
-    </video>
-    <figcaption>test</figcaption>
-</figure>
+Linia aceasta va reprezenta acea "ață" care o depanăm de pe mosor 🧵. Rezultatul arată astfel:
 
 <figure>
     <video controls style="width: 70%;max-height: 100%;">
         <source src="/images/2020/05/latex-involute-of-a-circle/involute-demo5.mp4" type="video/mp4">
     </video>
-    <figcaption>test</figcaption>
+    <figcaption>Linia ce unește tangenta cu capătul evolventei.</figcaption>
 </figure>
+
+```latex
+\draw[dashedLineColor,dashed] (O) -- (L1) node [accentColor,pos=0.5,sloped,above] {$r$};
+```
 
 <figure>
     <video controls style="width: 70%;max-height: 100%;">
         <source src="/images/2020/05/latex-involute-of-a-circle/involute-demo6.mp4" type="video/mp4">
     </video>
-    <figcaption>test</figcaption>
+    <figcaption>Proiectarea razei cercului.</figcaption>
 </figure>
+
+```latex
+\addplot [domain=0:\rollAngle,samples=200,accentColor,line cap=round]({arcx(.4,0,x)},{arcy(.4,0,x)}) node[] at (.5, -.3) {$\psi$};
+```
 
 <figure>
     <video controls style="width: 70%;max-height: 100%;">
         <source src="/images/2020/05/latex-involute-of-a-circle/involute-demo7.mp4" type="video/mp4">
     </video>
-    <figcaption>test</figcaption>
+    <figcaption>Proiectarea unghiului depanării evolventei.</figcaption>
 </figure>
+
+```latex
+\node [xshift=.5cm,below right,align=center,text width=6cm,style=information text] at (plotAxis.north east)
+{
+    This is a demonstration how the {\color{accentColor} involute of a circle} works.
+    So, {\color{accentColor} $r$} is radius of the circle, {\color{accentColor} $\psi$} --- roll angle,
+    {\color{accentColor} $L$} --- arc length and {\color{accentColor} $k$} -- curvature of
+    the involute.
+    \begin{align*}
+        {\color{accentColor} r}      & = const                                                  &   & = \radius                                                    \\
+        {\color{accentColor} \psi}   & = \pgfmathprintnumber[textnumber]{\rollAngle}\text{ rad} &   & \approx \pgfmathprintnumber[textnumber]{\rollAngleDeg}^\circ \\
+        {\color{accentColor} L}      & = \frac{1}{2} \psi r^2                                   &   & = \pgfmathprintnumber[textnumber]{\arcLength}                \\
+        {\color{accentColor} \kappa} & = \frac{1}{\psi r}                                       &   & \approx \pgfmathprintnumber[textnumber]{\curvature}
+    \end{align*}
+};
+```
 
 <figure>
     <video controls autoplay style="width: 100%;max-height: 100%;">
         <source src="/images/2020/05/latex-involute-of-a-circle/involute-demo8.mp4" type="video/mp4">
     </video>
-    <figcaption>test</figcaption>
+    <figcaption>Afișarea parametrilor evolventei la fiecare iterație.</figcaption>
 </figure>
 
 [^standalone]: [Standalone: class vs package. StackOverflow](https://tex.stackexchange.com/a/287559)
