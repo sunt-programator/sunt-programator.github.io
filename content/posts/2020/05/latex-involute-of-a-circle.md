@@ -111,7 +111,7 @@ Codul complet al evolventei îl găsiți mai jos sau pe [repository-ul Github](h
 \end{document}
 ```
 
-## Structura de bază a documentului LaTeX și preambula ei
+## 1. Structura de bază a documentului LaTeX și preambula ei
 
 Când $ \LaTeX $ procesează un document, el se așteaptă ca documentul să conțină o anumită structură. Astfel, fiecare document trebuie să conțină comenzile:
 
@@ -130,23 +130,23 @@ Când $ \LaTeX $ procesează un document, el se așteaptă ca documentul să con
 \documentclass[tikz,border=10pt]{standalone}
 ```
 
-### Clasa și pachetul Standalone
+### 1.1. Clasa și pachetul Standalone
 
 Clasa `standalone` este proiectată pentru a crea fragmente individuale de conținut. Această clasă este utilă la generarea imaginilor care vor fi incluse în alte documente [^standalone].
 
 Pachetul `standalone` permite utilizatorilor să plaseze cu ușurință imagini sau alt material în fișierele proprii și să le compileze de sine-stătător sau ca parte a unui document principal [^standalone-package-1].
 
-### Opțiunea și pachetul TikZ
+### 1.2. Opțiunea și pachetul TikZ
 
 Pachetul TikZ este probabil cel mai complex și puternic instrument de a crea elemente grafice în LaTeX. Cu acest pachet putem crea elemente grafice complexe folosind așa elemente simple ca linii, puncte, curbe, cercuri, dreptunghiuri, etc.
 
 Pentru imaginile desenate cu TikZ este oferită o opțiune dedicată `tikz` care încarcă acest pachet și configurează mediul tikzpicture pentru a crea o singură pagină decupată [^standalone-package-8].
 
-### Opțiunea border
+### 1.3. Opțiunea border
 
 Opțiunea `border=10pt` specifică că documentul va avea un chenar de 10pt sau, altfel spus, va avea o margine din toate părțile de 10pt.
 
-### Importarea packetelor necesare
+### 1.4. Importarea packetelor necesare
 
 Distributivele moderne LaTeX vin cu un gama largă de pachete preinstalate. Pentru generarea evolventei eu mă voi folosi de packetele `pgfplots` și `amsmath`.
 
@@ -161,7 +161,7 @@ Configurarea `\pgfplotsset{compat=newest}` ne permite să utilizăm cele mai rec
 
 Pachetul `amsmath` îl voi folosi pentru alinierea formulelor matematice, însă funcționalul acestui pachet nu se limitează doar la alinierea formulelor. Cu acest pachet puteți construi matrice, fracții continue (fracții incluse în fracții), formule în chenar și [multe altele](http://ctan.mirror.ftn.uns.ac.rs/macros/latex/required/amsmath/amsldoc.pdf).
 
-## Definirea variabilelor necesare {#colors}
+## 2. Definirea variabilelor necesare {#colors}
 
 ```latex
 \pgfmathsetmacro\radius{2}
@@ -191,7 +191,7 @@ Ulterior, setăm culorile necesare pentru fiecare strat desenat pe graficul nost
 
 În ultimele comenzi din această secțiune se setează un stil cu denumirea `information text` ce va avea 10% intensitate din culoarea roșie și mai setează precizia părții fracționale a calculelor de 2 cifre.
 
-## Construirea graficelor evolventei
+## 3. Construirea graficelor evolventei
 
 Ca să construim animația evolventei unui cerc, vom proceda astfel. Prin comanda `\foreach` vom desena cadru după cadru câte un grafic unde ca valoare de iterație va fi unghiul de depanare a evolventei. Cu alte cuvinte, în fișierul de ieșire `pdf` vom avea in fiecare foaie a câte un grafic.
 
@@ -208,7 +208,7 @@ $$
 \frac{\psi_b - \psi_a}{\psi_i} = \frac{3.25 - 0.05}{0.05} = 64
 $$
 
-### Setări generale ale mediului tikzpicture fiecărui cadru {#tikzpicture}
+### 3.1. Setări generale ale mediului tikzpicture fiecărui cadru {#tikzpicture}
 
 Comenzile de desen `tikz` (inclusiv și `pgfplots`) trebuie să fie închise într-un mediu `tikzpicture`.
 
@@ -240,7 +240,7 @@ $$
 y = r(\sin\psi - \psi\cos\psi)
 $$
 
-Celelalte două ecuații parametrice le vom folosi pentru a desena arcuri de cerc pe grafic, unde $r$ iarăși este raza cercului, $\psi$ -- unghiul arcului de cerc, iar $x_{\tiny 0}$ și $y_{\tiny 0}$ sunt coordinatele centrului cercului, în cazul în care acesta nu se află în origine.
+Celelalte două ecuații parametrice le vom folosi pentru a desena arcuri de cerc pe grafic, unde $r$ iarăși este raza cercului, $\psi$ -- unghiul arcului de cerc, iar $x_{\tiny 0}$ și $y_{\tiny 0}$ sunt coordonatele centrului cercului, în cazul în care acesta nu se află în origine.
 
 $$
 x = x_{\tiny 0} + r \cos\psi
@@ -250,7 +250,7 @@ $$
 y = y_{\tiny 0} + r \sin\psi
 $$
 
-### Adaugarea variabilelor suplimentare
+### 3.2. Adaugarea variabilelor suplimentare
 
 La fiecare iterație vor fi efectuate careva calcule și rezultatele acestora vor fi stocate în variabile. Aceste variabile for fi de folos în continuare pentru afișarea textuală a rezultatelor calculelor.
 
@@ -274,7 +274,7 @@ $$
 \kappa = \frac{1}{\psi r}
 $$
 
-### Setări generale ale axelor graficului fiecărui cadru
+### 3.3. Setări generale ale axelor graficului fiecărui cadru
 
 Declarația de mediu `\begin {axis}` și `\end {axis}` va seta scalarea corectă a graficului. Noi vom folosi scalare simplă liniară, însă acest pachet are și [alte tipuri](https://www.overleaf.com/learn/latex/pgfplots_package#Reference_guide) de scalări care le puteți folosi pentru alte grafice.
 
@@ -300,63 +300,63 @@ După cum observăm axele au un șir de opțiuni atribuite. Pe scurt vom desfă�
 
 {{< image src="/images/2020/05/latex-involute-of-a-circle/involute-demo1.png" alt="Grafic cu axe localizate în centru, scalare liniară." caption="Grafic cu axe localizate în centru, scalare liniară.">}}
 
-#### Opțiunea *name*
+#### 3.3.1. Opțiunea *name*
 
 Opțiunea `name` setează numele graficului. Această opțiune ne va permite să afișăm în dreapta acestuia o casetă informativă cu toate calculele evolventei la fiecare pas.
 
-#### Opțiunea *trig format=rad*
+#### 3.3.2. Opțiunea *trig format=rad*
 
 Pachetul `pgfplots` implicit lucrează cu `grade` în cazul când avem calcule ce conțin funcții trigonometrice. Eu am preferat lucrul cu `radiani`. Opțiunea `trig format` permite reconfigurarea formatului de intrare pentru funcții trigonometrice precum sinus, cosinus, tangentă și prietenii lor [^pgfplots-ctan-56].
 
-#### Opțiunea *axis equal*
+#### 3.3.3. Opțiunea *axis equal*
 
 Cu ajutorul opțiunii `axis equal`, fiecare vector de unitate este setat la aceeași lungime, în timp ce dimensiunile axei rămân constante. După aceea, raporturile de mărime pentru fiecare unitate în `x` și `y` vor fi aceleași. Limitele axei vor fi extinse pentru a compensa efectul de scalare [^pgfplots-ctan-298].
 
-#### Opțiunea *axis lines=center*
+#### 3.3.4. Opțiunea *axis lines=center*
 
 În mod implicit, liniile de axe sunt desenate ca o casetă, dar este posibil de modificat aspectul liniilor axelor `x` și `y`. Atribuirea unei din posibile valori ale acestei opțiuni, permite alegerea locației liniilor axelor graficului [^pgfplots-ctan-270-271].
 
-Noi vom seta valoarea `center`, ceea ce va însemna că axele se vor insersecta în coordinata `0`.
+Noi vom seta valoarea `center`, ceea ce va însemna că axele se vor insersecta în coordonata `0`.
 
-#### Opțiunea *grid=both*
+#### 3.3.5. Opțiunea *grid=both*
 
 Această opțiune permite desenarea liniilor de grilă pe grafic.
 
-#### Opțiunile *xlabel* și *ylabel*
+#### 3.3.6. Opțiunile *xlabel* și *ylabel*
 
 Aceste opțiuni setează etichetele axei cu orice text de tip $ \TeX $.
 
-#### Opțiunile *xmin*, *xmax*, *ymin* și *ymax*
+#### 3.3.7. Opțiunile *xmin*, *xmax*, *ymin* și *ymax*
 
 Aceste opțiuni permit definirea limitelor axei, adică colțul din stânga jos și cel din dreapta sus. Tot ce se va afla în afara acestor limite va fi tăiat [^pgfplots-ctan-327].
 
-#### Opțiunile *xticklabels* și *yticklabels*
+#### 3.3.8. Opțiunile *xticklabels* și *yticklabels*
 
 Aceste opțiuni permit atribuirea etichetelor pentru fiecare pas a axei (segmente ale axelor). În cazul nostru, nu avem nevoie de etichetele cu numerotarea fiecărui segment al axelor. Pentru aceasta noi vom seta la aceste opțiuni valoarea `\empty` (gol).
 
-### Adăugarea coordinatelor necesare pe grafic {#coordinates}
+### 3.4. Adăugarea coordonatelor necesare pe grafic {#coordonates}
 
-Ulterior, vom adăuga 3 coordinate pe grafic, și anume $O$, $L_{\tiny 1}$ și $L_{\tiny 2}$. Aceste coordinate ne vor permite să trasăm segmente.
+Ulterior, vom adăuga 3 coordonate pe grafic, și anume $O$, $L_{\tiny 1}$ și $L_{\tiny 2}$. Aceste coordonate ne vor permite să trasăm segmente.
 
-Sintaxa de adăugare a coordinatei pe grafic este următoarea:
+Sintaxa de adăugare a coordonatei pe grafic este următoarea:
 
-`\coordinate[<options>] (<name>) at (<coordinate>);`
+`\coordonate[<options>] (<name>) at (<coordonate>);`
 
-Deci, coordinatele $O$, $L_{\tiny 1}$ și $L_{\tiny 2}$ vor fi adaugate astfel:
+Deci, coordonatele $O$, $L_{\tiny 1}$ și $L_{\tiny 2}$ vor fi adaugate astfel:
 
 ```latex
-\coordinate (O) at (0,0);
-\coordinate (L1) at ({arcx(\radius,0,\rollAngle)},{arcy(\radius,0,\rollAngle)});
-\coordinate (L2) at ({involutex(\radius,\rollAngle)},{involutey(\radius,\rollAngle)});
+\coordonate (O) at (0,0);
+\coordonate (L1) at ({arcx(\radius,0,\rollAngle)},{arcy(\radius,0,\rollAngle)});
+\coordonate (L2) at ({involutex(\radius,\rollAngle)},{involutey(\radius,\rollAngle)});
 ```
 
 Segmentul $OL_{\tiny 1}$ va reprezenta raza cercului, iar unghiul dintre acest segment și segmentul $[0,r]$ va fi însăși unghiul de depanare.
 
 Segmentul $L_{\tiny 1}L_{\tiny 2}$ va reprezenta tangenta cercului, pornind de la perpendiculară spre punctul maxim al evolventei (calculând valoarile ecuațiilor parametrice în punctul `\rollAngle` de la fiecare iterație).
 
-{{< image src="/images/2020/05/latex-involute-of-a-circle/involute-demo-coords.png" alt="Coordinatele O, L1 și L2 pe grafic." caption="Coordinatele $O$, $L_1$ și $L_2$ pe grafic.">}}
+{{< image src="/images/2020/05/latex-involute-of-a-circle/involute-demo-coords.png" alt="coordonatele O, L1 și L2 pe grafic." caption="coordonatele $O$, $L_1$ și $L_2$ pe grafic.">}}
 
-### Proiectarea arcului de cerc rămas după depanare
+### 3.5. Proiectarea arcului de cerc rămas după depanare {#remaining-arc-circle-plot}
 
 Fiindcă am spus că evolventa o putem reprezenta ca depanarea aței de pe mosor, atunci la fiecare iterație, noi vom elimina o parte din cerc care corespunde cu unghiul `\rollAngle`.
 
@@ -383,7 +383,7 @@ Deci, pentru a constui graficul cu arcul de cerc rămas după depanare vom scrie
 
 Opțiunile setate la construirea graficului le vom desfășura în continuare, excepție fiind `remainingArcColor`. Această opțiune preia culoarea setată [în una din secțiunile anteriore](#colors).
 
-#### Opțiunea *domain* {#domain-option}
+#### 3.5.1. Opțiunea *domain* {#domain-option}
 
 Această opțiune ne permite de a seta domeniul de definiție al funcției. Expresiile graficelor bidimensionale sunt definite ca funcții $f: [x_{\tiny 1},x_{\tiny 2}] \to \mathbb{R}$ și $\langle x_{\tiny 1} \rangle$ și $\langle x_{\tiny 2} \rangle$ sunt setate cu opțiunea `domain` [^pgfplots-ctan-55].
 
@@ -391,11 +391,11 @@ Această opțiune ne permite de a seta domeniul de definiție al funcției. Expr
 
 Cu alte cuvinte, de la iterație la iterație cercul va pierde un arc, unghiul căruia va corespunde valorii variabilei `\rollAngle`.
 
-#### Opțiunea *samples*
+#### 3.5.2. Opțiunea *samples*
 
 Această opțiune setează numărul de puncte de prelevare (sample points) [^pgfplots-ctan-56]. Este de menționat că aceste prelevări se vor conține în domeniul de definiție setat anterior.
 
-#### Stilul TikZ *thick*
+#### 3.5.3. Stilul TikZ *thick*
 
 Această stil permite setarea lățimii liniei graficului. Stilul `thick`, pe care l-am selectat, corespunde cu lățimea de linie `0.8pt` [^tikz-wikibooks-line-width].
 
@@ -409,7 +409,7 @@ TikZ oferă lățimi de linie predefinite, după cum urmează [^pgfplots-ctan-19
 * very thick
 * ultra thick
 
-#### Opțiunea *line cap*
+#### 3.5.4. Opțiunea *line cap*
 
 Această opțiune specifică modul în care liniile "se termină". Tipurile permise sunt `round`, `rect` și `butt`. Acestea au următoarele efecte [^tikz-ctan-175]:
 
@@ -419,7 +419,7 @@ Pentru reprezentarea grafică a tuturor ecuațiilor parametrice, vom folosi term
 
 Deoarece am desfășurat fiecare opțiune, vom adăuga și celelalte grafice.
 
-### Proiectarea arcului de cerc depanat
+### 3.6 Proiectarea arcului de cerc depanat
 
 Prin comanda de mai jos, vom contstrui la fiecare iterație un arc de cerc punctat (opțiunea `dashedLineColor`), care va reprezenta unghiul de depanare al evoventei pe cerc.
 
@@ -438,7 +438,7 @@ Ca rezultat, vizual vom avea un singur cerc, doar că odată cu mărirea unghiul
     <figcaption>Proiectarea arcului de cerc depanat.</figcaption>
 </figure>
 
-### Proiectarea evolventei
+### 3.7. Proiectarea evolventei
 
 Iată am ajuns și la cel mai important punct. Aici vom construi evolventa propriu-zisă. La construirea acesteia vom folosi ecuațiile parametrice discutate anterior [anterior](#tikzpicture).
 
@@ -457,11 +457,11 @@ Ca rezultat, obținem profilul evolventei:
     <figcaption>Profilul evolventei pe grafic.</figcaption>
 </figure>
 
-### Proiectarea liniei ce unește tangenta cu capătul evolventei
+### 3.8. Proiectarea liniei ce unește tangenta cu capătul evolventei
 
 Următorul pas va fi trasarea liniei care unește tangenta cu capătul evolventei.
 
-Acest lucru îl vom realiza cu ajutorul comenzii `\draw`. Această linie va avea culoarea atribuită în variabila `tangentLineColor`, lățimea liniei va fi de tip `thick` și va avea coordinatele `L1` și `L2` care le-am declarat și inițializat în [una din secțiunile precedente](#coordinates).
+Acest lucru îl vom realiza cu ajutorul comenzii `\draw`. Această linie va avea culoarea atribuită în variabila `tangentLineColor`, lățimea liniei va fi de tip `thick` și va avea coordonatele `L1` și `L2` care le-am declarat și inițializat în [una din secțiunile precedente](#coordonates).
 
 ```latex
 \draw[tangentLineColor,thick] (L1) -- (L2);
@@ -476,9 +476,15 @@ Linia aceasta va reprezenta acea "ață" care o depanăm de pe mosor 🧵. Rezul
     <figcaption>Linia ce unește tangenta cu capătul evolventei.</figcaption>
 </figure>
 
+### 3.9. Proiectarea razei cercului
+
+Tot cu aceeași sintaxă vom proiecta raza cercului care se va roti odată cu mărirea unghiului de depanare.
+
 ```latex
 \draw[dashedLineColor,dashed] (O) -- (L1) node [accentColor,pos=0.5,sloped,above] {$r$};
 ```
+
+Rezultatul îl putem vedea în animația de mai jos, însă opțiunile pe care le-am setat, le vom desfășura în secțiunile următoare.
 
 <figure>
     <video controls style="width: 70%;max-height: 100%;">
@@ -487,9 +493,33 @@ Linia aceasta va reprezenta acea "ață" care o depanăm de pe mosor 🧵. Rezul
     <figcaption>Proiectarea razei cercului.</figcaption>
 </figure>
 
+#### 3.9.1. Opțiunea */tikz/pos*
+
+Opțiunea `/tikz/pos=<fraction>` ancorează nodul pe un anumit punct de pe linie de la coordonata anterioară la punctul actual. $\langle fraction \rangle$ dictează cât de "departe" trebuie să fie punctul pe linie. O $\langle fraction \rangle$ setată ca $0$ este coordonata anterioară, $1$ este cea curentă, iar toate celelalte sunt între ele. În special, $0.5$ este mijlocul [^tikz-ctan-246].
+
+Noi vom seta valoarea $0.5$, ceea ce va însemna că nodul se afla la mijloc de linie. Același lucru îl putem face cu opțiunea `/tikz/midway`, care este echivalentul opțiunii `pos=0.5`.
+
+#### 3.9.2. Opțiunea */tikz/sloped*
+
+Opțiunea `/tikz/sloped` face ca nodul să fie rotit, astfel încât linia orizontală a acestuia să devină tangentă cu curba. Rotirea de obicei se face în așa mod, încât textul să nu fie niciodată "cu susul în jos". [^tikz-ctan-248].
+
+{{< image src="/images/2020/05/latex-involute-of-a-circle/tikz-sloped.png" alt="Opțiunea slopped din pachetul TikZ." caption="Opțiunea `/tikz/sloped` din pachetul TikZ. Credits:  [CTAN](http://ctan.mirror.ftn.uns.ac.rs/graphics/pgf/base/doc/pgfmanual.pdf)">}}
+
+În cazul nostru avem nu o curbă, ci o linie și textul trebuie să se rotească odată cu rotirea liniei. La momentul când unghiul de depanare va depăși $\frac{\pi}{2}$ radiani sau $90^{\circ}$, această opțiune nu va permite ca textul să fie inversat (cu susul în jos).
+
+#### 3.9.3. Opțiunea */tikz/above*
+
+Această opțiune este echivalentă cu opțiunea `/tikz/anchor=south` și permite poziționarea nodului deasupra liniei.
+
+### 3.10. Proiectarea unghiului arculului de cerc depanat
+
+La această etapă, vom proiecta unghiul arcului de cerc depanat. Pentru aceasta, vom utiliza comanda `\addplot`, sintaxa căreia am desfășurat-o în una din [secțiunile anterioare](#remaining-arc-circle-plot). Unica diferență este că aici adăugăm un nod fix poziționat în punctul $(0.5,-0.3)$ cu textul $\psi$.
+
 ```latex
 \addplot [domain=0:\rollAngle,samples=200,accentColor,line cap=round]({arcx(.4,0,x)},{arcy(.4,0,x)}) node[] at (.5, -.3) {$\psi$};
 ```
+
+Desigur că $\LaTeX$ dispune de o gamă largă de pachete pentru desenarea unghiurilor (cum ar fi pachetul [tkz-euclide](http://ctan.mirror.ftn.uns.ac.rs/macros/latex/contrib/tkz/tkz-euclide/doc/TKZdoc-euclide.pdf)), însă eu am decis să merg pe calea proiectării aceluiași arc de cerc, numai că cu o rază mai mică.
 
 <figure>
     <video controls style="width: 70%;max-height: 100%;">
@@ -497,6 +527,12 @@ Linia aceasta va reprezenta acea "ață" care o depanăm de pe mosor 🧵. Rezul
     </video>
     <figcaption>Proiectarea unghiului depanării evolventei.</figcaption>
 </figure>
+
+### 3.11. Afișarea parametrilor evolventei la fiecare iterație
+
+Parametrii evolventei la fiecare iterație vor fi poziționați într-o casetă, ultima fiind poziționată în dreapta graficului nostru.
+
+Codul casetei cu parametrii evolventei îl putem vedea mai jos:
 
 ```latex
 \node [xshift=.5cm,below right,align=center,text width=6cm,style=information text] at (plotAxis.north east)
@@ -525,6 +561,8 @@ Linia aceasta va reprezenta acea "ață" care o depanăm de pe mosor 🧵. Rezul
 [^standalone-package-1]: [Martin Scharrer. The standalone Package](http://mirrors.ibiblio.org/CTAN/macros/latex/contrib/standalone/standalone.pdf), v1.3a din 26.03.2018, p.1
 [^standalone-package-8]: [Martin Scharrer. The standalone Package](http://mirrors.ibiblio.org/CTAN/macros/latex/contrib/standalone/standalone.pdf), v1.3a din 26.03.2018, p.8
 [^tikz-ctan-175]: [Till Tantau și alti autori. TikZ & PGF. Manual for Version 3.1.5b](http://ctan.mirror.ftn.uns.ac.rs/graphics/pgf/base/doc/pgfmanual.pdf), v3.1.5b din 08.01.2020, p.175
+[^tikz-ctan-246]: [Till Tantau și alti autori. TikZ & PGF. Manual for Version 3.1.5b](http://ctan.mirror.ftn.uns.ac.rs/graphics/pgf/base/doc/pgfmanual.pdf), v3.1.5b din 08.01.2020, p.246
+[^tikz-ctan-248]: [Till Tantau și alti autori. TikZ & PGF. Manual for Version 3.1.5b](http://ctan.mirror.ftn.uns.ac.rs/graphics/pgf/base/doc/pgfmanual.pdf), v3.1.5b din 08.01.2020, p.248
 [^pgfplots-overleaf]: Pgfplots package. [Overleaf](https://www.overleaf.com/learn/latex/pgfplots_package)
 [^pgfplots-ctan-43]: [Dr. Christian Feuersänger. Manual for Package pgfplots.](http://ctan.mirror.ftn.uns.ac.rs/graphics/pgf/contrib/pgfplots/doc/pgfplots.pdf), v1.17 din 29.02.2020, p.43
 [^pgfplots-ctan-56]: [Dr. Christian Feuersänger. Manual for Package pgfplots.](http://ctan.mirror.ftn.uns.ac.rs/graphics/pgf/contrib/pgfplots/doc/pgfplots.pdf), v1.17 din 29.02.2020, p.56
