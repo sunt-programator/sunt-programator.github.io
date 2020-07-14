@@ -15,7 +15,7 @@ tags: ["latex", "geometry", "mathematics", "trigonometry"]
     <figcaption>Demonstrare grafică cum evolventa funcționează.</figcaption>
 </figure>
 
-Codul complet al evolventei îl găsiți mai jos sau pe [repository-ul Github](https://github.com/sunt-programator/latex-workpapers/blob/master/involute-of-circle/involute-demo.tex). În continuare eu voi explica mai detailat fiecare secțiune de cod ce face.
+Codul complet al evolventei îl găsiți mai jos sau pe [repository-ul Github](https://github.com/sunt-programator/latex-workpapers/blob/master/involute-of-circle/involute-demo.tex). În continuare vom explica mai detailat fiecare secțiune de cod ce face.
 
 ``` latex
 \documentclass[tikz,border=10pt]{standalone}
@@ -111,7 +111,7 @@ Codul complet al evolventei îl găsiți mai jos sau pe [repository-ul Github](h
 \end{document}
 ```
 
-## 1. Structura de bază a documentului LaTeX și preambula ei
+## 1. Structura de bază a documentului LaTeX și preambula acestuia
 
 Când $ \LaTeX $ procesează un document, el se așteaptă ca documentul să conțină o anumită structură. Astfel, fiecare document trebuie să conțină comenzile:
 
@@ -148,7 +148,7 @@ Opțiunea `border=10pt` specifică că documentul va avea un chenar de 10pt sau,
 
 ### 1.4. Importarea packetelor necesare
 
-Distributivele moderne LaTeX vin cu un gama largă de pachete preinstalate. Pentru generarea evolventei eu mă voi folosi de packetele `pgfplots` și `amsmath`.
+Distributivele moderne LaTeX vin cu un gama largă de pachete preinstalate. Pentru generarea evolventei ne vom folosi de packetele `pgfplots` și `amsmath`.
 
 ```latex
 \usepackage{pgfplots,amsmath}
@@ -202,7 +202,7 @@ Ca să construim animația evolventei unui cerc, vom proceda astfel. Prin comand
 }
 ```
 
-Eu personal prefer să lucrez cu radiani în loc de grade și de aceea în ciclul `foreach` vedem că unghiul de depanare începe de la $ \psi_a = 0.05 rad $ și se termină cu $ \psi_b = 3.25 rad $. Pasul de la iterație la iterație este de $ \psi_i = 0.05 rad $. Putem cu aceste date prealabil să calculăm numărul de cadre.
+Pentru construirea evolventei vom folosi radiani în loc de grade și de aceea în ciclul `foreach` vedem că unghiul de depanare începe de la $ \psi_a = 0.05 rad $ și se termină cu $ \psi_b = 3.25 rad $. Pasul de la iterație la iterație este de $ \psi_i = 0.05 rad $. Putem cu aceste date prealabil să calculăm numărul de cadre.
 
 $$
 \frac{\psi_b - \psi_a}{\psi_i} = \frac{3.25 - 0.05}{0.05} = 64
@@ -306,7 +306,7 @@ Opțiunea `name` setează numele graficului. Această opțiune ne va permite să
 
 #### 3.3.2. Opțiunea *trig format=rad*
 
-Pachetul `pgfplots` implicit lucrează cu `grade` în cazul când avem calcule ce conțin funcții trigonometrice. Eu am preferat lucrul cu `radiani`. Opțiunea `trig format` permite reconfigurarea formatului de intrare pentru funcții trigonometrice precum sinus, cosinus, tangentă și prietenii lor [^pgfplots-ctan-56].
+Pachetul `pgfplots` implicit lucrează cu `grade` în cazul când avem calcule ce conțin funcții trigonometrice. Noi, însă, vom folosi `radiani`. Opțiunea `trig format` permite reconfigurarea formatului de intrare pentru funcții trigonometrice precum sinus, cosinus, tangentă și prietenii lor [^pgfplots-ctan-56].
 
 #### 3.3.3. Opțiunea *axis equal*
 
@@ -519,7 +519,7 @@ La această etapă, vom proiecta unghiul arcului de cerc depanat. Pentru aceasta
 \addplot [domain=0:\rollAngle,samples=200,accentColor,line cap=round]({arcx(.4,0,x)},{arcy(.4,0,x)}) node[] at (.5, -.3) {$\psi$};
 ```
 
-Desigur că $\LaTeX$ dispune de o gamă largă de pachete pentru desenarea unghiurilor (cum ar fi pachetul [tkz-euclide](http://ctan.mirror.ftn.uns.ac.rs/macros/latex/contrib/tkz/tkz-euclide/doc/TKZdoc-euclide.pdf)), însă eu am decis să merg pe calea proiectării aceluiași arc de cerc, numai că cu o rază mai mică.
+Desigur că $\LaTeX$ dispune de o gamă largă de pachete pentru desenarea unghiurilor (cum ar fi pachetul [tkz-euclide](http://ctan.mirror.ftn.uns.ac.rs/macros/latex/contrib/tkz/tkz-euclide/doc/TKZdoc-euclide.pdf)), însă vom merge pe calea proiectării aceluiași arc de cerc, numai că cu o rază mai mică.
 
 <figure>
     <video controls style="width: 70%;max-height: 100%;">
@@ -531,6 +531,13 @@ Desigur că $\LaTeX$ dispune de o gamă largă de pachete pentru desenarea unghi
 ### 3.11. Afișarea parametrilor evolventei la fiecare iterație
 
 Parametrii evolventei la fiecare iterație vor fi poziționați într-o casetă, ultima fiind poziționată în dreapta graficului nostru.
+
+<figure>
+    <video controls autoplay style="width: 100%;max-height: 100%;">
+        <source src="/images/2020/05/latex-involute-of-a-circle/involute-demo8.mp4" type="video/mp4">
+    </video>
+    <figcaption>Afișarea parametrilor evolventei la fiecare iterație.</figcaption>
+</figure>
 
 Codul casetei cu parametrii evolventei îl putem vedea mai jos:
 
@@ -550,26 +557,66 @@ Codul casetei cu parametrii evolventei îl putem vedea mai jos:
 };
 ```
 
-<figure>
-    <video controls autoplay style="width: 100%;max-height: 100%;">
-        <source src="/images/2020/05/latex-involute-of-a-circle/involute-demo8.mp4" type="video/mp4">
-    </video>
-    <figcaption>Afișarea parametrilor evolventei la fiecare iterație.</figcaption>
-</figure>
+Această porțiune de cod de la prima vedere pare a fi dificilă. În secțiunile ulterioare vom explica unele momente-cheie ce au loc în acest fragment de cod.
+
+#### 3.11.1. Commanda *\node*
+
+Nodurile sunt probabil cele mai universale elemente din `TikZ`. Un nod este de obicei un dreptunghi sau un cerc sau o altă formă simplă cu un text pe el. În cel mai simplu caz, un nod este doar un text care este plasat la o anumită coordonată.
+
+```latex
+\node[<options>](<name>) at (<coordinate>){<text>};
+```
+
+În cazul nostru, vom crea un nod cu coordonata localizată în colțul drept sus al graficului principal. Acest lucru se realizează prin referirea către numele axei graficului principal, cu indicarea ancorei (punctului de referință a nodului) în poziția nord-vest.
+
+{{< image src="/images/2020/05/latex-involute-of-a-circle/tikz-anchor-point.png" alt="Ancore poziționate pe caseta de delimitare a axei din pachetul TikZ." caption="Ancore poziționate pe caseta de delimitare a axei din pachetul TikZ. Credits: [CTAN](http://ctan.mirror.ftn.uns.ac.rs/graphics/pgf/contrib/pgfplots/doc/pgfplots.pdf)">}}
+
+Opțiunea `xshift=.5cm` permite de a executa translația casetei pe axa $x$ cu `0.5cm`, `below right` -- poziționarea casetei în dreapta sub coordonata setată anterior și cu luarea în considerare a translației efectuate.
+
+Opțiunea `/tikz/text width=6cm` va plasa textul nodului într-o casetă de `6cm` lățime. Dacă lățimea textului va depăși această limită, atunci se va întrerupe linia și se va trece conținutul rămas din rând nou.
+
+În ceea ce privește opțiunea `/tikz/align=center`, aceasta este utilizată pentru a configura alinierea textului cu mai multe linii în interiorul unui nod. Dacă opțiunea `/tikz/text width` este setată la o anumită lățime (să numim această aliniere cu line breaking), opțiunea de aliniere va configura `\leftskip` și `\rightskip` în așa fel încât textul să fie întrerupt și aliniat în funcție de opțiunea de aliniere [^tikz-ctan-235].
+
+Opțiunea `style=information text` permite de a seta stilul pe care l-am identifiat [în una din secțiunile anteriore](#colors). Această casetă cu parametrii evolventei la fiecare iterație va avea o culoare de fundal roșie cu intensitatea de 10% din culoarea de bază.
+
+#### 3.11.2. Afișarea textului color
+
+Pentru afișarea unui text color în nod, putem utiliza sintaxa de mai jos iar denumirile culorilor noi le-am identificat [în primele secțiuni](#colors).
+
+```latex
+{\color{accentColor} some text}
+```
+
+#### 3.11.3. Alinierea formulelor matematice din casetă
+
+Formulele matematice nu vor fi aliniate într-o formă simplă (stânga, centru, dreapta), ci va avea o formă complexă. Alinierea se va face la simbolul `=`, cu alte cuvinte toate cele 4 formule se vor poziționa una sub alta cu alinierea strict la acest simbol.
+
+{{< image src="/images/2020/05/latex-involute-of-a-circle/involute-demo-text-align.png" alt="Alinierea formulelor matematice după simbolul egal." caption="Alinierea formulelor matematice după simbolul egal.">}}
+
+Acest lucru se face cu ajutorul pachetului `amsmath`, folosind contrucția `\begin{align*} ... \end{align*}` și determinând prin simbolul `&` locul unde avem nevoie să aliniem ecuația.
+
+```latex
+\begin{align*}
+    {\color{accentColor} r} & = const & & = \radius \\
+\end{align*}
+```
+
+Despre semnificația și utilitatea simbolului `&` în acest pachet puteți citi [aici](https://tex.stackexchange.com/a/159724).
 
 [^standalone]: [Standalone: class vs package. StackOverflow](https://tex.stackexchange.com/a/287559)
-[^standalone-package-1]: [Martin Scharrer. The standalone Package](http://mirrors.ibiblio.org/CTAN/macros/latex/contrib/standalone/standalone.pdf), v1.3a din 26.03.2018, p.1
-[^standalone-package-8]: [Martin Scharrer. The standalone Package](http://mirrors.ibiblio.org/CTAN/macros/latex/contrib/standalone/standalone.pdf), v1.3a din 26.03.2018, p.8
-[^tikz-ctan-175]: [Till Tantau și alti autori. TikZ & PGF. Manual for Version 3.1.5b](http://ctan.mirror.ftn.uns.ac.rs/graphics/pgf/base/doc/pgfmanual.pdf), v3.1.5b din 08.01.2020, p.175
-[^tikz-ctan-246]: [Till Tantau și alti autori. TikZ & PGF. Manual for Version 3.1.5b](http://ctan.mirror.ftn.uns.ac.rs/graphics/pgf/base/doc/pgfmanual.pdf), v3.1.5b din 08.01.2020, p.246
-[^tikz-ctan-248]: [Till Tantau și alti autori. TikZ & PGF. Manual for Version 3.1.5b](http://ctan.mirror.ftn.uns.ac.rs/graphics/pgf/base/doc/pgfmanual.pdf), v3.1.5b din 08.01.2020, p.248
-[^pgfplots-overleaf]: Pgfplots package. [Overleaf](https://www.overleaf.com/learn/latex/pgfplots_package)
-[^pgfplots-ctan-43]: [Dr. Christian Feuersänger. Manual for Package pgfplots.](http://ctan.mirror.ftn.uns.ac.rs/graphics/pgf/contrib/pgfplots/doc/pgfplots.pdf), v1.17 din 29.02.2020, p.43
-[^pgfplots-ctan-56]: [Dr. Christian Feuersänger. Manual for Package pgfplots.](http://ctan.mirror.ftn.uns.ac.rs/graphics/pgf/contrib/pgfplots/doc/pgfplots.pdf), v1.17 din 29.02.2020, p.56
-[^pgfplots-ctan-270-271]: [Dr. Christian Feuersänger. Manual for Package pgfplots.](http://ctan.mirror.ftn.uns.ac.rs/graphics/pgf/contrib/pgfplots/doc/pgfplots.pdf), v1.17 din 29.02.2020, p.270-271
-[^pgfplots-ctan-298]: [Dr. Christian Feuersänger. Manual for Package pgfplots.](http://ctan.mirror.ftn.uns.ac.rs/graphics/pgf/contrib/pgfplots/doc/pgfplots.pdf), v1.17 din 29.02.2020, p.298
-[^pgfplots-ctan-327]: [Dr. Christian Feuersänger. Manual for Package pgfplots.](http://ctan.mirror.ftn.uns.ac.rs/graphics/pgf/contrib/pgfplots/doc/pgfplots.pdf), v1.17 din 29.02.2020, p.327
-[^pgfplots-ctan-55]: [Dr. Christian Feuersänger. Manual for Package pgfplots.](http://ctan.mirror.ftn.uns.ac.rs/graphics/pgf/contrib/pgfplots/doc/pgfplots.pdf), v1.17 din 29.02.2020, p.55
-[^pgfplots-ctan-190]: [Dr. Christian Feuersänger. Manual for Package pgfplots.](http://ctan.mirror.ftn.uns.ac.rs/graphics/pgf/contrib/pgfplots/doc/pgfplots.pdf), v1.17 din 29.02.2020, p.190
-[^parametric-equation-wiki]: Parametric equation. [Wikipedia](https://en.wikipedia.org/wiki/Parametric_equation)
-[^tikz-wikibooks-line-width]: LaTeX/PGF/TikZ. Line width. [Wikibooks](https://en.wikibooks.org/wiki/LaTeX/PGF/TikZ#Line_width)
+[^standalone-package-1]: Martin Scharrer. The standalone Package, v1.3a din 26.03.2018, p.1. Credits: [CTAN](http://mirrors.ibiblio.org/CTAN/macros/latex/contrib/standalone/standalone.pdf)
+[^standalone-package-8]: Martin Scharrer. The standalone Package, v1.3a din 26.03.2018, p.8. Credits: [CTAN](http://mirrors.ibiblio.org/CTAN/macros/latex/contrib/standalone/standalone.pdf)
+[^tikz-ctan-175]: Till Tantau și alti autori. TikZ & PGF. Manual for Version 3.1.5b, v3.1.5b din 08.01.2020, p.175. Credits: [CTAN](http://ctan.mirror.ftn.uns.ac.rs/graphics/pgf/base/doc/pgfmanual.pdf)
+[^tikz-ctan-235]: Till Tantau și alti autori. TikZ & PGF. Manual for Version 3.1.5b, v3.1.5b din 08.01.2020, p.235. Credits: [CTAN](http://ctan.mirror.ftn.uns.ac.rs/graphics/pgf/base/doc/pgfmanual.pdf)
+[^tikz-ctan-246]: Till Tantau și alti autori. TikZ & PGF. Manual for Version 3.1.5b, v3.1.5b din 08.01.2020, p.246. Credits: [CTAN](http://ctan.mirror.ftn.uns.ac.rs/graphics/pgf/base/doc/pgfmanual.pdf)
+[^tikz-ctan-248]: Till Tantau și alti autori. TikZ & PGF. Manual for Version 3.1.5b, v3.1.5b din 08.01.2020, p.248. Credits: [CTAN](http://ctan.mirror.ftn.uns.ac.rs/graphics/pgf/base/doc/pgfmanual.pdf)
+[^pgfplots-overleaf]: Pgfplots package. Credits: [Overleaf](https://www.overleaf.com/learn/latex/pgfplots_package)
+[^pgfplots-ctan-43]: Dr. Christian Feuersänger. Manual for Package pgfplots, v1.17 din 29.02.2020, p.43. Credits: [CTAN](http://ctan.mirror.ftn.uns.ac.rs/graphics/pgf/contrib/pgfplots/doc/pgfplots.pdf)
+[^pgfplots-ctan-56]: Dr. Christian Feuersänger. Manual for Package pgfplots, v1.17 din 29.02.2020, p.56. Credits: [CTAN](http://ctan.mirror.ftn.uns.ac.rs/graphics/pgf/contrib/pgfplots/doc/pgfplots.pdf)
+[^pgfplots-ctan-270-271]: Dr. Christian Feuersänger. Manual for Package pgfplots, v1.17 din 29.02.2020, p.270-271. Credits: [CTAN](http://ctan.mirror.ftn.uns.ac.rs/graphics/pgf/contrib/pgfplots/doc/pgfplots.pdf)
+[^pgfplots-ctan-298]: Dr. Christian Feuersänger. Manual for Package pgfplots, v1.17 din 29.02.2020, p.298. Credits: [CTAN](http://ctan.mirror.ftn.uns.ac.rs/graphics/pgf/contrib/pgfplots/doc/pgfplots.pdf)
+[^pgfplots-ctan-327]: Dr. Christian Feuersänger. Manual for Package pgfplots, v1.17 din 29.02.2020, p.327. Credits: [CTAN](http://ctan.mirror.ftn.uns.ac.rs/graphics/pgf/contrib/pgfplots/doc/pgfplots.pdf)
+[^pgfplots-ctan-55]: Dr. Christian Feuersänger. Manual for Package pgfplots, v1.17 din 29.02.2020, p.55. Credits: [CTAN](http://ctan.mirror.ftn.uns.ac.rs/graphics/pgf/contrib/pgfplots/doc/pgfplots.pdf)
+[^pgfplots-ctan-190]: Dr. Christian Feuersänger. Manual for Package pgfplots, v1.17 din 29.02.2020, p.190. Credits: [CTAN](http://ctan.mirror.ftn.uns.ac.rs/graphics/pgf/contrib/pgfplots/doc/pgfplots.pdf)
+[^parametric-equation-wiki]: Parametric equation. Credtits: [Wikipedia](https://en.wikipedia.org/wiki/Parametric_equation)
+[^tikz-wikibooks-line-width]: LaTeX/PGF/TikZ. Line width. Credtits: [Wikibooks](https://en.wikibooks.org/wiki/LaTeX/PGF/TikZ#Line_width)
