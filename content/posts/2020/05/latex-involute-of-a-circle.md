@@ -10,7 +10,9 @@ tags: ["latex", "geometry", "mathematics", "trigonometry", "involute"]
 
 ## 1. Introducere
 
-În acest articol, vom construi și anima evolventa unui cerc. Evolventa, vorbind cu un limbaj simplu, este o curbă care se obține prin desfășurarea imaginară de pe mosor a unei ațe permanent ținută întinsă sau procesul invers, înfășurarea acesteia pe mosor cu condiția ținerii în permanentă întindere a acesteia.
+Salutare tuturor! 🙋‍♂️
+
+În acest articol, vom pune în discuție contruirea și animarea evolventei unui cerc. Evolventa, vorbind cu un limbaj simplu, este o curbă care se obține prin desfășurarea imaginară de pe mosor sau înfășurarea pe mosor a unei ațe cu condiția ținerii acesteia permanent întinsă.
 
 <figure>
     <video controls autoplay style="width: 100%;max-height: 100%;">
@@ -19,11 +21,15 @@ tags: ["latex", "geometry", "mathematics", "trigonometry", "involute"]
     <figcaption>Demonstrare grafică cum evolventa funcționează.</figcaption>
 </figure>
 
-Evolventa este parte a profilul dintelui unei roți dințate folosite la transmisii prin angrenaje. Profilul evolventic asigură un raport de transmitere constant între roțile dințate, randament ridicat și altele.
+Evolventa este parte a profilului dintelui unei roți dințate folosite la transmisii prin angrenaje. Profilul evolventic asigură un raport de transmitere constant între roțile dințate, randament ridicat și alte avantaje.
 
 {{< image src="https://upload.wikimedia.org/wikipedia/commons/c/c2/Involute_wheel.gif" alt="Raportul de transmitere constat între 2 roți dințate cu profil evolventic." caption="Raportul de transmitere constat între 2 roți dințate cu profil evolventic. Credits: [Wikipedia](https://en.wikipedia.org/wiki/Involute_gear#/media/File:Involute_wheel.gif)">}}
 
-Codul complet al evolventei unui cerc îl găsiți mai jos sau pe [repository-ul Github](https://github.com/sunt-programator/latex-workpapers/blob/master/involute-of-circle/involute-demo.tex). În continuare vom explica mai detailat utilitatea fiecărei secțiuni de cod.
+Proiectarea evolventei vom realiza-o cu ajutorul [LaTeX](https://en.wikipedia.org/wiki/LaTeX), sistemul de preparare a documentelor ce se folosește pe larg în mediul academic.
+
+$\LaTeX$ este bine cunoscut pentru abilitatea sa de lucru cu texte matematice, științifice și alte lucrări complexe: documente lungi sau complicate, precum și cele multilingve. Sistemele $\TeX$ produc rezultatul pe hârtie sau pe ecranul computerului cu cea mai înaltă calitate tipografică. Această calitate este crucială pentru textele complexe, unde capacitatea cititorului de a înțelege materialul depinde de claritatea cu care acesta este prezentat [^tex-friends].
+
+Codul complet al proiectării evolventei unui cerc îl găsiți mai jos sau pe [repository-ul Github](https://github.com/sunt-programator/latex-workpapers/blob/master/involute-of-circle/involute-demo.tex). În continuare vom explica mai detailat utilitatea fiecărei secțiuni de cod.
 
 ``` latex
 \documentclass[tikz,border=10pt]{standalone}
@@ -121,9 +127,7 @@ Codul complet al evolventei unui cerc îl găsiți mai jos sau pe [repository-ul
 
 ## 2. Setarea mediului de dezvoltare
 
-Pentru development, vom folosi aplicația [Visual Studio Code](https://code.visualstudio.com/) în calitate de editor text.
-
-Ulterior, vom folosi și seta [container Docker](https://www.docker.com/resources/what-container), în interiorul căruia vom instala și configura toate pachetele necesare pentru lucru.
+Pentru development, vom folosi aplicația gratuită [Visual Studio Code](https://code.visualstudio.com/) în calitate de editor de cod sursă și vom crea [container Docker](https://www.docker.com/resources/what-container), în interiorul căruia vom instala și configura toate pachetele necesare pentru lucru.
 
 Cu ajutorul editorului Visual Studio Code putem să facem development chiar în interiorul containerului 💡. Cum se configureaza `devcontainers` puteți citi în acest [articol](https://code.visualstudio.com/docs/remote/containers).
 
@@ -131,7 +135,7 @@ Cu ajutorul editorului Visual Studio Code putem să facem development chiar în 
 
 Docker poate construi în mod automat imagini citind instrucțiunile dintr-un fișier `Dockerfile`. Un fișier `Dockerfile` este un document text care conține toate comenzile pe care un utilizator le-ar putea apela din linia de comandă pentru a asambla o imagine [^dockerfile-reference].
 
-Pentru development, vom folosi imaginea de bază [blang/latex](https://hub.docker.com/r/blang/latex/). Acesta va instala, compila și configura LaTeX și, astfel, vom avea toate pachetele LaTeX instalate în `devcontainer`-ul nostru.
+În scopul efectuării development-ului, vom folosi imaginea de bază [blang/latex](https://hub.docker.com/r/blang/latex/). Acesta va instala, compila și configura `LaTeX`. Astfel, vom avea toate pachetele LaTeX instalate în `devcontainer`-ul nostru.
 
 Acest fișier îl vom plasa în mapa `.devcontainer` din proiectul nostru.
 
@@ -141,11 +145,11 @@ FROM blang/latex:ubuntu
 RUN apt update && apt install -y graphicsmagick ffmpeg
 ```
 
-Pe lângă LaTeX, vom mai instala două pachete adiționare care se numesc [GraphicsMagick](http://www.graphicsmagick.org/) și [FFmpeg](https://ffmpeg.org/). Acestea vor servi la convertarea fișierului de ieșire `pdf`, generat de LaTex, în fișier `mp4`.
+Pe lângă LaTeX, vom mai instala două pachete adiționale care se numesc [GraphicsMagick](http://www.graphicsmagick.org/) și [FFmpeg](https://ffmpeg.org/). Acestea vor servi la convertarea fișierului de ieșire `pdf`, generat de LaTex, în fișier `mp4`.
 
 ### 2.2. Configurarea *devcontainer.json*
 
-La această etapă, vom crea fișierul `devcontainer.json` și, de asemenea, îl vom plasa în mapa `.devcontainer` din proiectul nostru. Acest fișier este utilizat pentru pentru lansarea (sau atașarea) containerului de dezvoltare (devcontainer). Aceast fișier va conține și comanda pentru instalarea in VS Code a extensiei [LaTeX Workshop](https://marketplace.visualstudio.com/items?itemName=James-Yu.latex-workshop), care are ca funcționalitate completarea automată a codului, syntax highlinting, compilarea documentului și multe altele.
+La această etapă, vom crea fișierul `devcontainer.json` care la fel îl vom plasa în mapa `.devcontainer` din proiect. Acest fișier este utilizat pentru pentru lansarea (sau atașarea) containerului de dezvoltare (devcontainer). Acest fișier va conține și comanda pentru instalarea in VS Code a extensiei [LaTeX Workshop](https://marketplace.visualstudio.com/items?itemName=James-Yu.latex-workshop), care are ca funcționalitate completarea automată a codului, syntax highlinting, compilarea documentului și multe alte funcționalități.
 
 ```json
 {
@@ -169,7 +173,7 @@ La această etapă, vom crea fișierul `devcontainer.json` și, de asemenea, îl
 }
 ```
 
-Dacă au fost efectuate configurările corecte, atunci la pornirea aplicației VS Code și la deschiderea mapei cu proiectul nostru, editorul ne va propune să trecem pe `devcontainer`.
+Dacă au fost efectuate configurările corecte, atunci la pornirea aplicației VS Code și la deschiderea mapei cu proiectul dat, editorul ne va propune să trecem pe `devcontainer`.
 
 {{< image src="/images/2020/05/latex-involute-of-a-circle/vscode-reopen-in-devcontainer.png" alt="Visual Studio Code propune de a deschide mapa în container." caption="Visual Studio Code propune de a deschide mapa în container.">}}
 
@@ -177,7 +181,7 @@ Dacă au fost efectuate configurările corecte, atunci la pornirea aplicației V
 
 Pentru început este necesar de a crea un fișier cu extensia `.tex`. Toate comenzile ulterior le vom scrie în acesta.
 
-Când $ \LaTeX $ procesează un document, el se așteaptă ca documentul să conțină o anumită structură. Astfel, fiecare document trebuie să conțină comenzile:
+Când $\LaTeX$ procesează un document, el se așteaptă ca documentul să conțină o anumită structură. Astfel, fiecare document trebuie să conțină comenzile:
 
 ```latex
 \documentclass{...}
@@ -726,3 +730,4 @@ Codul deplin se află pe [repository Github](https://github.com/sunt-programator
 [^parametric-equation-wiki]: Parametric equation. Credtits: [Wikipedia](https://en.wikipedia.org/wiki/Parametric_equation)
 [^tikz-wikibooks-line-width]: LaTeX/PGF/TikZ. Line width. Credtits: [Wikibooks](https://en.wikibooks.org/wiki/LaTeX/PGF/TikZ#Line_width)
 [^dockerfile-reference]: Dockerfile reference. Credtits: [docs.docker.com](https://docs.docker.com/engine/reference/builder/)
+[^tex-friends]: What are TEX and its friends? Credtits: [CTAN](https://www.ctan.org/tex)
