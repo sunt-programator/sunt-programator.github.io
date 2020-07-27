@@ -1,11 +1,13 @@
 ---
-title: "Latex Involute of a Circle"
+title: "Proiectarea și animarea evolventei unui cerc"
 date: 2020-05-24T10:16:08+03:00
-lastmod: 2020-05-24T10:16:08+03:00
 draft: true
+summary: În acest articol, vom pune în discuție contruirea și animarea evolventei unui cerc. Evolventa, vorbind cu un limbaj simplu, este o curbă care se obține prin desfășurarea imaginară de pe mosor sau înfășurarea pe mosor a unei ațe cu condiția ținerii acesteia permanent întinsă.
 
 categories: ["Proiecte"]
-tags: ["latex", "geometry", "mathematics", "trigonometry", "involute"]
+tags: ["latex", "geometry", "mathematics", "trigonometry", "involute", "graphicsmagick", "imagemagick"]
+description: În acest articol, vom pune în discuție contruirea și animarea evolventei unui cerc, curba care se obține prin desfășurarea imaginară de pe mosor sau înfășurarea pe mosor a unei ațe cu condiția ținerii acesteia permanent întinsă.
+videos: ["/images/2020/05/latex-involute-of-a-circle/involute-demo8.mp4"]
 ---
 
 ## 1. Introducere {#introduction}
@@ -278,7 +280,7 @@ $$
 
 ### 5.1. Setări generale ale mediului `tikzpicture` la fiecare iterație {#tikzpicture}
 
-Comenzile de desenare `tikz` (inclusiv și `pgfplots`) trebuie să fie închise într-un mediu `tikzpicture`.
+Comenzile de desenare `tikz` (inclusiv și `pgfplots`) trebuie să fie incluse într-un mediu `tikzpicture`.
 
 ```latex
 \begin{tikzpicture}
@@ -294,7 +296,7 @@ Comenzile de desenare `tikz` (inclusiv și `pgfplots`) trebuie să fie închise 
 \end{tikzpicture}
 ```
 
-Ca opțiune a mediului `tikzpicture` noi vom determina funcțiile necesare pentru construirea graficelor. În cod vedem 4 funcții însă în realitate merge vorba de doar două, deoarece în pereche acestea alcătuiesc ecuații parametrice.
+Ca opțiune a mediului `tikzpicture` vom determina funcțiile necesare pentru construirea graficelor. În cod vedem 4 funcții însă în realitate merge vorba de doar două, deoarece în pereche acestea alcătuiesc ecuații parametrice.
 
 > În matematică, o ecuație parametrică definește un grup de cantități ca funcții ale uneia sau mai multor variabile independente numite parametri. Ecuațiile parametrice sunt utilizate în mod obișnuit pentru a exprima coordonatele punctelor care alcătuiesc un obiect geometric, cum ar fi o curbă sau o suprafață, caz în care ecuațiile sunt numite colectiv reprezentare parametrică sau parametrizare a obiectului [^parametric-equation-wiki].
 
@@ -320,7 +322,7 @@ $$
 
 ### 5.2. Adaugarea variabilelor suplimentare {#additional-variables}
 
-La fiecare iterație vor fi efectuate careva calcule, rezultatele cărora vor fi salvate în variabile. Aceste variabile vor fi de folos în continuare pentru afișarea textuală a rezultatelor calculelor.
+La fiecare iterație vor fi efectuate câteva calcule, rezultatele cărora vor fi salvate în variabile. Aceste variabile vor fi utile în continuare pentru afișarea textuală a rezultatelor calculelor.
 
 ```latex
 \pgfmathsetmacro\rollAngleDeg{deg(\rollAngle)}
@@ -336,7 +338,7 @@ $$
 L = \frac{1}{2} \psi r^2
 $$
 
-În final, vom calcula curbarea și o vom stoca în variabila `curvature`. Formula pentru calcularea acesteia este următoarea:
+În final, vom calcula curbarea și vom salva valoarea acesteia în variabila `curvature`. Formula pentru calcularea acesteia este următoarea:
 
 $$
 \kappa = \frac{1}{\psi r}
@@ -374,7 +376,7 @@ Opțiunea `name` setează numele graficului. Această opțiune ne va permite, ac
 
 #### 5.3.2. Opțiunea *trig format=rad* {#rad-format-option}
 
-Pachetul `pgfplots` implicit lucrează cu `grade` în cazul când avem calcule ce conțin funcții trigonometrice. Pentru proiectarea evolventei vom utiliza `radiani`. Opțiunea `trig format` permite reconfigurarea formatului de intrare pentru funcții trigonometrice precum `sinus`, `cosinus`, `tangentă`, etc [^pgfplots-ctan-56].
+Pachetul `pgfplots` în mode implicit operează cu `grade`, atunci când avem calcule ce conțin funcții trigonometrice. Pentru proiectarea evolventei vom utiliza `radiani`. Opțiunea `trig format` permite reconfigurarea formatului de intrare pentru funcții trigonometrice precum `sinus`, `cosinus`, `tangentă`, etc [^pgfplots-ctan-56].
 
 #### 5.3.3. Opțiunea *axis equal* {#axis-option}
 
@@ -382,9 +384,9 @@ Cu ajutorul opțiunii `axis equal`, fiecare vector de unitate este setat la acee
 
 #### 5.3.4. Opțiunea *axis lines=center* {#axis-lines-option}
 
-În mod implicit, liniile de axe sunt desenate ca o casetă, însă este posibil de modificat aspectul liniilor axelor `x` și `y`. Atribuirea unei din posibile valori ale acestei opțiuni, permite alegerea locației liniilor axelor graficului [^pgfplots-ctan-270-271].
+În mod implicit, liniile de axe sunt desenate ca o casetă, însă este posibil de modificat aspectul liniilor axelor `x` și `y`. Atribuirea unei valori din cele disponibile, va permite alegerea locației pentru liniile axelor graficului [^pgfplots-ctan-270-271].
 
-Noi vom seta valoarea `center`, ceea ce va însemna că axele se vor insersecta în coordonata `0`.
+Noi vom seta valoarea `center`, ceea ce va însemna că axele se vor insersecta în coordonata `0` (origine).
 
 #### 5.3.5. Opțiunea *grid=both* {#grid-option}
 
@@ -392,15 +394,15 @@ Această opțiune va desena liniile de grilă pe grafic.
 
 #### 5.3.6. Opțiunile *xlabel* și *ylabel* {#labels-options}
 
-Aceste opțiuni vor desena etichetele axelor graficului, adică textul `x` și `y`. Simbolul `$` specifică că textul reprezintă formulă matematică.
+Aceste opțiuni vor desena etichetele axelor graficului, adică textul `x` și `y`. Simbolul `$` specifică că textul reprezintă o formulă matematică.
 
 #### 5.3.7. Opțiunile *xmin*, *xmax*, *ymin* și *ymax* {#plot-limits-options}
 
-Aceste opțiuni permit definirea limitelor axei, adică colțul din stânga jos și cel din dreapta sus. Tot conținutul ce se va afla în afara acestor limite va fi eliminat [^pgfplots-ctan-327].
+Aceste opțiuni permit definirea limitelor axelor, adică colțul din stânga jos și cel din dreapta sus. Tot conținutul ce se va afla în afara acestor limite va fi eliminat [^pgfplots-ctan-327].
 
 #### 5.3.8. Opțiunile *xticklabels* și *yticklabels* {#tick-labels-options}
 
-Aceste opțiuni permit atribuirea etichetelor pentru fiecare pas a axei (segmente ale axelor). În cazul nostru, nu avem nevoie de etichetele cu numerotarea fiecărui segment al axelor. Pentru aceasta noi vom seta la aceste opțiuni valoarea `\empty` (gol).
+Aceste opțiuni permit atribuirea etichetelor pentru fiecare pas a axei (segmente ale axelor). În cazul nostru, nu avem nevoie de etichetele cu numerotarea fiecărui segment al axelor. Pentru aceasta, vom seta la aceste opțiuni valoarea `\empty` (gol).
 
 ### 5.4. Adăugarea coordonatelor necesare pe grafic {#coordonates}
 
@@ -420,13 +422,13 @@ Deci, coordonatele $O$, $L_{\tiny 1}$ și $L_{\tiny 2}$ vor fi adaugate astfel:
 
 Segmentul $OL_{\tiny 1}$ va reprezenta raza cercului, iar unghiul dintre acest segment și segmentul $[0,r]$ va fi însăși unghiul de depanare.
 
-Segmentul $L_{\tiny 1}L_{\tiny 2}$ va reprezenta tangenta cercului, pornind de la perpendiculară spre punctul maxim al evolventei (calculând valoarile ecuațiilor parametrice, unde $\psi$ va fi egal cu valoarea curentă a variabilei `\rollAngle`).
+Segmentul $L_{\tiny 1}L_{\tiny 2}$ va reprezenta tangenta cercului, pornind de la perpendiculară spre punctul maxim al evolventei (calculând valorile ecuațiilor parametrice, unde $\psi$ va fi egal cu valoarea curentă a variabilei `\rollAngle`).
 
 {{< image src="/images/2020/05/latex-involute-of-a-circle/involute-demo-coords.png" alt="coordonatele O, L1 și L2 pe grafic." caption="coordonatele $O$, $L_1$ și $L_2$ pe grafic.">}}
 
 ### 5.5. Proiectarea arcului de cerc rămas după depanare {#remaining-arc-circle-plot}
 
-Fiindcă am menționat că evolventa o putem reprezenta ca depanarea aței de pe mosor, atunci la fiecare iterație, noi vom elimina o parte din cerc care corespunde cu unghiul `\rollAngle`.
+Fiindcă am menționat că evolventa o putem reprezenta ca depanarea aței de pe mosor, atunci la fiecare iterație vom elimina o parte din cerc care corespunde cu unghiul `\rollAngle`.
 
 <figure>
     <video controls style="width: 70%;max-height: 100%;">
@@ -435,7 +437,7 @@ Fiindcă am menționat că evolventa o putem reprezenta ca depanarea aței de pe
     <figcaption>Arcul de cerc rămas după depanare.</figcaption>
 </figure>
 
-Comanda `\addplot` este principala comandă de construire a graficelor, disponibilă în fiecare mediu de axe. Aceasta poate fi folosită de una sau mai multe ori în cadrul unei axe pentru a adăuga mai multe grafice [^pgfplots-ctan-43].
+Comanda `\addplot` este principala comandă de construire a graficelor, disponibilă în fiecare mediu de axe. Aceasta poate fi folosită de una sau mai multe ori în cadrul axelor pentru a adăuga mai multe grafice [^pgfplots-ctan-43].
 
 Sintaxa de adaugare a graficului pe axe este următoarea:
 
@@ -443,13 +445,13 @@ Sintaxa de adaugare a graficului pe axe este următoarea:
 \addplot[<options>] <input data> <trailing path commands>;
 ```
 
-Deci, pentru a constui graficul cu arcul de cerc rămas după depanare vom scrie următoarea comandă:
+Deci, pentru a constui graficul cu arcul de cerc rămas după depanare, vom scrie următoarea comandă:
 
 ```latex
 \addplot [domain=2*pi:\rollAngle,samples=200,remainingArcColor,thick,line cap=round]({arcx(\radius,0,x)},{arcy(\radius,0,x)});
 ```
 
-Opțiunile setate la construirea graficului le vom desfășura în continuare, excepție fiind `remainingArcColor`. Această opțiune setează culoarea graficul cu cea declarată [în una din secțiunile anteriore](#colors).
+Opțiunile setate la construirea graficului le vom desfășura în continuare, excepție fiind `remainingArcColor`. Această opțiune doar setează culoarea graficului cu cea declarată [în una din secțiunile anteriore](#colors).
 
 #### 5.5.1. Opțiunea *domain* {#domain-option}
 
@@ -457,7 +459,7 @@ Această opțiune ne permite de a seta domeniul de definiție al funcției. Expr
 
 În cazul nostru, domeniul de definiție este $f: [2\pi:\psi] \to \mathbb{R}$, unde $\psi$ este unghiul curent de depanare, egal cu valoarea variabilei `\rollAngle`.
 
-Cu alte cuvinte, de la iterație la iterație cercul va pierde un arc, unghiul căruia va corespunde valorii variabilei `\rollAngle`.
+Cu alte cuvinte, de la iterație la iterație cercul va pierde o parte din el. Unghiul arcului de cerc eliminat din cerc va corespunde cu valoarea `\rollAngle`.
 
 #### 5.5.2. Opțiunea *samples* {#samples-option}
 
@@ -485,11 +487,11 @@ Această opțiune specifică modul în care liniile "se termină". Tipurile perm
 
 Pentru reprezentarea grafică a tuturor ecuațiilor parametrice, vom folosi terminații de linii rotungite, adică vom folosi opțiunea `line cap=round`.
 
-Deoarece am desfășurat fiecare opțiune, vom adăuga și celelalte grafice.
+În mod similar, cu aceste opțiuni descrise, vom construi și celelalte grafice.
 
 ### 5.6. Proiectarea arcului de cerc depanat {#remaining-arc-of-circle-plotting}
 
-Prin comanda de mai jos, vom contstrui la fiecare iterație un arc de cerc punctat (opțiunea `dashedLineColor`), care va reprezenta unghiul de depanare al evoventei pe cerc.
+Prin comanda de mai jos, vom construi la fiecare iterație un arc de cerc punctat (opțiunea `dashedLineColor`), care va reprezenta unghiul de depanare al evoventei pe cerc.
 
 Acest arc de cerc va avea domeniul de definiție exact invers cu cel [anterior](#domain-option), adică $f: [0:\psi] \to \mathbb{R}$.
 
@@ -497,7 +499,7 @@ Acest arc de cerc va avea domeniul de definiție exact invers cu cel [anterior](
 \addplot [domain=0:\rollAngle,samples=200,dashedLineColor,dashed,line cap=round]({arcx(\radius,0,x)},{arcy(\radius,0,x)});
 ```
 
-Ca rezultat, vizual vom avea un singur cerc, doar că odată cu mărirea unghiului de depanare se va puncta arcul de cerc.
+Ca rezultat, vizual vom avea un singur cerc care de fapt constă din două arcuri de cerc opuse, cu culori și stiluri diferite.
 
 <figure>
     <video controls style="width: 70%;max-height: 100%;">
@@ -513,8 +515,6 @@ Iată am ajuns și la cel mai important punct. Aici vom construi evolventa propr
 ```latex
 \addplot [domain=0.01:\rollAngle,samples=200,involuteSplineColor,thick,line cap=round]({involutex(\radius,x)},{involutey(\radius,x)});
 ```
-
-Unicul moment de menționat este că domeniul de definiție începe de la 0.01, deoarece întimpinam erori dacă începeam cu 0. Voi fi recunoscător pentru idei de ce se întimplă acest lucru 😏.
 
 Ca rezultat, obținem profilul evolventei:
 
@@ -535,7 +535,7 @@ Acest lucru îl vom realiza cu ajutorul comenzii `\draw`. Această linie va avea
 \draw[tangentLineColor,thick] (L1) -- (L2);
 ```
 
-Linia aceasta va reprezenta acea "ață" care o depanăm de pe mosor 🧵. Rezultatul arată astfel:
+Linia aceasta va reprezenta acea "ață", pe care o depanăm de pe mosor 🧵. Rezultatul arată astfel:
 
 <figure>
     <video controls style="width: 70%;max-height: 100%;">
@@ -552,7 +552,7 @@ Tot cu aceeași sintaxă vom proiecta raza cercului care se va roti odată cu m�
 \draw[dashedLineColor,dashed] (O) -- (L1) node [accentColor,pos=0.5,sloped,above] {$r$};
 ```
 
-Rezultatul îl putem vedea în animația de mai jos, însă opțiunile pe care le-am setat, le vom desfășura în secțiunile următoare.
+Rezultatul îl putem vedea în animația de mai jos, însă opțiunile pe care le-am setat la nod, le vom desfășura în secțiunile următoare.
 
 <figure>
     <video controls style="width: 70%;max-height: 100%;">
@@ -563,7 +563,7 @@ Rezultatul îl putem vedea în animația de mai jos, însă opțiunile pe care l
 
 #### 5.9.1. Opțiunea */tikz/pos* {#pos-option}
 
-Opțiunea `/tikz/pos=<fraction>` ancorează nodul pe un anumit punct de pe linie de la coordonata anterioară la punctul actual. $\langle fraction \rangle$ dictează cât de "departe" trebuie să fie punctul pe linie. O $\langle fraction \rangle$ setată ca $0$ este coordonata anterioară, $1$ este cea curentă, iar toate celelalte sunt între ele. În special, $0.5$ este mijlocul [^tikz-ctan-246].
+Opțiunea `/tikz/pos=<fraction>` ancorează nodul pe un anumit punct de pe linie de la coordonata anterioară la acea actuală. `<fraction>` dictează cât de "departe" trebuie să fie punctul pe linie. `<fraction>` setat ca $0$ reprezintă coordonata anterioară, $1$ este cea curentă, iar toate celelalte valori vor fi între ele. În special, $0.5$ reprezintă mijlocul liniei [^tikz-ctan-246].
 
 Noi vom seta valoarea $0.5$, ceea ce va însemna că nodul se afla la mijloc de linie. Același lucru îl putem face cu opțiunea `/tikz/midway`, care este echivalentul opțiunii `pos=0.5`.
 
@@ -635,7 +635,7 @@ Nodurile sunt probabil cele mai universale elemente din `TikZ`. Un nod este de o
 \node[<options>](<name>) at (<coordinate>){<text>};
 ```
 
-În cazul nostru, vom crea un nod cu coordonata localizată în colțul drept sus al graficului principal. Acest lucru se realizează prin referirea către numele axei graficului principal, cu indicarea ancorei (punctului de referință a nodului) în poziția nord-vest.
+În cazul nostru, vom crea un nod cu coordonata localizată în colțul drept sus al graficului principal. Acest lucru se realizează prin referirea către numele axei graficului principal, cu indicarea ancorei (punctului de referință a nodului) în poziția nord-est.
 
 {{< image src="/images/2020/05/latex-involute-of-a-circle/tikz-anchor-point.png" alt="Ancore poziționate pe caseta de delimitare a axei din pachetul TikZ." caption="Ancore poziționate pe caseta de delimitare a axei din pachetul TikZ. Credits: [CTAN](http://ctan.mirror.ftn.uns.ac.rs/graphics/pgf/contrib/pgfplots/doc/pgfplots.pdf)">}}
 
@@ -649,7 +649,7 @@ Opțiunea `style=information text` permite de a seta stilul pe care l-am identif
 
 #### 5.11.2. Afișarea textului color {#colored-text-drawing}
 
-Pentru afișarea unui text color în nod, putem utiliza sintaxa de mai jos iar denumirile culorilor noi le-am identificat [în primele secțiuni](#colors).
+Pentru afișarea unui text color în nod, putem utiliza sintaxa de mai jos, denumirile culorilor fiind identificate [în primele secțiuni](#colors).
 
 ```latex
 {\color{accentColor} some text}
@@ -677,9 +677,9 @@ Dat fiind faptului că lucrăm în `devContainer`, deja avem toate pachetele ins
 
 Există o mulțime de formate mai performante, cum ar fi [webp](https://en.wikipedia.org/wiki/WebP), [apng](https://en.wikipedia.org/wiki/APNG) și altele. Nu vom folosi aceste formate, fiindcă problema constă în compatibilitate. Aceste formate nu sunt suportate pe deplin de toate browserele (exemplu pentru [apng](https://caniuse.com/#feat=apng), [webp](https://caniuse.com/#feat=webp)).
 
-Cea mai optimă variantă este `mp4`. Aceast format și codecul `H.264` al acestuia este suportat practic de [toate browserele](https://caniuse.com/#feat=mpeg4). Putem seta și opțiunea [loop](https://www.geeksforgeeks.org/html-video-loop-attribute/) pentru repetarea ciclică a video-ului si, astfel, vom obține același efect ca și în cazul unui fișier de tip `gif`.
+Cea mai optimă variantă este `mp4`. Aceast format și codecul `H.264` este suportat practic de [toate browserele](https://caniuse.com/#feat=mpeg4). Putem seta și opțiunea [loop](https://www.geeksforgeeks.org/html-video-loop-attribute/) pentru repetarea ciclică a video-ului și, astfel, vom obține același efect ca și în cazul unui fișier de tip `gif`.
 
-Prima etapă este convertirea fișierului `pdf` generat de LaTeX într-o secvență de imagini cu ajutorul pachetului [GraphicsMagick](http://www.graphicsmagick.org/). Cu alte cuvinte, fiecare foaie din fișier fa fi salvată în imagini distincte cu extensia `png`.
+Prima etapă este convertirea fișierului `pdf` generat de LaTeX într-o secvență de imagini cu ajutorul pachetului [GraphicsMagick](http://www.graphicsmagick.org/). Cu alte cuvinte, fiecare foaie din fișier va fi salvată în imagini distincte cu extensia `png`.
 
 Pentru a realiza această convertire, ne vom folosi de comanda de mai jos, care va salva secvențe de imagini cu densitatea de `300 DPI` și fonul alb.
 
@@ -692,14 +692,14 @@ gm convert -density 300 involute-of-circle/involute-demo.pdf -background white +
 Următorul pas este convertirea secvenței de imagini în fișier video de tip `mp4`. Pentru aceasta, ne vom folosi de pachetul preinstalat in container care se numește [FFmpeg](https://ffmpeg.org/).
 
 ```bash
-ffmpeg -r 15 -i involute-of-circle/09/image_%02d.png -c:v libx264 -vf fps=60 -pix_fmt yuv420p -vf "pad=ceil(iw/2)*2:ceil(ih/2)*2" involute-of-circle/09/out.mp4
+ffmpeg -r 15 -i involute-of-circle/output/image_%02d.png -c:v libx264 -vf fps=60 -pix_fmt yuv420p -vf "pad=ceil(iw/2)*2:ceil(ih/2)*2" involute-of-circle/output/out.mp4
 ```
 
 ## 7. Concluzie {#conclusion}
 
-$\LaTeX$ este un sistem avansat de preparare a documentului. Acesta dispune de un număr larg de pachete care permit realizarea oricărui lucru.
+$\LaTeX$ este un sistem avansat de preparare a documentului. Acesta dispune de un număr larg de pachete care permit realizarea unor sarcini complexe.
 
-În acest articol am folosit pachetul `PGFPlots` (care la rânul lui foloseste pachetul `TikZ`), pentru a desena evolventa unui cerc.
+În acest articol am folosit pachetul `PGFPlots` (care la rânul lui foloseste pachetul `TikZ`), pentru a proiecta evolventa unui cerc.
 
 Animarea evolventei am realizat-o cu ajutorul ciclului `foreach`, unde la fiecare iterație am modificat unghiul de depanare. Ca rezultat am obținut un fișier `pdf` cu cadrele necesare pentru animare. Ulterior, acest fișier l-am convertat în fișier `mp4` cu ajutorul pachetului [GraphicsMagick](http://www.graphicsmagick.org/).
 
