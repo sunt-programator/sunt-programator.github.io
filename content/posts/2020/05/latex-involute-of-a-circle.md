@@ -1,12 +1,14 @@
 ---
-title: "Proiectarea și animarea evolventei unui cerc"
+title: "LaTeX: Proiectarea și animarea evolventei unui cerc"
 date: 2020-05-24T10:16:08+03:00
 draft: true
 summary: În acest articol, vom pune în discuție contruirea și animarea evolventei unui cerc. Evolventa, vorbind cu un limbaj simplu, este o curbă care se obține prin desfășurarea imaginară de pe mosor sau înfășurarea pe mosor a unei ațe cu condiția ținerii acesteia permanent întinsă.
+featuredImage: "/images/2020/05/latex-involute-of-a-circle/latex-involute-of-a-circle.png"
 
 categories: ["Proiecte"]
 tags: ["latex", "geometry", "mathematics", "trigonometry", "involute", "graphicsmagick", "imagemagick"]
 description: În acest articol, vom pune în discuție contruirea și animarea evolventei unui cerc, curba care se obține prin desfășurarea imaginară de pe mosor sau înfășurarea pe mosor a unei ațe cu condiția ținerii acesteia permanent întinsă.
+images: ["/images/2020/05/latex-involute-of-a-circle/latex-involute-of-a-circle.png"]
 videos: ["/images/2020/05/latex-involute-of-a-circle/involute-demo8.mp4"]
 ---
 
@@ -25,7 +27,7 @@ Salutare tuturor! 🙋‍♂️
 
 Evolventa este parte a profilului dintelui unei roți dințate folosite la transmisii prin angrenaje. Profilul evolventic asigură un raport de transmitere constant între roțile dințate, randament ridicat și alte avantaje.
 
-{{< image src="https://upload.wikimedia.org/wikipedia/commons/c/c2/Involute_wheel.gif" alt="Raportul de transmitere constat între 2 roți dințate cu profil evolventic." caption="Raportul de transmitere constat între 2 roți dințate cu profil evolventic. Credits: [Wikipedia](https://en.wikipedia.org/wiki/Involute_gear#/media/File:Involute_wheel.gif)">}}
+{{< image src="/images/2020/05/latex-involute-of-a-circle/Involute_wheel.gif" alt="Raportul de transmitere constat între 2 roți dințate cu profil evolventic." caption="Raportul de transmitere constat între 2 roți dințate cu profil evolventic. Credits: [Wikipedia](https://en.wikipedia.org/wiki/Involute_gear#/media/File:Involute_wheel.gif)">}}
 
 Proiectarea evolventei vom realiza-o cu ajutorul [LaTeX](https://en.wikipedia.org/wiki/LaTeX), sistemul de preparare a documentelor ce se folosește pe larg în mediul academic.
 
@@ -687,6 +689,9 @@ Pentru a realiza această convertire, ne vom folosi de comanda de mai jos, care 
 mkdir involute-of-circle/output/
 
 gm convert -density 300 involute-of-circle/involute-demo.pdf -background white +adjoin involute-of-circle/output/image_%02d.png
+
+# Alternativă folosind pachetul Ghostscript
+gs -sDEVICE=pngalpha -o involute-of-circle/output/image_%02d.png -r300 involute-of-circle/involute-demo.pdf
 ```
 
 Următorul pas este convertirea secvenței de imagini în fișier video de tip `mp4`. Pentru aceasta, ne vom folosi de pachetul preinstalat in container care se numește [FFmpeg](https://ffmpeg.org/).
@@ -711,6 +716,10 @@ Animarea evolventei am realizat-o cu ajutorul ciclului `foreach`, unde la fiecar
 </figure>
 
 Codul deplin se află pe [repository Github](https://github.com/sunt-programator/latex-workpapers).
+
+{{< admonition type=tip title="Disclaimer" >}}
+Imaginea reprezentativă a acestui articol conține elemente grafice preluate de pe [Freepik (design de către macrovector)](http://www.freepik.com).
+{{< /admonition >}}
 
 [^standalone]: [Standalone: class vs package. StackOverflow](https://tex.stackexchange.com/a/287559)
 [^standalone-package-1]: Martin Scharrer. The standalone Package, v1.3a din 26.03.2018, p.1. Credits: [CTAN](http://mirrors.ibiblio.org/CTAN/macros/latex/contrib/standalone/standalone.pdf)
