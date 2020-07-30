@@ -1,15 +1,15 @@
 ---
 title: "LaTeX: Proiectarea și animarea evolventei unui cerc"
-date: 2020-05-24T10:16:08+03:00
+date: 2020-08-01T21:00:00+03:00
 draft: true
 summary: În acest articol, vom pune în discuție contruirea și animarea evolventei unui cerc. Evolventa, vorbind cu un limbaj simplu, este o curbă care se obține prin desfășurarea imaginară de pe mosor sau înfășurarea pe mosor a unei ațe cu condiția ținerii acesteia permanent întinsă.
-featuredImage: "/images/2020/05/latex-involute-of-a-circle/latex-involute-of-a-circle.png"
+featuredImage: "/images/2020/08/latex-involute-of-a-circle/latex-involute-of-a-circle.png"
 
 categories: ["Proiecte"]
 tags: ["latex", "geometry", "mathematics", "trigonometry", "involute", "graphicsmagick", "imagemagick"]
 description: În acest articol, vom pune în discuție contruirea și animarea evolventei unui cerc, curba care se obține prin desfășurarea imaginară de pe mosor sau înfășurarea pe mosor a unei ațe cu condiția ținerii acesteia permanent întinsă.
-images: ["/images/2020/05/latex-involute-of-a-circle/latex-involute-of-a-circle.png"]
-videos: ["/images/2020/05/latex-involute-of-a-circle/involute-demo8.mp4"]
+images: ["/images/2020/08/latex-involute-of-a-circle/latex-involute-of-a-circle.png"]
+videos: ["/images/2020/08/latex-involute-of-a-circle/involute-demo8.mp4"]
 ---
 
 ## 1. Introducere {#introduction}
@@ -20,14 +20,14 @@ Salutare tuturor! 🙋‍♂️
 
 <figure>
     <video controls autoplay style="width: 100%;max-height: 100%;">
-        <source src="/images/2020/05/latex-involute-of-a-circle/involute-demo8.mp4" type="video/mp4">
+        <source src="/images/2020/08/latex-involute-of-a-circle/involute-demo8.mp4" type="video/mp4">
     </video>
     <figcaption>Demonstrare grafică cum evolventa funcționează.</figcaption>
 </figure>
 
 Evolventa este parte a profilului dintelui unei roți dințate folosite la transmisii prin angrenaje. Profilul evolventic asigură un raport de transmitere constant între roțile dințate, randament ridicat și alte avantaje.
 
-{{< image src="/images/2020/05/latex-involute-of-a-circle/Involute_wheel.gif" alt="Raportul de transmitere constat între 2 roți dințate cu profil evolventic." caption="Raportul de transmitere constat între 2 roți dințate cu profil evolventic. Credits: [Wikipedia](https://en.wikipedia.org/wiki/Involute_gear#/media/File:Involute_wheel.gif)">}}
+{{< image src="/images/2020/08/latex-involute-of-a-circle/Involute_wheel.gif" alt="Raportul de transmitere constat între 2 roți dințate cu profil evolventic." caption="Raportul de transmitere constat între 2 roți dințate cu profil evolventic. Credits: [Wikipedia](https://en.wikipedia.org/wiki/Involute_gear#/media/File:Involute_wheel.gif)">}}
 
 Proiectarea evolventei vom realiza-o cu ajutorul [LaTeX](https://en.wikipedia.org/wiki/LaTeX), sistemul de preparare a documentelor ce se folosește pe larg în mediul academic.
 
@@ -179,7 +179,7 @@ La această etapă, vom crea fișierul `devcontainer.json` care la fel îl vom p
 
 Dacă au fost efectuate configurările corecte, atunci la pornirea aplicației VS Code și la deschiderea mapei cu proiectul dat, editorul ne va propune să trecem pe `devcontainer`.
 
-{{< image src="/images/2020/05/latex-involute-of-a-circle/vscode-reopen-in-devcontainer.png" alt="Visual Studio Code propune de a deschide mapa în container." caption="Visual Studio Code propune de a deschide mapa în container.">}}
+{{< image src="/images/2020/08/latex-involute-of-a-circle/vscode-reopen-in-devcontainer.png" alt="Visual Studio Code propune de a deschide mapa în container." caption="Visual Studio Code propune de a deschide mapa în container.">}}
 
 ## 3. Structura de bază a documentului LaTeX și preambula acestuia {#basic-latex-settings}
 
@@ -370,7 +370,7 @@ Declarația de mediu `\begin {axis}` și `\end {axis}` va seta scalarea corectă
 
 După cum observăm, axele au un șir de opțiuni atribuite. În mod succint vom desfășura semnificația și utilitatea acestora.
 
-{{< image src="/images/2020/05/latex-involute-of-a-circle/involute-demo1.png" alt="Grafic cu axe localizate în centru, scalare liniară." caption="Grafic cu axe localizate în centru, scalare liniară.">}}
+{{< image src="/images/2020/08/latex-involute-of-a-circle/involute-demo1.png" alt="Grafic cu axe localizate în centru, scalare liniară." caption="Grafic cu axe localizate în centru, scalare liniară.">}}
 
 #### 5.3.1. Opțiunea *name* {#name-option}
 
@@ -426,7 +426,7 @@ Segmentul $OL_{\tiny 1}$ va reprezenta raza cercului, iar unghiul dintre acest s
 
 Segmentul $L_{\tiny 1}L_{\tiny 2}$ va reprezenta tangenta cercului, pornind de la perpendiculară spre punctul maxim al evolventei (calculând valorile ecuațiilor parametrice, unde $\psi$ va fi egal cu valoarea curentă a variabilei `\rollAngle`).
 
-{{< image src="/images/2020/05/latex-involute-of-a-circle/involute-demo-coords.png" alt="coordonatele O, L1 și L2 pe grafic." caption="coordonatele $O$, $L_1$ și $L_2$ pe grafic.">}}
+{{< image src="/images/2020/08/latex-involute-of-a-circle/involute-demo-coords.png" alt="coordonatele O, L1 și L2 pe grafic." caption="coordonatele $O$, $L_1$ și $L_2$ pe grafic.">}}
 
 ### 5.5. Proiectarea arcului de cerc rămas după depanare {#remaining-arc-circle-plot}
 
@@ -434,7 +434,7 @@ Fiindcă am menționat că evolventa o putem reprezenta ca depanarea aței de pe
 
 <figure>
     <video controls style="width: 70%;max-height: 100%;">
-        <source src="/images/2020/05/latex-involute-of-a-circle/involute-demo2.mp4" type="video/mp4">
+        <source src="/images/2020/08/latex-involute-of-a-circle/involute-demo2.mp4" type="video/mp4">
     </video>
     <figcaption>Arcul de cerc rămas după depanare.</figcaption>
 </figure>
@@ -485,7 +485,7 @@ TikZ oferă lățimi de linie predefinite, după cum urmează [^pgfplots-ctan-19
 
 Această opțiune specifică modul în care liniile "se termină". Tipurile permise sunt `round`, `rect` și `butt`. Acestea au următoarele efecte [^tikz-ctan-175]:
 
-{{< image src="/images/2020/05/latex-involute-of-a-circle/tikz-line-cap.png" alt="Tipurile de terminații ale liniilor." caption="Tipurile de terminații ale liniilor. Credits:  [CTAN](http://ctan.mirror.ftn.uns.ac.rs/graphics/pgf/base/doc/pgfmanual.pdf)">}}
+{{< image src="/images/2020/08/latex-involute-of-a-circle/tikz-line-cap.png" alt="Tipurile de terminații ale liniilor." caption="Tipurile de terminații ale liniilor. Credits:  [CTAN](http://ctan.mirror.ftn.uns.ac.rs/graphics/pgf/base/doc/pgfmanual.pdf)">}}
 
 Pentru reprezentarea grafică a tuturor ecuațiilor parametrice, vom folosi terminații de linii rotungite, adică vom folosi opțiunea `line cap=round`.
 
@@ -505,7 +505,7 @@ Ca rezultat, vizual vom avea un singur cerc care de fapt constă din două arcur
 
 <figure>
     <video controls style="width: 70%;max-height: 100%;">
-        <source src="/images/2020/05/latex-involute-of-a-circle/involute-demo3.mp4" type="video/mp4">
+        <source src="/images/2020/08/latex-involute-of-a-circle/involute-demo3.mp4" type="video/mp4">
     </video>
     <figcaption>Proiectarea arcului de cerc depanat.</figcaption>
 </figure>
@@ -522,7 +522,7 @@ Ca rezultat, obținem profilul evolventei:
 
 <figure>
     <video controls style="width: 70%;max-height: 100%;">
-        <source src="/images/2020/05/latex-involute-of-a-circle/involute-demo4.mp4" type="video/mp4">
+        <source src="/images/2020/08/latex-involute-of-a-circle/involute-demo4.mp4" type="video/mp4">
     </video>
     <figcaption>Profilul evolventei pe grafic.</figcaption>
 </figure>
@@ -541,7 +541,7 @@ Linia aceasta va reprezenta acea "ață", pe care o depanăm de pe mosor 🧵. R
 
 <figure>
     <video controls style="width: 70%;max-height: 100%;">
-        <source src="/images/2020/05/latex-involute-of-a-circle/involute-demo5.mp4" type="video/mp4">
+        <source src="/images/2020/08/latex-involute-of-a-circle/involute-demo5.mp4" type="video/mp4">
     </video>
     <figcaption>Linia ce unește tangenta cu capătul evolventei.</figcaption>
 </figure>
@@ -558,7 +558,7 @@ Rezultatul îl putem vedea în animația de mai jos, însă opțiunile pe care l
 
 <figure>
     <video controls style="width: 70%;max-height: 100%;">
-        <source src="/images/2020/05/latex-involute-of-a-circle/involute-demo6.mp4" type="video/mp4">
+        <source src="/images/2020/08/latex-involute-of-a-circle/involute-demo6.mp4" type="video/mp4">
     </video>
     <figcaption>Proiectarea razei cercului.</figcaption>
 </figure>
@@ -573,7 +573,7 @@ Noi vom seta valoarea $0.5$, ceea ce va însemna că nodul se afla la mijloc de 
 
 Opțiunea `/tikz/sloped` face ca nodul să fie rotit, astfel încât linia orizontală a acestuia să devină tangentă cu curba. Rotirea de obicei se face în așa mod, încât textul să nu fie niciodată "cu susul în jos". [^tikz-ctan-248].
 
-{{< image src="/images/2020/05/latex-involute-of-a-circle/tikz-sloped.png" alt="Opțiunea slopped din pachetul TikZ." caption="Opțiunea `/tikz/sloped` din pachetul TikZ. Credits:  [CTAN](http://ctan.mirror.ftn.uns.ac.rs/graphics/pgf/base/doc/pgfmanual.pdf)">}}
+{{< image src="/images/2020/08/latex-involute-of-a-circle/tikz-sloped.png" alt="Opțiunea slopped din pachetul TikZ." caption="Opțiunea `/tikz/sloped` din pachetul TikZ. Credits:  [CTAN](http://ctan.mirror.ftn.uns.ac.rs/graphics/pgf/base/doc/pgfmanual.pdf)">}}
 
 În cazul nostru avem nu o curbă, ci o linie și textul trebuie să se rotească odată cu rotirea liniei. La momentul când unghiul de depanare va depăși $\frac{\pi}{2}$ radiani sau $90^{\circ}$, această opțiune nu va permite ca textul să fie inversat (cu susul în jos).
 
@@ -593,7 +593,7 @@ Desigur că $\LaTeX$ dispune de o gamă largă de pachete pentru desenarea unghi
 
 <figure>
     <video controls style="width: 70%;max-height: 100%;">
-        <source src="/images/2020/05/latex-involute-of-a-circle/involute-demo7.mp4" type="video/mp4">
+        <source src="/images/2020/08/latex-involute-of-a-circle/involute-demo7.mp4" type="video/mp4">
     </video>
     <figcaption>Proiectarea unghiului depanării evolventei.</figcaption>
 </figure>
@@ -604,7 +604,7 @@ Parametrii evolventei la fiecare iterație vor fi poziționați într-o casetă,
 
 <figure>
     <video controls autoplay style="width: 100%;max-height: 100%;">
-        <source src="/images/2020/05/latex-involute-of-a-circle/involute-demo8.mp4" type="video/mp4">
+        <source src="/images/2020/08/latex-involute-of-a-circle/involute-demo8.mp4" type="video/mp4">
     </video>
     <figcaption>Afișarea parametrilor evolventei la fiecare iterație.</figcaption>
 </figure>
@@ -639,7 +639,7 @@ Nodurile sunt probabil cele mai universale elemente din `TikZ`. Un nod este de o
 
 În cazul nostru, vom crea un nod cu coordonata localizată în colțul drept sus al graficului principal. Acest lucru se realizează prin referirea către numele axei graficului principal, cu indicarea ancorei (punctului de referință a nodului) în poziția nord-est.
 
-{{< image src="/images/2020/05/latex-involute-of-a-circle/tikz-anchor-point.png" alt="Ancore poziționate pe caseta de delimitare a axei din pachetul TikZ." caption="Ancore poziționate pe caseta de delimitare a axei din pachetul TikZ. Credits: [CTAN](http://ctan.mirror.ftn.uns.ac.rs/graphics/pgf/contrib/pgfplots/doc/pgfplots.pdf)">}}
+{{< image src="/images/2020/08/latex-involute-of-a-circle/tikz-anchor-point.png" alt="Ancore poziționate pe caseta de delimitare a axei din pachetul TikZ." caption="Ancore poziționate pe caseta de delimitare a axei din pachetul TikZ. Credits: [CTAN](http://ctan.mirror.ftn.uns.ac.rs/graphics/pgf/contrib/pgfplots/doc/pgfplots.pdf)">}}
 
 Opțiunea `xshift=.5cm` permite de a executa translația casetei pe axa $x$ cu `0.5cm`, `below right` -- poziționarea casetei în dreapta sub coordonata setată anterior și cu luarea în considerare a translației efectuate.
 
@@ -661,7 +661,7 @@ Pentru afișarea unui text color în nod, putem utiliza sintaxa de mai jos, denu
 
 Formulele matematice nu vor fi aliniate într-o formă simplă (stânga, centru, dreapta), ci va avea o formă complexă. Alinierea se va face la simbolul `=`, cu alte cuvinte toate cele 4 formule se vor poziționa una sub alta cu alinierea strict la acest simbol.
 
-{{< image src="/images/2020/05/latex-involute-of-a-circle/involute-demo-text-align.png" alt="Alinierea formulelor matematice după simbolul egal." caption="Alinierea formulelor matematice după simbolul egal.">}}
+{{< image src="/images/2020/08/latex-involute-of-a-circle/involute-demo-text-align.png" alt="Alinierea formulelor matematice după simbolul egal." caption="Alinierea formulelor matematice după simbolul egal.">}}
 
 Acest lucru se face cu ajutorul pachetului `amsmath`, folosind contrucția `\begin{align*} ... \end{align*}` și determinând prin simbolul `&` locul unde avem nevoie să aliniem ecuația.
 
@@ -710,7 +710,7 @@ Animarea evolventei am realizat-o cu ajutorul ciclului `foreach`, unde la fiecar
 
 <figure>
     <video controls autoplay style="width: 100%;max-height: 100%;">
-        <source src="/images/2020/05/latex-involute-of-a-circle/involute-demo8.mp4" type="video/mp4">
+        <source src="/images/2020/08/latex-involute-of-a-circle/involute-demo8.mp4" type="video/mp4">
     </video>
     <figcaption>Rezultatul final.</figcaption>
 </figure>
