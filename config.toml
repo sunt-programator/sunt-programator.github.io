@@ -21,8 +21,6 @@ enableEmoji = true
     hasCJKLanguage = false
     # default amount of posts in each pages
     paginate = 10
-    # [UA-XXXXXXXX-X] google analytics code
-    googleAnalytics = "UA-174142374-1"
     # copyright description used only for seo schema
     copyright = "Această lucrare este licențiată în baza Creative Commons Attribution-NonCommercial 4.0 International License."
     # Menu config
@@ -204,8 +202,6 @@ enableEmoji = true
     hasCJKLanguage = false
     # default amount of posts in each pages
     paginate = 10
-    # [UA-XXXXXXXX-X] google analytics code
-    googleAnalytics = "UA-174142374-2"
     # copyright description used only for seo schema
     copyright = "This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License."
     # Menu config
@@ -652,9 +648,9 @@ enableEmoji = true
 
   # Analytics config
   [params.analytics]
-    enable = false
+    enable = true
     [params.analytics.google]
-      id = ""
+      id = "UA-174142374-1"
       # whether to anonymize IP
       anonymizeIP = true
     # Fathom Analytics
