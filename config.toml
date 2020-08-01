@@ -4,6 +4,7 @@ title = "Sunt Programator!"
 theme = "LoveIt"
 DefaultContentLanguage = "ro"
 
+
 [params]
   # LoveIt theme version
   version = "0.2.X"
