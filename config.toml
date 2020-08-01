@@ -545,7 +545,7 @@ enableEmoji = true
       # Gitalk comment config (https://github.com/gitalk/gitalk)
       [params.page.comment.gitalk]
         enable = true
-        owner = "victor-pogor"
+        owner = "sunt-programator"
         repo = "sunt-programator-site-comments"
         clientId = "54763d2ddae72e8044fc"
         clientSecret = "d67fa2f1e47b173be167fac8ee98e6c2f0399f3e"
