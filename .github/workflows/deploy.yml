@@ -1,0 +1,32 @@
+name: "Master branch actions."
+on:
+  push:
+    branches:
+      - master
+jobs:
+  deploy-blog:
+    name: Deploying the static pages to the FTP server
+    runs-on: ubuntu-latest
+    steps:
+      - name: Set up Git repository
+        uses: actions/checkout@v2
+        with:
+          submodules: recursive
+      - name: Download Hugo static site generator
+        run: wget https://github.com/gohugoio/hugo/releases/download/v0.74.3/hugo_extended_0.74.3_Linux-64bit.deb
+      - name: Install Hugo static site generator
+        run: sudo dpkg -i hugo_extended_0.74.3_Linux-64bit.deb
+      - name: Resolve the dependency errors
+        run: sudo apt-get install -f
+      - name: Check Hugo version
+        run: hugo version
+      - name: Build static pages
+        run: hugo -D
+      - name: Deploy static pages
+        uses: sebastianpopp/ftp-action@releases/v2
+        with:
+          host: ${{ secrets.FTP_URL }}
+          user: ${{ secrets.FTP_USERNAME }}
+          password: ${{ secrets.FTP_PASSWORD }}
+          localDir: "public"
+          remoteDir: "www/suntprogramator.dev"
