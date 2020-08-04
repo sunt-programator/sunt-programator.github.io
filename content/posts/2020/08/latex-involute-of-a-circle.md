@@ -29,11 +29,11 @@ Evolventa este parte a profilului dintelui unei roți dințate folosite la trans
 
 {{< image src="/images/2020/08/latex-involute-of-a-circle/Involute_wheel.gif" alt="Raportul de transmitere constat între 2 roți dințate cu profil evolventic." caption="Raportul de transmitere constat între 2 roți dințate cu profil evolventic. Credits: [Wikipedia](https://en.wikipedia.org/wiki/Involute_gear#/media/File:Involute_wheel.gif)">}}
 
-Proiectarea evolventei vom realiza-o cu ajutorul [LaTeX](https://en.wikipedia.org/wiki/LaTeX), sistemul de preparare a documentelor ce se folosește pe larg în mediul academic.
+Proiectarea evolventei o vom realiza cu ajutorul [LaTeX](https://en.wikipedia.org/wiki/LaTeX), sistemul de preparare a documentelor ce se folosește pe larg în mediul academic.
 
 $\LaTeX$ este bine cunoscut pentru abilitatea sa de lucru cu texte matematice, științifice și alte lucrări complexe: documente lungi sau complicate, precum și cele multilingve. Sistemele $\TeX$ produc rezultatul pe hârtie sau pe ecranul computerului cu cea mai înaltă calitate tipografică. Această calitate este crucială pentru textele complexe, unde capacitatea cititorului de a înțelege materialul depinde de claritatea cu care acesta este prezentat [^tex-friends].
 
-Codul complet al proiectării evolventei unui cerc îl găsiți mai jos sau pe [repository-ul Github](https://github.com/sunt-programator/latex-workpapers/blob/master/involute-of-circle/involute-demo.tex). În continuare vom explica mai detailat utilitatea fiecărei secțiuni de cod.
+Codul complet al proiectării evolventei unui cerc îl găsiți mai jos sau pe [repository-ul Github](https://github.com/sunt-programator/latex-workpapers/blob/master/involute-of-circle/involute-demo.tex). În continuare vom explica mai detaliat utilitatea fiecărei secțiuni de cod.
 
 ``` latex
 \documentclass[tikz,border=10pt]{standalone}
@@ -133,7 +133,7 @@ Codul complet al proiectării evolventei unui cerc îl găsiți mai jos sau pe [
 
 Pentru development, vom folosi aplicația gratuită [Visual Studio Code](https://code.visualstudio.com/) în calitate de editor de cod sursă și vom crea [container Docker](https://www.docker.com/resources/what-container), în interiorul căruia vom instala și configura toate pachetele necesare pentru lucru.
 
-Cu ajutorul editorului Visual Studio Code putem să facem development chiar în interiorul containerului 💡. Cum se configureaza `devcontainers` puteți citi în acest [articol](https://code.visualstudio.com/docs/remote/containers).
+Cu ajutorul editorului Visual Studio Code putem să facem development chiar în interiorul containerului 💡. Cum se configurează `devcontainers` puteți citi în acest [articol](https://code.visualstudio.com/docs/remote/containers).
 
 ### 2.1. Configurarea *Dockerfile* {#dockerfile-configuration}
 
@@ -149,11 +149,11 @@ FROM blang/latex:ubuntu
 RUN apt update && apt install -y graphicsmagick ffmpeg
 ```
 
-Pe lângă LaTeX, vom mai instala două pachete adiționale care se numesc [GraphicsMagick](http://www.graphicsmagick.org/) și [FFmpeg](https://ffmpeg.org/). Acestea vor servi la convertarea fișierului de ieșire `pdf`, generat de LaTex, în fișier `mp4`.
+Pe lângă LaTeX, vom mai instala două pachete adiționale care se numesc [GraphicsMagick](http://www.graphicsmagick.org/) și [FFmpeg](https://ffmpeg.org/). Acestea vor servi la convertirea fișierului de ieșire `pdf`, generat de LaTex, în fișier `mp4`.
 
 ### 2.2. Configurarea *devcontainer.json* {#devcontainer-configuration}
 
-La această etapă, vom crea fișierul `devcontainer.json` care la fel îl vom plasa în mapa `.devcontainer` din proiect. Acest fișier este utilizat pentru pentru lansarea (sau atașarea) containerului de dezvoltare (devcontainer). Acest fișier va conține și comanda pentru instalarea in VS Code a extensiei [LaTeX Workshop](https://marketplace.visualstudio.com/items?itemName=James-Yu.latex-workshop), care are ca funcționalitate completarea automată a codului, syntax highlinting, compilarea documentului și multe alte funcționalități.
+La această etapă, vom crea fișierul `devcontainer.json` care la fel îl vom plasa în mapa `.devcontainer` din proiect. Acest fișier este utilizat pentru pentru lansarea (sau atașarea) containerului de dezvoltare (devcontainer). Acest fișier va conține și comanda pentru instalarea in VS Code a extensiei [LaTeX Workshop](https://marketplace.visualstudio.com/items?itemName=James-Yu.latex-workshop), care are ca funcționalitate completarea automată a codului, syntax highliting, compilarea documentului și multe alte funcționalități.
 
 ```json
 {
@@ -194,9 +194,9 @@ Când $\LaTeX$ procesează un document, el se așteaptă ca documentul să conț
 \end{document}
 ```
 
-Între comenzile `\documentclass` și `\begin{document}` se afla așa numitul preambul. În secțiunea dată se conțin comenzile care vor afecta întregul document LaTeX. Tot aici se importează pachetele necesare și se efectuează careva setări asupra acestora.
+Între comenzile `\documentclass` și `\begin{document}` se afla așa numitul preambul. În secțiunea dată se conțin comenzile care vor afecta întregul document LaTeX. Tot aici se importă pachetele necesare și se efectuează careva setări asupra acestora.
 
-În cazul nostru, comanda `\documentclass` mai conține careva opțiuni, izolate între paranteze patrate și mai specifică ce tip de clasă a documentului se va folosi, aceasta fiind izolată între acolade.
+În cazul nostru, comanda `\documentclass` mai conține câteva opțiuni, izolate între paranteze pătrate și mai specifică ce tip de clasă a documentului se va folosi, aceasta fiind izolată între acolade.
 
 ```latex
 \documentclass[tikz,border=10pt]{standalone}
@@ -210,7 +210,7 @@ Pachetul `standalone` permite utilizatorilor să plaseze cu ușurință imagini 
 
 ### 3.2. Opțiunea și pachetul *TikZ* {#tikz-package}
 
-Pachetul `TikZ` este probabil cel mai complex și puternic instrument pentru crearea elementelor grafice în LaTeX. Cu acest pachet putem crea elemente grafice complexe utilizând așa elemente simple ca linii, puncte, curbe, cercuri, dreptunghiuri, etc.
+Pachetul `TikZ` este probabil cel mai complex și puternic instrument pentru crearea elementelor grafice în LaTeX. Cu acest pachet putem crea elemente grafice complexe utilizând așa elemente simple, cum ar fi linii, puncte, curbe, cercuri, dreptunghiuri, etc.
 
 Pentru imaginile desenate cu `TikZ` este oferită o opțiune dedicată `tikz` care încarcă acest pachet și configurează mediul `tikzpicture` pentru a crea o singură pagină decupată [^standalone-package-8].
 
@@ -220,7 +220,7 @@ Opțiunea `border=10pt` specifică că documentul va avea un chenar de 10pt sau,
 
 ### 3.4. Importarea pachetelor necesare {#packages-importing}
 
-Distributivele moderne LaTeX vin cu un gama largă de pachete preinstalate. Pentru generarea evolventei ne vom folosi de packetele `pgfplots` și `amsmath`.
+Distributivele moderne LaTeX vin cu un gama largă de pachete preinstalate. Pentru generarea evolventei ne vom folosi de pachetele `pgfplots` și `amsmath`.
 
 ```latex
 \usepackage{pgfplots,amsmath}
@@ -259,9 +259,9 @@ Pachetul `amsmath` îl voi folosi pentru alinierea formulelor matematice, însă
 
 În secțiunea dată setăm raza cercului. Toate calculele ulterioare for fi în bază de valoarea setată la variabila `radius`.
 
-Ulterior, setăm culorile necesare pentru fiecare strat desenat pe graficul nostru. Aici se folosește pachetul `xcolor`. Dar de ce nu l-am importat în preambulă? Acest pachet nu trebuie în cazul nostru de importat din motiv ca `tikz` deja îl utilizează. Profit 🙂!
+Ulterior, setăm culorile necesare pentru fiecare strat desenat pe graficul nostru. Aici se folosește pachetul `xcolor`. Dar de ce nu l-am importat în preambul? Acest pachet nu trebuie în cazul nostru de importat din motiv că `tikz` deja îl utilizează. Profit 🙂!
 
-În ultimele comenzi din această secțiune se setează un stil cu denumirea `information text` ce va avea 10% intensitate din culoarea roșie și mai setează precizia părții fracționale a calculelor de 2 cifre.
+În ultimele comenzi din această secțiune se setează un stil cu denumirea `information text` ce va avea 10% intensitate din culoarea roșie și mai setează precizia părții fracționare a calculelor de 2 cifre.
 
 ## 5. Construirea graficelor evolventei {#involute-plotting}
 
@@ -300,7 +300,7 @@ Comenzile de desenare `tikz` (inclusiv și `pgfplots`) trebuie să fie incluse �
 
 Ca opțiune a mediului `tikzpicture` vom determina funcțiile necesare pentru construirea graficelor. În cod vedem 4 funcții însă în realitate merge vorba de doar două, deoarece în pereche acestea alcătuiesc ecuații parametrice.
 
-> În matematică, o ecuație parametrică definește un grup de cantități ca funcții ale uneia sau mai multor variabile independente numite parametri. Ecuațiile parametrice sunt utilizate în mod obișnuit pentru a exprima coordonatele punctelor care alcătuiesc un obiect geometric, cum ar fi o curbă sau o suprafață, caz în care ecuațiile sunt numite colectiv reprezentare parametrică sau parametrizare a obiectului [^parametric-equation-wiki].
+> În matematică, o ecuație parametrică definește un grup de cantități ca funcții ale uneia sau mai multor variabile independente numite parametri. Ecuațiile parametrice sunt utilizate în mod obișnuit pentru a exprima coordonatele punctelor care alcătuiesc un obiect geometric, cum ar fi o curbă sau o suprafață, caz în care ecuațiile sunt denumite colectiv reprezentare parametrică sau parametrizare a obiectului [^parametric-equation-wiki].
 
 Ecuațiile parametrice pentru reprezentarea grafică a evolventei sunt indicate mai jos, unde $r$ este raza cercului și $\psi$ -- unghiul de "depanare a aței de pe mosor" 😄.
 
@@ -388,7 +388,7 @@ Cu ajutorul opțiunii `axis equal`, fiecare vector de unitate este setat la acee
 
 În mod implicit, liniile de axe sunt desenate ca o casetă, însă este posibil de modificat aspectul liniilor axelor `x` și `y`. Atribuirea unei valori din cele disponibile, va permite alegerea locației pentru liniile axelor graficului [^pgfplots-ctan-270-271].
 
-Noi vom seta valoarea `center`, ceea ce va însemna că axele se vor insersecta în coordonata `0` (origine).
+Noi vom seta valoarea `center`, ceea ce va însemna că axele se vor intersecta în coordonata `0` (origine).
 
 #### 5.3.5. Opțiunea *grid=both* {#grid-option}
 
@@ -447,13 +447,13 @@ Sintaxa de adaugare a graficului pe axe este următoarea:
 \addplot[<options>] <input data> <trailing path commands>;
 ```
 
-Deci, pentru a constui graficul cu arcul de cerc rămas după depanare, vom scrie următoarea comandă:
+Deci, pentru a construi graficul cu arcul de cerc rămas după depanare, vom scrie următoarea comandă:
 
 ```latex
 \addplot [domain=2*pi:\rollAngle,samples=200,remainingArcColor,thick,line cap=round]({arcx(\radius,0,x)},{arcy(\radius,0,x)});
 ```
 
-Opțiunile setate la construirea graficului le vom desfășura în continuare, excepție fiind `remainingArcColor`. Această opțiune doar setează culoarea graficului cu cea declarată [în una din secțiunile anteriore](#colors).
+Opțiunile setate la construirea graficului le vom desfășura în continuare, excepție fiind `remainingArcColor`. Această opțiune doar setează culoarea graficului cu cea declarată [în una din secțiunile anterioare](#colors).
 
 #### 5.5.1. Opțiunea *domain* {#domain-option}
 
@@ -487,13 +487,13 @@ Această opțiune specifică modul în care liniile "se termină". Tipurile perm
 
 {{< image src="/images/2020/08/latex-involute-of-a-circle/tikz-line-cap.png" alt="Tipurile de terminații ale liniilor." caption="Tipurile de terminații ale liniilor. Credits:  [CTAN](http://ctan.mirror.ftn.uns.ac.rs/graphics/pgf/base/doc/pgfmanual.pdf)">}}
 
-Pentru reprezentarea grafică a tuturor ecuațiilor parametrice, vom folosi terminații de linii rotungite, adică vom folosi opțiunea `line cap=round`.
+Pentru reprezentarea grafică a tuturor ecuațiilor parametrice, vom folosi terminații de linii rotunjite, adică vom folosi opțiunea `line cap=round`.
 
 În mod similar, cu aceste opțiuni descrise, vom construi și celelalte grafice.
 
 ### 5.6. Proiectarea arcului de cerc depanat {#remaining-arc-of-circle-plotting}
 
-Prin comanda de mai jos, vom construi la fiecare iterație un arc de cerc punctat (opțiunea `dashedLineColor`), care va reprezenta unghiul de depanare al evoventei pe cerc.
+Prin comanda de mai jos, vom construi la fiecare iterație un arc de cerc punctat (opțiunea `dashedLineColor`), care va reprezenta unghiul de depanare al evolventei pe cerc.
 
 Acest arc de cerc va avea domeniul de definiție exact invers cu cel [anterior](#domain-option), adică $f: [0:\psi] \to \mathbb{R}$.
 
@@ -537,7 +537,7 @@ Acest lucru îl vom realiza cu ajutorul comenzii `\draw`. Această linie va avea
 \draw[tangentLineColor,thick] (L1) -- (L2);
 ```
 
-Linia aceasta va reprezenta acea "ață", pe care o depanăm de pe mosor 🧵. Rezultatul arată astfel:
+Linia aceasta va reprezenta acea "ață", pe care o depănăm de pe mosor 🧵. Rezultatul arată astfel:
 
 <figure>
     <video controls style="width: 70%;max-height: 100%;">
@@ -581,7 +581,7 @@ Opțiunea `/tikz/sloped` face ca nodul să fie rotit, astfel încât linia orizo
 
 Această opțiune este echivalentă cu opțiunea `/tikz/anchor=south` și permite poziționarea nodului deasupra liniei.
 
-### 5.10. Proiectarea unghiului arculului de cerc depanat {#involute-angle-plotting}
+### 5.10. Proiectarea unghiului arcului de cerc depanat {#involute-angle-plotting}
 
 La această etapă, vom proiecta unghiul arcului de cerc depanat. Pentru aceasta, vom utiliza comanda `\addplot`, sintaxa căreia am desfășurat-o în una din [secțiunile anterioare](#remaining-arc-circle-plot). Unica diferență este că aici adăugăm un nod fix poziționat în punctul $(0.5,-0.3)$ cu textul $\psi$.
 
@@ -647,7 +647,7 @@ Opțiunea `/tikz/text width=6cm` va plasa textul nodului într-o casetă de `6cm
 
 În ceea ce privește opțiunea `/tikz/align=center`, aceasta este utilizată pentru a configura alinierea textului cu mai multe linii în interiorul unui nod. Dacă opțiunea `/tikz/text width` este setată la o anumită lățime (să numim această aliniere cu line breaking), opțiunea de aliniere va configura `\leftskip` și `\rightskip` în așa fel încât textul să fie întrerupt și aliniat în funcție de opțiunea de aliniere [^tikz-ctan-235].
 
-Opțiunea `style=information text` permite de a seta stilul pe care l-am identifiat [în una din secțiunile anteriore](#colors). Această casetă cu parametrii evolventei la fiecare iterație va avea o culoare de fundal roșie cu intensitatea de 10% din culoarea de bază.
+Opțiunea `style=information text` permite de a seta stilul pe care l-am identificat [în una din secțiunile anterioare](#colors). Această casetă cu parametrii evolventei la fiecare iterație va avea o culoare de fundal roșie cu intensitatea de 10% din culoarea de bază.
 
 #### 5.11.2. Afișarea textului color {#colored-text-drawing}
 
@@ -663,7 +663,7 @@ Formulele matematice nu vor fi aliniate într-o formă simplă (stânga, centru,
 
 {{< image src="/images/2020/08/latex-involute-of-a-circle/involute-demo-text-align.png" alt="Alinierea formulelor matematice după simbolul egal." caption="Alinierea formulelor matematice după simbolul egal.">}}
 
-Acest lucru se face cu ajutorul pachetului `amsmath`, folosind contrucția `\begin{align*} ... \end{align*}` și determinând prin simbolul `&` locul unde avem nevoie să aliniem ecuația.
+Acest lucru se face cu ajutorul pachetului `amsmath`, folosind construcția `\begin{align*} ... \end{align*}` și determinând prin simbolul `&` locul unde avem nevoie să aliniem ecuația.
 
 ```latex
 \begin{align*}
@@ -679,11 +679,11 @@ Dat fiind faptului că lucrăm în `devContainer`, deja avem toate pachetele ins
 
 Există o mulțime de formate mai performante, cum ar fi [webp](https://en.wikipedia.org/wiki/WebP), [apng](https://en.wikipedia.org/wiki/APNG) și altele. Nu vom folosi aceste formate, fiindcă problema constă în compatibilitate. Aceste formate nu sunt suportate pe deplin de toate browserele (exemplu pentru [apng](https://caniuse.com/#feat=apng), [webp](https://caniuse.com/#feat=webp)).
 
-Cea mai optimă variantă este `mp4`. Aceast format și codecul `H.264` este suportat practic de [toate browserele](https://caniuse.com/#feat=mpeg4). Putem seta și opțiunea [loop](https://www.geeksforgeeks.org/html-video-loop-attribute/) pentru repetarea ciclică a video-ului și, astfel, vom obține același efect ca și în cazul unui fișier de tip `gif`.
+Cea mai optimă variantă este `mp4`. Acest format și codecul `H.264` este suportat practic de [toate browserele](https://caniuse.com/#feat=mpeg4). Putem seta și opțiunea [loop](https://www.geeksforgeeks.org/html-video-loop-attribute/) pentru repetarea ciclică a video-ului și, astfel, vom obține același efect ca și în cazul unui fișier de tip `gif`.
 
 Prima etapă este convertirea fișierului `pdf` generat de LaTeX într-o secvență de imagini cu ajutorul pachetului [GraphicsMagick](http://www.graphicsmagick.org/). Cu alte cuvinte, fiecare foaie din fișier va fi salvată în imagini distincte cu extensia `png`.
 
-Pentru a realiza această convertire, ne vom folosi de comanda de mai jos, care va salva secvențe de imagini cu densitatea de `300 DPI` și fonul alb.
+Pentru a realiza această convertire, ne vom folosi de comanda de mai jos, care va salva secvențe de imagini cu densitatea de `300 DPI` și fundal alb.
 
 ```bash
 mkdir involute-of-circle/output/
@@ -704,9 +704,9 @@ ffmpeg -r 15 -i involute-of-circle/output/image_%02d.png -c:v libx264 -vf fps=60
 
 $\LaTeX$ este un sistem avansat de preparare a documentului. Acesta dispune de un număr larg de pachete care permit realizarea unor sarcini complexe.
 
-În acest articol am folosit pachetul `PGFPlots` (care la rânul lui foloseste pachetul `TikZ`), pentru a proiecta evolventa unui cerc.
+În acest articol am folosit pachetul `PGFPlots` (care la rândul său foloseste pachetul `TikZ`), pentru a proiecta evolventa unui cerc.
 
-Animarea evolventei am realizat-o cu ajutorul ciclului `foreach`, unde la fiecare iterație am modificat unghiul de depanare. Ca rezultat am obținut un fișier `pdf` cu cadrele necesare pentru animare. Ulterior, acest fișier l-am convertat în fișier `mp4` cu ajutorul pachetului [GraphicsMagick](http://www.graphicsmagick.org/).
+Animarea evolventei am realizat-o cu ajutorul ciclului `foreach`, unde la fiecare iterație am modificat unghiul de depanare. Ca rezultat am obținut un fișier `pdf` cu cadrele necesare pentru animare. Ulterior, acest fișier l-am convertit în fișier `mp4` cu ajutorul pachetului [GraphicsMagick](http://www.graphicsmagick.org/).
 
 <figure>
     <video controls autoplay style="width: 100%;max-height: 100%;">
