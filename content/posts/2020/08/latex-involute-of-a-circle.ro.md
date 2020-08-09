@@ -18,18 +18,20 @@ Salutare tuturor! 🙋‍♂️
 
 În acest articol, vom pune în discuție contruirea și animarea evolventei unui cerc. Evolventa, vorbind cu un limbaj simplu, este o curbă care se obține prin desfășurarea imaginară de pe mosor sau înfășurarea pe mosor a unei ațe cu condiția ținerii acesteia permanent întinsă.
 
-<figure>
-    <video controls autoplay style="width: 100%;max-height: 100%;">
-        <source src="/images/2020/08/latex-involute-of-a-circle/involute-demo8.mp4" type="video/mp4">
-    </video>
-    <figcaption>Demonstrare grafică cum evolventa funcționează.</figcaption>
-</figure>
+{{< youtube b8XjwuqPkRk >}}
 
 Evolventa este parte a profilului dintelui unei roți dințate folosite la transmisii prin angrenaje. Profilul evolventic asigură un raport de transmitere constant între roțile dințate, randament ridicat și alte avantaje.
 
 {{< image src="/images/2020/08/latex-involute-of-a-circle/Involute_wheel.gif" alt="Raportul de transmitere constat între 2 roți dințate cu profil evolventic." caption="Raportul de transmitere constat între 2 roți dințate cu profil evolventic. Credits: [Wikipedia](https://en.wikipedia.org/wiki/Involute_gear#/media/File:Involute_wheel.gif)">}}
 
 Proiectarea evolventei o vom realiza cu ajutorul [LaTeX](https://en.wikipedia.org/wiki/LaTeX), sistemul de preparare a documentelor ce se folosește pe larg în mediul academic.
+
+<figure>
+    <video controls autoplay style="width: 100%;max-height: 100%;">
+        <source src="/images/2020/08/latex-involute-of-a-circle/involute-demo8.mp4" type="video/mp4">
+    </video>
+    <figcaption>Demonstrare grafică cum evolventa funcționează.</figcaption>
+</figure>
 
 $\LaTeX$ este bine cunoscut pentru abilitatea sa de lucru cu texte matematice, științifice și alte lucrări complexe: documente lungi sau complicate, precum și cele multilingve. Sistemele $\TeX$ produc rezultatul pe hârtie sau pe ecranul computerului cu cea mai înaltă calitate tipografică. Această calitate este crucială pentru textele complexe, unde capacitatea cititorului de a înțelege materialul depinde de claritatea cu care acesta este prezentat [^tex-friends].
 
@@ -181,7 +183,7 @@ Dacă au fost efectuate configurările corecte, atunci la pornirea aplicației V
 
 {{< image src="/images/2020/08/latex-involute-of-a-circle/vscode-reopen-in-devcontainer.png" alt="Visual Studio Code propune de a deschide mapa în container." caption="Visual Studio Code propune de a deschide mapa în container.">}}
 
-## 3. Structura de bază a documentului LaTeX și preambula acestuia {#basic-latex-settings}
+## 3. Structura de bază și preambulul documentului LaTeX {#basic-latex-settings}
 
 Pentru început este necesar de a crea un fișier cu extensia `.tex`. Toate instrucțiunile necesare pentru construirea evolventei vor fi scrise în acesta.
 
@@ -715,6 +717,10 @@ Animarea evolventei am realizat-o cu ajutorul ciclului `foreach`, unde la fiecar
     <figcaption>Rezultatul final.</figcaption>
 </figure>
 
+Experimentând cu evolvente, putem obține astfel de figuri:
+
+{{< image src="/images/2020/08/latex-involute-of-a-circle/involute-demo-multiple-7-8.png" alt="Experimente cu evolvente." caption="Experimente cu evolvente.">}}
+
 Codul deplin se află pe [repository Github](https://github.com/sunt-programator/latex-workpapers).
 
 {{< admonition type=tip title="Disclaimer" >}}
@@ -736,7 +742,7 @@ Imaginea reprezentativă a acestui articol conține elemente grafice preluate de
 [^pgfplots-ctan-327]: Dr. Christian Feuersänger. Manual for Package pgfplots, v1.17 din 29.02.2020, p.327. Credits: [CTAN](http://ctan.mirror.ftn.uns.ac.rs/graphics/pgf/contrib/pgfplots/doc/pgfplots.pdf)
 [^pgfplots-ctan-55]: Dr. Christian Feuersänger. Manual for Package pgfplots, v1.17 din 29.02.2020, p.55. Credits: [CTAN](http://ctan.mirror.ftn.uns.ac.rs/graphics/pgf/contrib/pgfplots/doc/pgfplots.pdf)
 [^pgfplots-ctan-190]: Dr. Christian Feuersänger. Manual for Package pgfplots, v1.17 din 29.02.2020, p.190. Credits: [CTAN](http://ctan.mirror.ftn.uns.ac.rs/graphics/pgf/contrib/pgfplots/doc/pgfplots.pdf)
-[^parametric-equation-wiki]: Parametric equation. Credtits: [Wikipedia](https://en.wikipedia.org/wiki/Parametric_equation)
-[^tikz-wikibooks-line-width]: LaTeX/PGF/TikZ. Line width. Credtits: [Wikibooks](https://en.wikibooks.org/wiki/LaTeX/PGF/TikZ#Line_width)
-[^dockerfile-reference]: Dockerfile reference. Credtits: [docs.docker.com](https://docs.docker.com/engine/reference/builder/)
-[^tex-friends]: What are TEX and its friends? Credtits: [CTAN](https://www.ctan.org/tex)
+[^parametric-equation-wiki]: Parametric equation. Credits: [Wikipedia](https://en.wikipedia.org/wiki/Parametric_equation)
+[^tikz-wikibooks-line-width]: LaTeX/PGF/TikZ. Line width. Credits: [Wikibooks](https://en.wikibooks.org/wiki/LaTeX/PGF/TikZ#Line_width)
+[^dockerfile-reference]: Dockerfile reference. Credits: [docs.docker.com](https://docs.docker.com/engine/reference/builder/)
+[^tex-friends]: What are TEX and its friends? Credits: [CTAN](https://www.ctan.org/tex)
