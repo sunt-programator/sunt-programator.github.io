@@ -1,7 +1,7 @@
 ---
 title: "LaTeX: Proiectarea și animarea evolventei unui cerc"
-date: 2020-08-01T21:00:00+03:00
-draft: true
+date: 2020-08-09T21:21:28+03:00
+draft: false
 summary: În acest articol, vom pune în discuție contruirea și animarea evolventei unui cerc. Evolventa, vorbind cu un limbaj simplu, este o curbă care se obține prin desfășurarea imaginară de pe mosor sau înfășurarea pe mosor a unei ațe cu condiția ținerii acesteia permanent întinsă.
 featuredImage: "/images/2020/08/latex-involute-of-a-circle/latex-involute-of-a-circle.png"
 
