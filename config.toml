@@ -4,7 +4,7 @@ theme = "LoveIt"
 DefaultContentLanguage = "ro"
 
 # whether to use robots.txt
-enableRobotsTXT = true
+enableRobotsTXT = false
 # whether to use git commit log
 enableGitInfo = true
 # whether to use emoji code
