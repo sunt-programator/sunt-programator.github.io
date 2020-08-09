@@ -20,7 +20,7 @@ Salutare tuturor! 🙋‍♂️
 
 {{< youtube b8XjwuqPkRk >}}
 
-Evolventa este parte a profilului dintelui unei roți dințate folosite la transmisii prin angrenaje. Profilul evolventic asigură un raport de transmitere constant între roțile dințate, randament ridicat și alte avantaje.
+Evolventa este parte a profilului dintelui unei roți dințate folosite la transmisii prin angrenaje. Profilul evolventic asigură un raport de transmitere constant între roțile dințate, randament ridicat, precum și alte avantaje.
 
 {{< image src="/images/2020/08/latex-involute-of-a-circle/Involute_wheel.gif" alt="Raportul de transmitere constat între 2 roți dințate cu profil evolventic." caption="Raportul de transmitere constat între 2 roți dințate cu profil evolventic. Credits: [Wikipedia](https://en.wikipedia.org/wiki/Involute_gear#/media/File:Involute_wheel.gif)">}}
 
