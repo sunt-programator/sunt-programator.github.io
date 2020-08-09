@@ -478,7 +478,7 @@ enableEmoji = true
       maxShownLines = 10
     # KaTeX mathematical formulas config (KaTeX https://katex.org/)
     [params.page.math]
-      enable = false
+      enable = true
       # default block delimiter is $$ ... $$ and \\[ ... \\]
       blockLeftDelimiter = ""
       blockRightDelimiter = ""
