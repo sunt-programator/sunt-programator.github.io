@@ -13,7 +13,7 @@ tags: ["pyqgis", "pyqt5", "python", "qgis"]
 
 ## Introducere
 
-În acest articol se demonstrează construirea unui Plugin pentru aplicația [QGIS 3][1], ce folosește serviciile Map.md API. Având o experiență modestă în programare, în acest articol pot fi întâlnite „biciclete inventate“ 😄. Voi fi recunoscător dacă veți oferi sfaturi cum ar fi posibil să îmbunătățesc codul scris.
+În acest articol se demonstrează construirea unui Plugin pentru aplicația [QGIS 3][1], ce folosește serviciile Map.md API. Având o experiență modestă în limbajul Python, în acest articol pot fi întâlnite „biciclete inventate“ 😄. Voi fi recunoscător dacă veți oferi sfaturi cum ar fi posibil să îmbunătățesc codul scris.
 
 Într-o bună zi, navigând pe rețeaua LinkedIn, am dat de [postarea][26] lui Roman Știrbu, CEO al companiei Simpals. În această postare, dumnealui a menționat că [a fost lansat][2] serviciul API al sitului Map.md pentru companii care au nevoie de integrare cu CRM sau alte soluții IT.
 
