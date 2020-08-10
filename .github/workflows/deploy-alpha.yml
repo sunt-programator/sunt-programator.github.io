@@ -1,8 +1,9 @@
-name: "Master branch actions."
+name: "Alpha version actions."
 on:
   push:
     branches:
-      - master
+      - '!master'
+      - '!dev'
 jobs:
   deploy-blog:
     name: Deploying the static pages to the FTP server
@@ -29,4 +30,4 @@ jobs:
           user: ${{ secrets.FTP_USERNAME }}
           password: ${{ secrets.FTP_PASSWORD }}
           localDir: "public"
-          remoteDir: "www/suntprogramator.dev"
+          remoteDir: "www/alpha.suntprogramator.dev"
