@@ -1,4 +1,4 @@
-name: "Alpha version actions."
+name: "Alpha actions."
 on:
   push:
     branches:
@@ -6,7 +6,7 @@ on:
       - '!dev'
 jobs:
   deploy-blog:
-    name: Deploying the static pages to the FTP server
+    name: Deploying the blog to alpha.suntprogramator.dev
     runs-on: ubuntu-latest
     steps:
       - name: Set up Git repository
@@ -19,11 +19,9 @@ jobs:
         run: sudo dpkg -i hugo_extended_0.74.3_Linux-64bit.deb
       - name: Resolve the dependency errors
         run: sudo apt-get install -f
-      - name: Check Hugo version
-        run: hugo version
-      - name: Build static pages
+      - name: Build blog
         run: hugo
-      - name: Deploy static pages
+      - name: Deploy blog 
         uses: sebastianpopp/ftp-action@releases/v2
         with:
           host: ${{ secrets.FTP_URL }}
