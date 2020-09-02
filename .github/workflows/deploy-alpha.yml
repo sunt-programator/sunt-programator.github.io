@@ -1,10 +1,9 @@
 name: "Alpha actions."
 on:
   push:
-    branches:
-      - '*'
-      - '!master'
-      - '!dev'
+    branches-ignore:
+      - master
+      - dev
 jobs:
   deploy-blog:
     name: Deploying the blog to alpha.suntprogramator.dev
