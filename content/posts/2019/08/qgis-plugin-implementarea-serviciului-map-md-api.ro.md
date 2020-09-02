@@ -15,7 +15,7 @@ tags: ["pyqgis", "pyqt5", "python", "qgis"]
 
 În acest articol se demonstrează construirea unui Plugin pentru aplicația [QGIS 3][1], ce folosește serviciile Map.md API. Având o experiență modestă în limbajul Python, în acest articol pot fi întâlnite „biciclete inventate“ 😄. Voi fi recunoscător dacă veți oferi sfaturi cum ar fi posibil să îmbunătățesc codul scris.
 
-Într-o bună zi, navigând pe rețeaua LinkedIn, am dat de [postarea][26] lui Roman Știrbu, CEO al companiei Simpals. În această postare, dumnealui a menționat că [a fost lansat][2] serviciul API al sitului Map.md pentru companii care au nevoie de integrare cu CRM sau alte soluții IT.
+Într-o bună zi, navigând pe rețeaua LinkedIn, am dat de [postarea][26] lui Roman Știrbu, CEO al companiei Simpals. În această postare, dumnealui a menționat că [a fost lansat][2] serviciul API al site-ului Map.md pentru companii care au nevoie de integrare cu CRM sau alte soluții IT.
 
 Pentru mine a fost o noutate extraordinară. Operând adesea cu date geospațiale, aveam nevoie de un serviciu similar pentru [geocodificarea][3] adreselor. Sigur că la momentul actual existau serviciile [Google Geocoding API][4] și [OpenStreetMap Nominatim][5], însă nu eram satisfăcut de rezultatele obținute ale acestor servicii.
 

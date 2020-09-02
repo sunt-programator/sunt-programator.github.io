@@ -22,7 +22,7 @@ Salutare tuturor! 🙋‍♂️
 
 Evolventa este parte a profilului dintelui unei roți dințate folosite la transmisii prin angrenaje. Profilul evolventic asigură un raport de transmitere constant între roțile dințate, randament ridicat, precum și alte avantaje.
 
-{{< image src="/images/2020/08/latex-involute-of-a-circle/Involute_wheel.gif" alt="Raportul de transmitere constat între 2 roți dințate cu profil evolventic." caption="Raportul de transmitere constat între 2 roți dințate cu profil evolventic. Credits: [Wikipedia](https://en.wikipedia.org/wiki/Involute_gear#/media/File:Involute_wheel.gif)">}}
+{{< image src="/images/2020/08/latex-involute-of-a-circle/Involute_wheel.gif" alt="Raportul de transmitere constant între 2 roți dințate cu profil evolventic." caption="Raportul de transmitere constant între 2 roți dințate cu profil evolventic. Credits: [Wikipedia](https://en.wikipedia.org/wiki/Involute_gear#/media/File:Involute_wheel.gif)">}}
 
 Proiectarea evolventei o vom realiza cu ajutorul [LaTeX](https://en.wikipedia.org/wiki/LaTeX), sistemul de preparare a documentelor ce se folosește pe larg în mediul academic.
 
@@ -151,7 +151,7 @@ FROM blang/latex:ubuntu
 RUN apt update && apt install -y graphicsmagick ffmpeg
 ```
 
-Pe lângă LaTeX, vom mai instala două pachete adiționale care se numesc [GraphicsMagick](http://www.graphicsmagick.org/) și [FFmpeg](https://ffmpeg.org/). Acestea vor servi la convertirea fișierului de ieșire `pdf`, generat de LaTex, în fișier `mp4`.
+Pe lângă LaTeX, vom mai instala două pachete adiționale care se numesc [GraphicsMagick](http://www.graphicsmagick.org/) și [FFmpeg](https://ffmpeg.org/). Acestea vor servi la convertirea fișierului de ieșire `pdf`, generat de LaTeX, în fișier `mp4`.
 
 ### 2.2. Configurarea *devcontainer.json* {#devcontainer-configuration}
 
