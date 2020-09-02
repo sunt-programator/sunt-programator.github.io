@@ -2,6 +2,7 @@ name: "Alpha actions."
 on:
   push:
     branches:
+      - '*'
       - '!master'
       - '!dev'
 jobs:
