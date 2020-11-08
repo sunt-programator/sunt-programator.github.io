@@ -1,6 +1,6 @@
 baseURL = "http://suntprogramator.dev/"
 title = "Sunt Programator!"
-theme = "LoveIt"
+theme = "CodeIt"
 DefaultContentLanguage = "ro"
 
 # whether to use robots.txt
