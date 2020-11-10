@@ -7,15 +7,23 @@ ENV DEBIAN_FRONTEND=noninteractive
 RUN apt update && \
     apt install -y sudo \
     curl \
-    git-core \
-    gnupg \
+    gnupg2 \
     linuxbrew-wrapper \
     locales \
     zsh \
     wget \
+    powerline \
     fonts-powerline \
+    software-properties-common \
     # set up locale
     && locale-gen en_US.UTF-8
+
+# Install git
+RUN add-apt-repository -y ppa:git-core/ppa && apt update && apt install git -y
+
+# Install Node.js
+RUN curl -sL https://deb.nodesource.com/setup_14.x | sudo -E bash -
+RUN apt install nodejs
 
 # Switch back to dialog for any ad-hoc use of apt-get
 ENV DEBIAN_FRONTEND=dialog
@@ -50,8 +58,10 @@ RUN wget https://github.com/robbyrussell/oh-my-zsh/raw/master/tools/install.sh -
 # Install powerlevel10k theme
 RUN git clone https://github.com/romkatv/powerlevel10k.git ~/.oh-my-zsh/custom/themes/powerlevel10k
 
-RUN cd $HOME && curl -fsSLO https://raw.githubusercontent.com/romkatv/dotfiles-public/master/.purepower
+# Install syntax highlighting
+RUN git clone https://github.com/zsh-users/zsh-syntax-highlighting.git $HOME/.zsh-syntax-highlighting --depth 1
 
 # Add .zsh configuration
+ADD .p10k.zsh $HOME
 ADD .zshrc $HOME
 ADD .zprofile $HOME
