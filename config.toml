@@ -374,7 +374,7 @@ enableEmoji = true
         Email = ""
 
 [params]
-  # LoveIt theme version
+  # CodeIT theme version
   version = "0.2.X"
   # site default theme ("light", "dark", "auto")
   defaultTheme = "dark"
@@ -563,10 +563,10 @@ enableEmoji = true
         recordIP = true
         highlight = true
         enableQQ = false
-        serverURLs = "https://leancloud.hugoloveit.com"
+        serverURLs = "https://leancloud.codeit.com"
         # emoji data file name, default is "google.yml"
         # ("apple.yml", "google.yml", "facebook.yml", "twitter.yml")
-        # located in "themes/LoveIt/assets/data/emoji/" directory
+        # located in "themes/CodeIT/assets/data/emoji/" directory
         # you can store your own data files in the same path under your project:
         # "assets/data/emoji/"
         emoji = ""
@@ -672,7 +672,7 @@ enableEmoji = true
   [params.cdn]
     # CDN data file name, disabled by default
     # ("jsdelivr.yml")
-    # located in "themes/LoveIt/assets/data/cdn/" directory
+    # located in "themes/CodeIT/assets/data/cdn/" directory
     # you can store your own data files in the same path under your project:
     # "assets/data/cdn/"
     data = "jsdelivr.yml"
