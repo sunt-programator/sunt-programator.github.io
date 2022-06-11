@@ -1,0 +1,1171 @@
+<!doctype html><html lang=ro><head><meta charset=utf-8><meta name=viewport content="width=device-width,initial-scale=1"><meta name=robots content="noodp"><meta http-equiv=x-ua-compatible content="IE=edge, chrome=1"><title>QGIS Plugin: Implementarea serviciului Map.md API - Sunt Programator!</title><meta name=Description content="În acest blog veți cunoaște lucruri noi despre programare și despre lumea IT. Sunt Programator! Simte-te și tu mândru de ceea ce ești!"><meta property="og:title" content="QGIS Plugin: Implementarea serviciului Map.md API"><meta property="og:description" content="Introducere În acest articol se demonstrează construirea unui Plugin pentru aplicația QGIS 3, ce folosește serviciile Map.md API. Având o experiență modestă în limbajul Python, în acest articol pot fi întâlnite „biciclete inventate“ 😄. Voi fi recunoscător dacă veți oferi sfaturi cum ar fi posibil să îmbunătățesc codul scris.
+Într-o bună zi, navigând pe rețeaua LinkedIn, am dat de postarea lui Roman Știrbu, CEO al companiei Simpals. În această postare, dumnealui a menționat că a fost lansat serviciul API al sitului Map."><meta property="og:type" content="article"><meta property="og:url" content="http://suntprogramator.dev/2019/08/qgis-plugin-implementarea-serviciului-map-md-api/"><meta property="og:image" content="http://suntprogramator.dev/images/2019/08/qgis-plugin-implementarea-serviciului-map-md-api/maxresdefault.jpg"><meta property="article:section" content="posts"><meta property="article:published_time" content="2019-08-04T12:09:51+00:00"><meta property="article:modified_time" content="2020-08-09T22:19:31+03:00"><meta name=twitter:card content="summary_large_image"><meta name=twitter:image content="http://suntprogramator.dev/images/2019/08/qgis-plugin-implementarea-serviciului-map-md-api/maxresdefault.jpg"><meta name=twitter:title content="QGIS Plugin: Implementarea serviciului Map.md API"><meta name=twitter:description content="Introducere În acest articol se demonstrează construirea unui Plugin pentru aplicația QGIS 3, ce folosește serviciile Map.md API. Având o experiență modestă în limbajul Python, în acest articol pot fi întâlnite „biciclete inventate“ 😄. Voi fi recunoscător dacă veți oferi sfaturi cum ar fi posibil să îmbunătățesc codul scris.
+Într-o bună zi, navigând pe rețeaua LinkedIn, am dat de postarea lui Roman Știrbu, CEO al companiei Simpals. În această postare, dumnealui a menționat că a fost lansat serviciul API al sitului Map."><meta name=application-name content="Sunt Programator!"><meta name=apple-mobile-web-app-title content="Sunt Programator!"><meta name=theme-color content="#292a2d"><meta name=msapplication-TileColor content="#ffffff"><link rel=icon href=/svg-logo.svg><link rel=apple-touch-icon sizes=180x180 href=/apple-touch-icon.png><link rel=mask-icon href=/safari-pinned-tab.svg color=#ffffff><link rel=manifest href=/site.webmanifest><link rel=canonical href=http://suntprogramator.dev/2019/08/qgis-plugin-implementarea-serviciului-map-md-api/><link rel=next href=http://suntprogramator.dev/2020/08/latex-involute-of-a-circle/><link rel=stylesheet href=https://cdn.jsdelivr.net/npm/normalize.css@8.0.1/normalize.min.css><link rel=stylesheet href=/css/style.min.css><link rel=stylesheet href=https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.13.0/css/all.min.css><link rel=stylesheet href=https://cdn.jsdelivr.net/npm/animate.css@3.7.2/animate.min.css><script type=application/ld+json>{"@context":"http://schema.org","@type":"BlogPosting","headline":"QGIS Plugin: Implementarea serviciului Map.md API","inLanguage":"ro","mainEntityOfPage":{"@type":"WebPage","@id":"http:\/\/suntprogramator.dev\/2019\/08\/qgis-plugin-implementarea-serviciului-map-md-api\/"},"image":["http:\/\/suntprogramator.dev\/Logo-512x512-circle-min.png","http:\/\/suntprogramator.dev\/logo.jpg"],"genre":"posts","keywords":"pyqgis, pyqt5, python, qgis","wordcount":4561,"url":"http:\/\/suntprogramator.dev\/2019\/08\/qgis-plugin-implementarea-serviciului-map-md-api\/","datePublished":"2019-08-04T12:09:51+00:00","dateModified":"2020-08-09T22:19:31+03:00","license":"Această lucrare este licențiată în baza Creative Commons Attribution-NonCommercial 4.0 International License.","publisher":{"@type":"Organization","name":"Sunt Programator!","logo":"http:\/\/suntprogramator.dev\/Logo-512x512-circle-min.png"},"author":{"@type":"Person","name":"Victor Pogor"},"description":""}</script></head><body header-desktop=fixed header-mobile=auto><script type=text/javascript>(window.localStorage&&localStorage.getItem('theme')?localStorage.getItem('theme')==='dark':'dark'==='auto'?window.matchMedia('(prefers-color-scheme: dark)').matches:'dark'==='dark')&&document.body.setAttribute('theme','dark')</script><div id=mask></div><div class=wrapper><header class=desktop id=header-desktop><div class=header-wrapper><div class=header-title><a href=/ title="Sunt Programator!"><span class=header-title-pre><i class='fas fa-code fa-fw'></i></span>Sunt Programator!</a></div><div class=menu><div class=menu-inner><a class=menu-item href=/posts/>Articole </a><a class=menu-item href=/tags/>Etichete </a><a class=menu-item href=/categories/>Categorii </a><a class=menu-item href=https://github.com/sunt-programator/sunt-programator-site title=GitHub rel="noopener noreffer" target=_blank><i class='fab fa-github fa-fw'></i> </a><span class="menu-item delimiter"></span><a href=javascript:void(0); class="menu-item language" title="Selectare Limbă">Română<i class="fas fa-chevron-right fa-fw"></i>
+<select class=language-select id=language-select-desktop onchange="location=this.value"><option value=/2019/08/qgis-plugin-implementarea-serviciului-map-md-api/ selected>Română</option></select>
+</a><span class="menu-item search" id=search-desktop><input type=text placeholder="Căutarea titlului sau conținutului articolului ..." id=search-input-desktop>
+<a href=javascript:void(0); class="search-button search-toggle" id=search-toggle-desktop title=Căutare><i class="fas fa-search fa-fw"></i></a>
+<a href=javascript:void(0); class="search-button search-clear" id=search-clear-desktop title=Golire><i class="fas fa-times-circle fa-fw"></i></a>
+<span class="search-button search-loading" id=search-loading-desktop><i class="fas fa-spinner fa-fw fa-spin"></i></span>
+</span><a href=javascript:void(0); class="menu-item theme-switch" title="Schimbare Temă"><i class="fas fa-adjust fa-fw"></i></a></div></div></div></header><header class=mobile id=header-mobile><div class=header-container><div class=header-wrapper><div class=header-title><a href=/ title="Sunt Programator!"><span class=header-title-pre><i class='fas fa-code fa-fw'></i></span>Sunt Programator!</a></div><div class=menu-toggle id=menu-toggle-mobile><span></span><span></span><span></span></div></div><div class=menu id=menu-mobile><div class=search-wrapper><div class="search mobile" id=search-mobile><input type=text placeholder="Căutarea titlului sau conținutului articolului ..." id=search-input-mobile>
+<a href=javascript:void(0); class="search-button search-toggle" id=search-toggle-mobile title=Căutare><i class="fas fa-search fa-fw"></i></a>
+<a href=javascript:void(0); class="search-button search-clear" id=search-clear-mobile title=Golire><i class="fas fa-times-circle fa-fw"></i></a>
+<span class="search-button search-loading" id=search-loading-mobile><i class="fas fa-spinner fa-fw fa-spin"></i></span></div><a href=javascript:void(0); class=search-cancel id=search-cancel-mobile>Anulare</a></div><a class=menu-item href=/posts/ title>Articole</a><a class=menu-item href=/tags/ title>Etichete</a><a class=menu-item href=/categories/ title>Categorii</a><a class=menu-item href=https://github.com/sunt-programator/sunt-programator-site title=GitHub rel="noopener noreffer" target=_blank><i class='fab fa-github fa-fw'></i></a><a href=javascript:void(0); class="menu-item theme-switch" title="Schimbare Temă">
+<i class="fas fa-adjust fa-fw"></i>
+</a><a href=javascript:void(0); class=menu-item title="Selectare Limbă">Română<i class="fas fa-chevron-right fa-fw"></i>
+<select class=language-select onchange="location=this.value"><option value=/2019/08/qgis-plugin-implementarea-serviciului-map-md-api/ selected>Română</option></select></a></div></div></header><div class="search-dropdown desktop"><div id=search-dropdown-desktop></div></div><div class="search-dropdown mobile"><div id=search-dropdown-mobile></div></div><main class=main><div class=container><div class=toc id=toc-auto><h2 class=toc-title>Cuprins</h2><div class=toc-content id=toc-content-auto></div></div><article class="page single"><h1 class="single-title animated flipInX">QGIS Plugin: Implementarea serviciului Map.md API</h1><div class=post-meta><div class=post-meta-line><span class=post-author><a href=https://suntprogramator.dev/ title=Author target=_blank rel="noopener noreffer author" class=author><i class="fas fa-user-circle fa-fw"></i>Victor Pogor</a></span>&nbsp;<span class=post-category>inclus în <a href=/categories/proiecte/><i class="far fa-folder fa-fw"></i>Proiecte</a></span></div><div class=post-meta-line><i class="far fa-calendar-alt fa-fw"></i>&nbsp;<time datetime=2019-08-04>2019-08-04</time>&nbsp;<i class="fas fa-pencil-alt fa-fw"></i>&nbsp;4561 cuvinte&nbsp;
+<i class="far fa-clock fa-fw"></i>&nbsp;22 minute&nbsp;</div></div><div class=featured-image><img class=lazyload src=/svg/loading.min.svg data-src=/images/2019/08/qgis-plugin-implementarea-serviciului-map-md-api/maxresdefault.jpg data-srcset="/images/2019/08/qgis-plugin-implementarea-serviciului-map-md-api/maxresdefault.jpg, /images/2019/08/qgis-plugin-implementarea-serviciului-map-md-api/maxresdefault.jpg 1.5x, /images/2019/08/qgis-plugin-implementarea-serviciului-map-md-api/maxresdefault.jpg 2x" data-sizes=auto alt=/images/2019/08/qgis-plugin-implementarea-serviciului-map-md-api/maxresdefault.jpg title=/images/2019/08/qgis-plugin-implementarea-serviciului-map-md-api/maxresdefault.jpg></div><div class="details toc" id=toc-static kept><div class="details-summary toc-title"><span>Cuprins</span>
+<span><i class="details-icon fas fa-angle-right"></i></span></div><div class="details-content toc-content" id=toc-content-static><nav id=TableOfContents><ul><li><a href=#introducere>Introducere</a></li><li><a href=#crearea-sablonului-extensiei-qgis-qgis-plugin>Crearea șablonului extensiei QGIS (QGIS Plugin)</a><ul><li><a href=#generarea-șablonului-cu-ajutorul-extensiei-plugin-builder-3>Generarea șablonului cu ajutorul extensiei Plugin Builder 3</a></li><li><a href=#note-suplimentare-privind-procesul-de-generare-al-șablonului-extensiei>Note suplimentare privind procesul de generare al șablonului extensiei</a></li></ul></li><li><a href=#configurarea-mediului-de-dezvoltare-al-extensiei>Configurarea mediului de dezvoltare al extensiei</a><ul><li><a href=#pregătirea-mediului-de-dezvoltare>Pregătirea mediului de dezvoltare</a></li><li><a href=#verificarea-funcționalității-extensiei>Verificarea funcționalității extensiei</a></li></ul></li><li><a href=#ajustarea-interfeței-extensiei>Ajustarea interfeței extensiei</a></li><li><a href=#crearea-clasei-destinată-procesului-de-geocodificare>Crearea clasei destinată procesului de geocodificare</a></li><li><a href=#lucrul-cu-fișierul-de-intrare-și-cel-ce-conține-adrese-neidentificate>Lucrul cu fișierul de intrare și cel ce conține adrese neidentificate</a><ul><li><a href=#citirea-fișierului-de-intrare>Citirea fișierului de intrare</a></li><li><a href=#calcularea-numărului-de-rânduri-ale-fișierului-de-intrare>Calcularea numărului de rânduri ale fișierului de intrare</a></li><li><a href=#scrierea-rândurilor-cu-adrese-neidentificate-în-fișier-csv>Scrierea rândurilor cu adrese neidentificate în fișier CSV</a></li></ul></li><li><a href=#utilizarea-serviciului-api-geocodificare-al-site-ului-mapmd>Utilizarea serviciului API Geocodificare al site-ului Map.md</a><ul><li><a href=#obținerea-cheii-api>Obținerea cheii API</a></li><li><a href=#implementarea-metodelor-destinate-adresării-către-mapmd-api>Implementarea metodelor destinate adresării către Map.md API</a></li></ul></li><li><a href=#utilizarea-bazei-de-date-spatialite-pentru-stocarea-adreselor-geocodificate>Utilizarea bazei de date SpatiaLite pentru stocarea adreselor geocodificate</a><ul><li><a href=#de-ce-spatialite>De ce SpatiaLite</a></li><li><a href=#structura-bazei-de-date-spatialite>Structura bazei de date SpatiaLite</a></li><li><a href=#proiectarea-bazei-de-date-spatialite>Proiectarea bazei de date SpatiaLite</a></li></ul></li><li><a href=#implementarea-procesului-de-geocodificare-propriu-zis>Implementarea procesului de geocodificare propriu-zis</a><ul><li><a href=#implementarea-metodelor-de-geocodificare-a-rândurilor-csv>Implementarea metodelor de geocodificare a rândurilor CSV</a></li><li><a href=#implementarea-metodei-de-rulare-a-procesului-de-geocodificare>Implementarea metodei de rulare a procesului de geocodificare</a></li><li><a href=#implementarea-metodei-de-finisare-a-procesului-de-geocodificare>Implementarea metodei de finisare a procesului de geocodificare</a></li></ul></li><li><a href=#implementarea-logicii-pentru-interfața-dialogul-de-geocodificare>Implementarea logicii pentru interfața dialogul de geocodificare</a><ul><li><a href=#importarea-bibliotecilor-necesare>Importarea bibliotecilor necesare</a></li><li><a href=#asigurarea-conexiunii-evenimentelor-cu-metodele-respective>Asigurarea conexiunii evenimentelor cu metodele respective</a></li><li><a href=#implementarea-metodei-de-alegere-a-fișierului-de-intrare>Implementarea metodei de alegere a fișierului de intrare</a></li><li><a href=#implementarea-metodei-de-alegere-a-căilor-spre-fișierele-de-ieșire>Implementarea metodei de alegere a căilor spre fișierele de ieșire</a></li><li><a href=#verificarea-disponibilității-procedurii-de-geocodificare>Verificarea disponibilității procedurii de geocodificare</a></li></ul></li><li><a href=#modificarea-fișierului-principal-al-extensiei>Modificarea fișierului principal al extensiei</a><ul><li><a href=#obținerea-datelor-din-interfața-dialogului-extensiei-și-adăugarea-procesului-de-geocodificare-în-managerul-de-sarcini>Obținerea datelor din interfața dialogului extensiei și adăugarea procesului de geocodificare în managerul de sarcini</a></li></ul></li><li><a href=#încheire>Încheire</a></li></ul></nav></div></div><div class=content id=content><h2 id=introducere>Introducere</h2><p>În acest articol se demonstrează construirea unui Plugin pentru aplicația <a href=https://www.qgis.org/en/site/ target=_blank rel="noopener noreffer">QGIS 3</a>, ce folosește serviciile Map.md API. Având o experiență modestă în limbajul Python, în acest articol pot fi întâlnite „biciclete inventate“ 😄. Voi fi recunoscător dacă veți oferi sfaturi cum ar fi posibil să îmbunătățesc codul scris.</p><p>Într-o bună zi, navigând pe rețeaua LinkedIn, am dat de <a href=https://www.linkedin.com/feed/update/urn:li:activity:6536171635165192192 target=_blank rel="noopener noreffer">postarea</a> lui Roman Știrbu, CEO al companiei Simpals. În această postare, dumnealui a menționat că <a href=https://map.md/ru/blog/map-md-lanseaza-setul-de-servicii-api target=_blank rel="noopener noreffer">a fost lansat</a> serviciul API al sitului Map.md pentru companii care au nevoie de integrare cu CRM sau alte soluții IT.</p><p>Pentru mine a fost o noutate extraordinară. Operând adesea cu date geospațiale, aveam nevoie de un serviciu similar pentru <a href=https://ro.wikipedia.org/wiki/Geocodificare target=_blank rel="noopener noreffer">geocodificarea</a> adreselor. Sigur că la momentul actual existau serviciile <a href=https://developers.google.com/maps/documentation/geocoding/start target=_blank rel="noopener noreffer">Google Geocoding API</a> și <a href=https://nominatim.openstreetmap.org target=_blank rel="noopener noreffer">OpenStreetMap Nominatim</a>, însă nu eram satisfăcut de rezultatele obținute ale acestor servicii.</p><p>Aflând de acest serviciu, imediat mi-a venit o idee de a-l implementa în aplicația QGIS, prin construirea unui <a href=https://ro.wikipedia.org/wiki/Plugin target=_blank rel="noopener noreffer">Plugin</a> 💡. La elaborarea acestuia, m-am inspirat din extensia deja existentă <a href=https://plugins.qgis.org/plugins/mmqgis/ target=_blank rel="noopener noreffer">MMQGIS</a>. Printre multiplele funcționalități ce le are, acesta dispune și de geocodificarea adreselor prin intermediul serviciilor menționate anterior.</p><div style=position:relative;padding-bottom:56.25%;height:0;overflow:hidden><iframe src=https://www.youtube-nocookie.com/embed/_BRBshZOqd0 style=position:absolute;top:0;left:0;width:100%;height:100%;border:0 allowfullscreen title="YouTube Video"></iframe></div><h2 id=crearea-sablonului-extensiei-qgis-qgis-plugin>Crearea șablonului extensiei QGIS (QGIS Plugin)</h2><p>Pentru a crea șablonul extensiei QGIS, este nevoie de aplicația propriu-zisă <a href=https://www.giscourse.com/install-qgis-through-osgeo4w/ target=_blank rel="noopener noreffer">instalată</a> în calculator și de extensiile <a href=http://plugins.qgis.org/plugins/pluginbuilder/ target=_blank rel="noopener noreffer">Plugin Builder 3</a>, <a href=https://plugins.qgis.org/plugins/debug_vs/ target=_blank rel="noopener noreffer">debugvs</a> și <a href=https://plugins.qgis.org/plugins/plugin_reloader/ target=_blank rel="noopener noreffer">Plugin Reloader</a>.</p><h3 id=generarea-șablonului-cu-ajutorul-extensiei-plugin-builder-3>Generarea șablonului cu ajutorul extensiei Plugin Builder 3</h3><p>La pornirea acestei aplicații navigăm meniul <code>Plugins ► Plugin Builder ► Plugin Builder</code>.</p><p><img class=lazyload src=/svg/loading.min.svg data-src=/images/2019/08/qgis-plugin-implementarea-serviciului-map-md-api/1-min.png data-srcset="/images/2019/08/qgis-plugin-implementarea-serviciului-map-md-api/1-min.png, /images/2019/08/qgis-plugin-implementarea-serviciului-map-md-api/1-min.png 1.5x, /images/2019/08/qgis-plugin-implementarea-serviciului-map-md-api/1-min.png 2x" data-sizes=auto alt=/images/2019/08/qgis-plugin-implementarea-serviciului-map-md-api/1-min.png title="Interfața aplicației QGIS 3."></p><p>După afișarea dialogului, completăm forma cu <a href=http://geoapt.net/pluginbuilder/ target=_blank rel="noopener noreffer">detaliile</a> referitoare la extensie.</p><p><img class=lazyload src=/svg/loading.min.svg data-src=/images/2019/08/qgis-plugin-implementarea-serviciului-map-md-api/2-min.png data-srcset="/images/2019/08/qgis-plugin-implementarea-serviciului-map-md-api/2-min.png, /images/2019/08/qgis-plugin-implementarea-serviciului-map-md-api/2-min.png 1.5x, /images/2019/08/qgis-plugin-implementarea-serviciului-map-md-api/2-min.png 2x" data-sizes=auto alt=/images/2019/08/qgis-plugin-implementarea-serviciului-map-md-api/2-min.png title="Dialogul extensiei QGIS Plugin Builder."></p><p>Apăsând butonul next, introducem informația detailată privind extensia QGIS, șablonul căreia urmează a fi creat.</p><p><img class=lazyload src=/svg/loading.min.svg data-src=/images/2019/08/qgis-plugin-implementarea-serviciului-map-md-api/4.png data-srcset="/images/2019/08/qgis-plugin-implementarea-serviciului-map-md-api/4.png, /images/2019/08/qgis-plugin-implementarea-serviciului-map-md-api/4.png 1.5x, /images/2019/08/qgis-plugin-implementarea-serviciului-map-md-api/4.png 2x" data-sizes=auto alt=/images/2019/08/qgis-plugin-implementarea-serviciului-map-md-api/4.png title="Forma unde se introduce informația detailată privind extensia QGIS."></p><p>În următoarea formă, alegem șablonul <code>Tool button with dialog</code>, meniul <code>Plugins</code> și numele elementului meniului, spre exemplu, <code>MapMD</code>.</p><p><img class=lazyload src=/svg/loading.min.svg data-src=/images/2019/08/qgis-plugin-implementarea-serviciului-map-md-api/5-min.png data-srcset="/images/2019/08/qgis-plugin-implementarea-serviciului-map-md-api/5-min.png, /images/2019/08/qgis-plugin-implementarea-serviciului-map-md-api/5-min.png 1.5x, /images/2019/08/qgis-plugin-implementarea-serviciului-map-md-api/5-min.png 2x" data-sizes=auto alt=/images/2019/08/qgis-plugin-implementarea-serviciului-map-md-api/5-min.png title="Forma unde se introduce informația privind tipul șablonului."></p><p>Sărind la următorul pas, selectăm toate opțiunile, pentru a avea o funcționalitate mai vastă a extensiei.</p><p><img class=lazyload src=/svg/loading.min.svg data-src=/images/2019/08/qgis-plugin-implementarea-serviciului-map-md-api/6.png data-srcset="/images/2019/08/qgis-plugin-implementarea-serviciului-map-md-api/6.png, /images/2019/08/qgis-plugin-implementarea-serviciului-map-md-api/6.png 1.5x, /images/2019/08/qgis-plugin-implementarea-serviciului-map-md-api/6.png 2x" data-sizes=auto alt=/images/2019/08/qgis-plugin-implementarea-serviciului-map-md-api/6.png title="Forma unde se alege opțiunile extensiei."></p><p>La următorul pas, suplinim forma privind publicarea extensiei. Pentru aceasta, eu am creat prealabil un <a href=https://github.com/victor-pogor/map.md-geocoding target=_blank rel="noopener noreffer">repository</a> pe Github și am introdus datele indicate în imaginea de mai jos. Plus la aceasta, am marcat extensia dată ca experimentală, deoarece aceasta se va afla la starea de development și va fi instabilă la început.</p><p><img class=lazyload src=/svg/loading.min.svg data-src=/images/2019/08/qgis-plugin-implementarea-serviciului-map-md-api/7.png data-srcset="/images/2019/08/qgis-plugin-implementarea-serviciului-map-md-api/7.png, /images/2019/08/qgis-plugin-implementarea-serviciului-map-md-api/7.png 1.5x, /images/2019/08/qgis-plugin-implementarea-serviciului-map-md-api/7.png 2x" data-sizes=auto alt=/images/2019/08/qgis-plugin-implementarea-serviciului-map-md-api/7.png title="Forma unde se suplinesc câmpurile privind publicarea extensiei."></p><p>La ultimul pas, alegem mapa unde va fi generat proiectul și apăsăm butonul <code>Generate</code>.</p><p><img class=lazyload src=/svg/loading.min.svg data-src=/images/2019/08/qgis-plugin-implementarea-serviciului-map-md-api/8-min.png data-srcset="/images/2019/08/qgis-plugin-implementarea-serviciului-map-md-api/8-min.png, /images/2019/08/qgis-plugin-implementarea-serviciului-map-md-api/8-min.png 1.5x, /images/2019/08/qgis-plugin-implementarea-serviciului-map-md-api/8-min.png 2x" data-sizes=auto alt=/images/2019/08/qgis-plugin-implementarea-serviciului-map-md-api/8-min.png title="Forma unde se alege mapa unde va fi generat proiectul extensiei."></p><h3 id=note-suplimentare-privind-procesul-de-generare-al-șablonului-extensiei>Note suplimentare privind procesul de generare al șablonului extensiei</h3><p><strong>Notă</strong>: Pentru a putea face development și debugging este necesar ca proiectul cu extensie să fie localizat aici:</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-batch data-lang=batch><span class=line><span class=cl><span class=nv>%APPDATA%</span>\QGIS\QGIS3\profiles\default\python\plugins\map_md_geocoding
+</span></span></code></pre></td></tr></table></div></div><p>În caz că se afișează avertizare <code>The resource compiler pyrccc5 was not found in your path</code>, omitem și primim o instrucție cu pașii ulteriori pentru a avea posibilitatea dezvolta cu succes extensia.</p><h2 id=configurarea-mediului-de-dezvoltare-al-extensiei>Configurarea mediului de dezvoltare al extensiei</h2><p>Pentru dezvoltarea extensiei, este nevoie de configurat mediul de dezvoltare. În acest scop, folosesc sistemul de operare Windows 10 și editorul <a href=https://code.visualstudio.com/ target=_blank rel="noopener noreffer">Visual Studio Code</a>.</p><h3 id=pregătirea-mediului-de-dezvoltare>Pregătirea mediului de dezvoltare</h3><p>În mapa cu extensia dată creăm un fișier cu denumirea <code>start_vscode.cmd</code> și scrim instrucțiunile de mai jos. De fiecare dată când va fi necesar de dezvoltat extensia, vom rula acest fișier. Acest fișier setează <a href=https://www.digitalcitizen.ro/content/intrebari-simple-ce-sunt-variabilele-mediu-windows target=_blank rel="noopener noreffer">variabilele de mediu</a> necesare pentru dezvoltarea și debugging-ul extensiei și, ulterior, lansează editorul VS Code.</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span><span class=lnt>11
+</span><span class=lnt>12
+</span><span class=lnt>13
+</span><span class=lnt>14
+</span><span class=lnt>15
+</span><span class=lnt>16
+</span><span class=lnt>17
+</span><span class=lnt>18
+</span><span class=lnt>19
+</span><span class=lnt>20
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-batch data-lang=batch><span class=line><span class=cl><span class=p>@</span><span class=k>echo</span> off
+</span></span><span class=line><span class=cl><span class=k>SET</span> <span class=nv>OSGEO4W_ROOT</span><span class=p>=</span>C:\OSGeo4W64
+</span></span><span class=line><span class=cl><span class=k>call</span> <span class=s2>&#34;</span><span class=nv>%OSGEO4W_ROOT%</span><span class=s2>&#34;</span>\bin\o4w_env.bat
+</span></span><span class=line><span class=cl><span class=k>call</span> <span class=s2>&#34;</span><span class=nv>%OSGEO4W_ROOT%</span><span class=s2>&#34;</span>\bin\qt5_env.bat
+</span></span><span class=line><span class=cl><span class=k>call</span> <span class=s2>&#34;</span><span class=nv>%OSGEO4W_ROOT%</span><span class=s2>&#34;</span>\bin\py3_env.bat
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=k>path</span> <span class=nv>%PATH%</span>;<span class=nv>%OSGEO4W_ROOT%</span>\apps\qgis\bin
+</span></span><span class=line><span class=cl><span class=k>path</span> <span class=nv>%PATH%</span>;<span class=nv>%OSGEO4W_ROOT%</span>\apps\Qt5\bin
+</span></span><span class=line><span class=cl><span class=k>path</span> <span class=nv>%PATH%</span>;<span class=nv>%OSGEO4W_ROOT%</span>\apps\Python37\Scripts
+</span></span><span class=line><span class=cl><span class=k>path</span> <span class=nv>%PATH%</span>;C:\Program Files\7-Zip
+</span></span><span class=line><span class=cl><span class=k>path</span> <span class=nv>%PATH%</span>;C:\Program Files\Git\cmd
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=k>set</span> <span class=nv>PYTHONPATH</span><span class=p>=</span><span class=nv>%PYTHONPATH%</span>;<span class=nv>%OSGEO4W_ROOT%</span>\apps\qgis\python\
+</span></span><span class=line><span class=cl><span class=k>set</span> <span class=nv>PYTHONPATH</span><span class=p>=</span><span class=nv>%PYTHONPATH%</span>;<span class=nv>%OSGEO4W_ROOT%</span>\apps\qgis\python\qgis
+</span></span><span class=line><span class=cl><span class=k>set</span> <span class=nv>PYTHONPATH</span><span class=p>=</span><span class=nv>%PYTHONPATH%</span>;<span class=nv>%OSGEO4W_ROOT%</span>\apps\qgis\python\qgis\PyQt5
+</span></span><span class=line><span class=cl><span class=k>set</span> <span class=nv>PYTHONPATH</span><span class=p>=</span><span class=nv>%PYTHONPATH%</span>;<span class=nv>%OSGEO4W_ROOT%</span>\apps\qgis\python\qgis\core
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=k>set</span> <span class=nv>PYTHONHOME</span><span class=p>=</span><span class=nv>%OSGEO4W_ROOT%</span>\apps\Python37
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=k>start</span> <span class=s2>&#34;VS Code with PyQGIS and OsGeo4W&#34;</span> /B <span class=s2>&#34;</span><span class=nv>%LOCALAPPDATA%</span><span class=s2>\Programs\Microsoft VS Code\Code.exe&#34;</span> .
+</span></span></code></pre></td></tr></table></div></div><p>În VS Code, creăm un nou fișier în mapa generată a extensiei cu denumirea <code>requirements.txt</code> și introducem în el pachetele necesare pentru instalare în mediul virtual:</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span><span class=lnt>4
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-requirements.txt data-lang=requirements.txt><span class=line><span class=cl>autopep8
+</span></span><span class=line><span class=cl>pb_tool
+</span></span><span class=line><span class=cl>ptvsd
+</span></span><span class=line><span class=cl>sphinx_rtd_theme
+</span></span></code></pre></td></tr></table></div></div><p>Ulterior, instalăm aceste pachete, efectuând următoarea instrucțiune:</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-batch data-lang=batch><span class=line><span class=cl>pip install -r requirements.txt
+</span></span></code></pre></td></tr></table></div></div><p>Având pachetele necesare instalate, compilăm resursele aplicației prin efectuarea instrucțiunii de mai jos. Aceasta va genera fișierul <code>resources.py</code>.</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-batch data-lang=batch><span class=line><span class=cl>pb_tool compile
+</span></span></code></pre></td></tr></table></div></div><h3 id=verificarea-funcționalității-extensiei>Verificarea funcționalității extensiei</h3><p>Pentru a verifica dacă totul funcționează bine, lansăm proiectul prin executarea instrucțiunii de mai jos. Aceasta trebuie sa compileze proiectul și să-l copie în mapa cu extensiile QGIS.</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-batch data-lang=batch><span class=line><span class=cl>pb_tool deploy
+</span></span></code></pre></td></tr></table></div></div><p>După, pornim aplicația QGIS și activăm extensia noastră prin navigarea meniului <code>Plugins ► Manage and Install Plugins... ► Installed ► MapMD</code>. Ulterior, pornim extensia creată prin apăsarea butonului corespunzător de pe bara de instrumente.</p><p><img class=lazyload src=/svg/loading.min.svg data-src=/images/2019/08/qgis-plugin-implementarea-serviciului-map-md-api/2019-06-30_8-33-08-min.png data-srcset="/images/2019/08/qgis-plugin-implementarea-serviciului-map-md-api/2019-06-30_8-33-08-min.png, /images/2019/08/qgis-plugin-implementarea-serviciului-map-md-api/2019-06-30_8-33-08-min.png 1.5x, /images/2019/08/qgis-plugin-implementarea-serviciului-map-md-api/2019-06-30_8-33-08-min.png 2x" data-sizes=auto alt=/images/2019/08/qgis-plugin-implementarea-serviciului-map-md-api/2019-06-30_8-33-08-min.png title="Fereastra extensiei ce conține numai două butoane."></p><h2 id=ajustarea-interfeței-extensiei>Ajustarea interfeței extensiei</h2><p>Pentru a adăuga elemente în interfața extensiei, este necesar de a rula aplicația Qt Designer. Aceasta o găsiți pe următoarea cale <code>C:\OSGeo4W64\bin\qgis-designer.bat</code>.</p><p>Apoi, deschideți cu ajutorul acestei aplicații fișierul <code>map_md_dialog_base.ui</code> ce se află în mapa cu proiectul extensiei, adăugați componentele necesare și salvați fișierul, ca urmare fereastra să arate în felul următor:</p><p><img class=lazyload src=/svg/loading.min.svg data-src=/images/2019/08/qgis-plugin-implementarea-serviciului-map-md-api/2019-06-30_8-57-17-compressor.png data-srcset="/images/2019/08/qgis-plugin-implementarea-serviciului-map-md-api/2019-06-30_8-57-17-compressor.png, /images/2019/08/qgis-plugin-implementarea-serviciului-map-md-api/2019-06-30_8-57-17-compressor.png 1.5x, /images/2019/08/qgis-plugin-implementarea-serviciului-map-md-api/2019-06-30_8-57-17-compressor.png 2x" data-sizes=auto alt=/images/2019/08/qgis-plugin-implementarea-serviciului-map-md-api/2019-06-30_8-57-17-compressor.png title="Ajustarea interfeței extensiei."></p><h2 id=crearea-clasei-destinată-procesului-de-geocodificare>Crearea clasei destinată procesului de geocodificare</h2><p>Pentru a implementa funcționalitățile extensiei, metodele ulterioare le-am inclus într-o clasă distinctă care va fi moștenită de la clasa <a href=https://qgis.org/pyqgis/3.0/core/Task/QgsTask.html target=_blank rel="noopener noreffer">QgsTask</a>. Această clasă permite ca procesul de geocodificare să fie adăugat în managerul de sarcini al aplicației QGIS, cu alte cuvinte extensia nu va bloca interfața aplicației geospațiale și procesul de geocodificare va putea fi întrerupt la cererea utilizatorul, ca rezultat afișându-se numai adresele geocodificare până la această întrerupere.</p><p>În această clasă am importat bibliotecile necesare și am declarat variabilele cu care voi opera pe parcurs, denumirea celor private începându-se cu două simboluri <em>underscore</em> („_”). Constructorul clasei conține argumente cu valori implicite care sunt opționale.</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span><span class=lnt>11
+</span><span class=lnt>12
+</span><span class=lnt>13
+</span><span class=lnt>14
+</span><span class=lnt>15
+</span><span class=lnt>16
+</span><span class=lnt>17
+</span><span class=lnt>18
+</span><span class=lnt>19
+</span><span class=lnt>20
+</span><span class=lnt>21
+</span><span class=lnt>22
+</span><span class=lnt>23
+</span><span class=lnt>24
+</span><span class=lnt>25
+</span><span class=lnt>26
+</span><span class=lnt>27
+</span><span class=lnt>28
+</span><span class=lnt>29
+</span><span class=lnt>30
+</span><span class=lnt>31
+</span><span class=lnt>32
+</span><span class=lnt>33
+</span><span class=lnt>34
+</span><span class=lnt>35
+</span><span class=lnt>36
+</span><span class=lnt>37
+</span><span class=lnt>38
+</span><span class=lnt>39
+</span><span class=lnt>40
+</span><span class=lnt>41
+</span><span class=lnt>42
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-python data-lang=python><span class=line><span class=cl><span class=kn>import</span> <span class=nn>csv</span>
+</span></span><span class=line><span class=cl><span class=kn>import</span> <span class=nn>codecs</span>
+</span></span><span class=line><span class=cl><span class=kn>import</span> <span class=nn>sqlite3</span>
+</span></span><span class=line><span class=cl><span class=kn>import</span> <span class=nn>urllib.parse</span>
+</span></span><span class=line><span class=cl><span class=kn>import</span> <span class=nn>re</span>
+</span></span><span class=line><span class=cl><span class=kn>import</span> <span class=nn>requests</span>
+</span></span><span class=line><span class=cl><span class=kn>import</span> <span class=nn>shapely</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=kn>from</span> <span class=nn>shapely.geometry</span> <span class=kn>import</span> <span class=n>shape</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=c1># pylint: disable=import-error</span>
+</span></span><span class=line><span class=cl><span class=kn>from</span> <span class=nn>qgis.utils</span> <span class=kn>import</span> <span class=n>iface</span>
+</span></span><span class=line><span class=cl><span class=kn>from</span> <span class=nn>qgis.core</span> <span class=kn>import</span> <span class=p>(</span><span class=n>QgsDataSourceUri</span><span class=p>,</span> <span class=n>Qgis</span><span class=p>,</span>
+</span></span><span class=line><span class=cl>                       <span class=n>QgsTask</span><span class=p>,</span> <span class=n>QgsMessageLog</span><span class=p>)</span>
+</span></span><span class=line><span class=cl><span class=c1># pylint: enable=import-error</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=c1># Clasa moștenită de la clasa QgsTask,</span>
+</span></span><span class=line><span class=cl><span class=c1># ce permite adăugarea sarcinii de geocodificare în</span>
+</span></span><span class=line><span class=cl><span class=c1># managerul de sarcini al aplicației Qgis.</span>
+</span></span><span class=line><span class=cl><span class=k>class</span> <span class=nc>MapMdUtils</span><span class=p>(</span><span class=n>QgsTask</span><span class=p>):</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>    <span class=k>def</span> <span class=fm>__init__</span><span class=p>(</span><span class=bp>self</span><span class=p>,</span> <span class=n>input_filename</span><span class=p>,</span> <span class=n>output_filename</span><span class=o>=</span><span class=s2>&#34;&#34;</span><span class=p>,</span>
+</span></span><span class=line><span class=cl>                 <span class=n>notfound_filename</span><span class=o>=</span><span class=s2>&#34;&#34;</span><span class=p>,</span> <span class=n>api_key</span><span class=o>=</span><span class=s2>&#34;&#34;</span><span class=p>,</span>
+</span></span><span class=line><span class=cl>                 <span class=n>street1_index</span><span class=o>=-</span><span class=mi>1</span><span class=p>,</span> <span class=n>street2_index</span><span class=o>=-</span><span class=mi>1</span><span class=p>,</span>
+</span></span><span class=line><span class=cl>                 <span class=n>house_number_index</span><span class=o>=-</span><span class=mi>1</span><span class=p>,</span> <span class=n>locality_index</span><span class=o>=-</span><span class=mi>1</span><span class=p>):</span>
+</span></span><span class=line><span class=cl>        <span class=c1># Se apelează constructorul clasei QgsTask,</span>
+</span></span><span class=line><span class=cl>        <span class=c1># unde se introduce denumirea sarcinii și abilitatea de a</span>
+</span></span><span class=line><span class=cl>        <span class=c1># întrerupe procesul de geocodificare.</span>
+</span></span><span class=line><span class=cl>        <span class=nb>super</span><span class=p>()</span><span class=o>.</span><span class=fm>__init__</span><span class=p>(</span><span class=s2>&#34;Geocodificarea adreselor&#34;</span><span class=p>,</span> <span class=n>QgsTask</span><span class=o>.</span><span class=n>CanCancel</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>        <span class=bp>self</span><span class=o>.</span><span class=n>__api_key</span> <span class=o>=</span> <span class=n>api_key</span> <span class=c1># Cheia API</span>
+</span></span><span class=line><span class=cl>        <span class=bp>self</span><span class=o>.</span><span class=n>__street1_index</span> <span class=o>=</span> <span class=n>street1_index</span> <span class=c1># Indicele coloanei Strada1</span>
+</span></span><span class=line><span class=cl>        <span class=bp>self</span><span class=o>.</span><span class=n>__street2_index</span> <span class=o>=</span> <span class=n>street2_index</span> <span class=c1># Indicele coloanei Strada2</span>
+</span></span><span class=line><span class=cl>        <span class=bp>self</span><span class=o>.</span><span class=n>__house_number_index</span> <span class=o>=</span> <span class=n>house_number_index</span> <span class=c1># Indicele coloanei numărul casei</span>
+</span></span><span class=line><span class=cl>        <span class=bp>self</span><span class=o>.</span><span class=n>__locality_index</span> <span class=o>=</span> <span class=n>locality_index</span> <span class=c1># Indicele coloanei Localitate</span>
+</span></span><span class=line><span class=cl>        <span class=bp>self</span><span class=o>.</span><span class=n>__input_filename</span> <span class=o>=</span> <span class=n>input_filename</span> <span class=c1># Calea spre fișierul de intrare</span>
+</span></span><span class=line><span class=cl>        <span class=bp>self</span><span class=o>.</span><span class=n>__output_filename</span> <span class=o>=</span> <span class=n>output_filename</span> <span class=c1># Calea spre fișierul de ieșire</span>
+</span></span><span class=line><span class=cl>        <span class=bp>self</span><span class=o>.</span><span class=n>__notfound_filename</span> <span class=o>=</span> <span class=n>notfound_filename</span> <span class=c1># Calea spre fișierul cu adrese neidentificate</span>
+</span></span><span class=line><span class=cl>        <span class=bp>self</span><span class=o>.</span><span class=n>__table_name</span> <span class=o>=</span> <span class=s2>&#34;point_geometry&#34;</span> <span class=c1># Denumirea tabelului SpatiaLite (SQLite)</span>
+</span></span><span class=line><span class=cl>        <span class=bp>self</span><span class=o>.</span><span class=n>__header</span> <span class=o>=</span> <span class=p>[</span><span class=bp>self</span><span class=o>.</span><span class=n>__quote_identifier</span><span class=p>(</span>
+</span></span><span class=line><span class=cl>            <span class=n>item</span><span class=p>)</span> <span class=k>for</span> <span class=n>item</span> <span class=ow>in</span> <span class=nb>next</span><span class=p>(</span><span class=bp>self</span><span class=o>.</span><span class=n>read_csv</span><span class=p>())]</span> <span class=c1># Denumirile coloanelor</span>
+</span></span><span class=line><span class=cl>        <span class=bp>self</span><span class=o>.</span><span class=n>__not_found_count</span> <span class=o>=</span> <span class=mi>0</span> <span class=c1># Cantitatea adreselor neidentificate</span>
+</span></span><span class=line><span class=cl>        <span class=bp>self</span><span class=o>.</span><span class=n>exception</span> <span class=o>=</span> <span class=kc>None</span> <span class=c1># Excepția returnată în urma geocodificării</span>
+</span></span></code></pre></td></tr></table></div></div><h2 id=lucrul-cu-fișierul-de-intrare-și-cel-ce-conține-adrese-neidentificate>Lucrul cu fișierul de intrare și cel ce conține adrese neidentificate</h2><h3 id=citirea-fișierului-de-intrare>Citirea fișierului de intrare</h3><p>Pentru citirea fișierului de intrare, care trebuie să fie de tip CSV cu codificarea UTF-8, eu am creat o metodă care va citi rând cu rând acest fișier, iar în caz că va surveni o excepție, aceasta va fi afișată în bara de mesaje ale aplicației geospațiale QGIS.</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span><span class=lnt>11
+</span><span class=lnt>12
+</span><span class=lnt>13
+</span><span class=lnt>14
+</span><span class=lnt>15
+</span><span class=lnt>16
+</span><span class=lnt>17
+</span><span class=lnt>18
+</span><span class=lnt>19
+</span><span class=lnt>20
+</span><span class=lnt>21
+</span><span class=lnt>22
+</span><span class=lnt>23
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-python data-lang=python><span class=line><span class=cl><span class=k>def</span> <span class=nf>read_csv</span><span class=p>(</span><span class=bp>self</span><span class=p>):</span>
+</span></span><span class=line><span class=cl>    <span class=s2>&#34;&#34;&#34; Read CSV file. &#34;&#34;&#34;</span>
+</span></span><span class=line><span class=cl>    <span class=k>try</span><span class=p>:</span>
+</span></span><span class=line><span class=cl>        <span class=k>with</span> <span class=nb>open</span><span class=p>(</span><span class=bp>self</span><span class=o>.</span><span class=n>__input_filename</span><span class=p>,</span> <span class=s1>&#39;r&#39;</span><span class=p>,</span> <span class=n>encoding</span><span class=o>=</span><span class=s1>&#39;utf-8&#39;</span><span class=p>)</span> <span class=k>as</span> <span class=n>csvfile</span><span class=p>:</span>
+</span></span><span class=line><span class=cl>            <span class=c1># Identify CSV dialect (delimiter)</span>
+</span></span><span class=line><span class=cl>            <span class=n>dialect</span> <span class=o>=</span> <span class=n>csv</span><span class=o>.</span><span class=n>Sniffer</span><span class=p>()</span><span class=o>.</span><span class=n>sniff</span><span class=p>(</span><span class=n>csvfile</span><span class=o>.</span><span class=n>read</span><span class=p>(</span><span class=mi>4096</span><span class=p>))</span>
+</span></span><span class=line><span class=cl>            <span class=n>csvfile</span><span class=o>.</span><span class=n>seek</span><span class=p>(</span><span class=mi>0</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>            <span class=n>reader</span> <span class=o>=</span> <span class=n>csv</span><span class=o>.</span><span class=n>reader</span><span class=p>(</span><span class=n>csvfile</span><span class=p>,</span> <span class=n>dialect</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>            <span class=k>for</span> <span class=n>row</span> <span class=ow>in</span> <span class=n>reader</span><span class=p>:</span>
+</span></span><span class=line><span class=cl>                <span class=k>yield</span> <span class=n>row</span>
+</span></span><span class=line><span class=cl>    <span class=k>except</span> <span class=ne>IOError</span><span class=p>:</span>
+</span></span><span class=line><span class=cl>        <span class=n>iface</span><span class=o>.</span><span class=n>messageBar</span><span class=p>()</span><span class=o>.</span><span class=n>pushCritical</span><span class=p>(</span>
+</span></span><span class=line><span class=cl>            <span class=s2>&#34;Input CSV File&#34;</span><span class=p>,</span>
+</span></span><span class=line><span class=cl>            <span class=s2>&#34;Failure opening &#34;</span> <span class=o>+</span> <span class=bp>self</span><span class=o>.</span><span class=n>__input_filename</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>    <span class=k>except</span> <span class=ne>UnicodeDecodeError</span><span class=p>:</span>
+</span></span><span class=line><span class=cl>        <span class=n>iface</span><span class=o>.</span><span class=n>messageBar</span><span class=p>()</span><span class=o>.</span><span class=n>pushCritical</span><span class=p>(</span>
+</span></span><span class=line><span class=cl>            <span class=s2>&#34;Input CSV File&#34;</span><span class=p>,</span>
+</span></span><span class=line><span class=cl>            <span class=s2>&#34;Bad CSV file - Unicode decode error&#34;</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>    <span class=k>except</span> <span class=n>csv</span><span class=o>.</span><span class=n>Error</span><span class=p>:</span>
+</span></span><span class=line><span class=cl>        <span class=n>iface</span><span class=o>.</span><span class=n>messageBar</span><span class=p>()</span><span class=o>.</span><span class=n>pushCritical</span><span class=p>(</span>
+</span></span><span class=line><span class=cl>            <span class=s2>&#34;Input CSV File&#34;</span><span class=p>,</span>
+</span></span><span class=line><span class=cl>            <span class=s2>&#34;Bad CSV file - verify that your delimiters are consistent&#34;</span><span class=p>)</span>
+</span></span></code></pre></td></tr></table></div></div><h3 id=calcularea-numărului-de-rânduri-ale-fișierului-de-intrare>Calcularea numărului de rânduri ale fișierului de intrare</h3><p>Pentru ca în aplicația QGIS să fie afișat procentajul de îndeplinirii a sarcinii de geocodificare, eu am creat o metodă pentru calcularea numărului de rânduri ale fișierului de intrare de tip CSV.</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span><span class=lnt>4
+</span><span class=lnt>5
+</span><span class=lnt>6
+</span><span class=lnt>7
+</span><span class=lnt>8
+</span><span class=lnt>9
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-python data-lang=python><span class=line><span class=cl><span class=k>def</span> <span class=nf>__count_csv_lines</span><span class=p>(</span><span class=bp>self</span><span class=p>):</span>
+</span></span><span class=line><span class=cl>    <span class=s2>&#34;&#34;&#34; Count CSV lines. &#34;&#34;&#34;</span>
+</span></span><span class=line><span class=cl>    <span class=k>try</span><span class=p>:</span>
+</span></span><span class=line><span class=cl>        <span class=k>with</span> <span class=nb>open</span><span class=p>(</span><span class=bp>self</span><span class=o>.</span><span class=n>__input_filename</span><span class=p>,</span> <span class=s1>&#39;r&#39;</span><span class=p>,</span> <span class=n>encoding</span><span class=o>=</span><span class=s1>&#39;utf-8&#39;</span><span class=p>)</span> <span class=k>as</span> <span class=n>csvfile</span><span class=p>:</span>
+</span></span><span class=line><span class=cl>            <span class=k>return</span> <span class=nb>sum</span><span class=p>(</span><span class=mi>1</span> <span class=k>for</span> <span class=n>row</span> <span class=ow>in</span> <span class=n>csvfile</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>    <span class=k>except</span> <span class=n>csv</span><span class=o>.</span><span class=n>Error</span><span class=p>:</span>
+</span></span><span class=line><span class=cl>        <span class=n>iface</span><span class=o>.</span><span class=n>messageBar</span><span class=p>()</span><span class=o>.</span><span class=n>pushCritical</span><span class=p>(</span>
+</span></span><span class=line><span class=cl>            <span class=s2>&#34;Input CSV File&#34;</span><span class=p>,</span>
+</span></span><span class=line><span class=cl>            <span class=s2>&#34;Bad CSV file - verify that your delimiters are consistent&#34;</span><span class=p>)</span>
+</span></span></code></pre></td></tr></table></div></div><h3 id=scrierea-rândurilor-cu-adrese-neidentificate-în-fișier-csv>Scrierea rândurilor cu adrese neidentificate în fișier CSV</h3><p>În caz că adresele indicate în fișierul de intrare nu au fost posibil de geocodificat, extensia dată copie întregul rând ce conține adresa neidentificată în fișierul de ieșire care, la fel, reprezintă un fișier CSV cu codificarea UTF-8 și incrementează numărul de adrese neidentificate care la final de process va fi afișat în aplicația QGIS.</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span><span class=lnt>11
+</span><span class=lnt>12
+</span><span class=lnt>13
+</span><span class=lnt>14
+</span><span class=lnt>15
+</span><span class=lnt>16
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-python data-lang=python><span class=line><span class=cl><span class=k>def</span> <span class=nf>__write_notfound_street_to_csv</span><span class=p>(</span><span class=bp>self</span><span class=p>,</span> <span class=n>row</span><span class=p>):</span>
+</span></span><span class=line><span class=cl>    <span class=s2>&#34;&#34;&#34; Write not found street to CSV file.
+</span></span></span><span class=line><span class=cl><span class=s2>    param line: Line to be written in CSV file.
+</span></span></span><span class=line><span class=cl><span class=s2>    type line: str
+</span></span></span><span class=line><span class=cl><span class=s2>    &#34;&#34;&#34;</span>
+</span></span><span class=line><span class=cl>    <span class=k>with</span> <span class=nb>open</span><span class=p>(</span><span class=bp>self</span><span class=o>.</span><span class=n>__notfound_filename</span><span class=p>,</span> <span class=n>mode</span><span class=o>=</span><span class=s1>&#39;a&#39;</span><span class=p>,</span> <span class=n>newline</span><span class=o>=</span><span class=s1>&#39;&#39;</span><span class=p>)</span> <span class=k>as</span> <span class=n>csvfile</span><span class=p>:</span>
+</span></span><span class=line><span class=cl>        <span class=n>csv_writter</span> <span class=o>=</span> <span class=n>csv</span><span class=o>.</span><span class=n>writer</span><span class=p>(</span>
+</span></span><span class=line><span class=cl>            <span class=n>csvfile</span><span class=p>,</span> <span class=n>delimiter</span><span class=o>=</span><span class=s1>&#39;,&#39;</span><span class=p>,</span>
+</span></span><span class=line><span class=cl>            <span class=n>quotechar</span><span class=o>=</span><span class=s1>&#39;&#34;&#39;</span><span class=p>,</span> <span class=n>quoting</span><span class=o>=</span><span class=n>csv</span><span class=o>.</span><span class=n>QUOTE_MINIMAL</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>        <span class=n>csv_writter</span><span class=o>.</span><span class=n>writerow</span><span class=p>(</span><span class=n>row</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>    <span class=bp>self</span><span class=o>.</span><span class=n>__not_found_count</span> <span class=o>+=</span> <span class=mi>1</span> <span class=c1># Increment pentru cantitatea adreselor neidentificate</span>
+</span></span><span class=line><span class=cl>    <span class=c1># Se expediază către aplicația QGIS log că adresa nu a fost identificată.</span>
+</span></span><span class=line><span class=cl>    <span class=n>QgsMessageLog</span><span class=o>.</span><span class=n>logMessage</span><span class=p>(</span>
+</span></span><span class=line><span class=cl>        <span class=s2>&#34;Nu a fost geocodificat rândul CSV: </span><span class=si>%s</span><span class=s2>&#34;</span> <span class=o>%</span> <span class=s1>&#39;,&#39;</span><span class=o>.</span><span class=n>join</span><span class=p>(</span><span class=n>row</span><span class=p>),</span>
+</span></span><span class=line><span class=cl>        <span class=n>level</span><span class=o>=</span><span class=n>Qgis</span><span class=o>.</span><span class=n>Warning</span><span class=p>)</span>
+</span></span></code></pre></td></tr></table></div></div><h2 id=utilizarea-serviciului-api-geocodificare-al-site-ului-mapmd>Utilizarea serviciului API Geocodificare al site-ului Map.md</h2><p>Pentru a utiliza serviciul API Geocodificare al site-ului Map.md API, este nevoie de a obține cheia API 🔑.</p><h3 id=obținerea-cheii-api>Obținerea cheii API</h3><p>Pentru a utiliza serviciul API Geocodificare, este necesar de obținut un cod unic de identificare. Pentru aceasta, este necesar să ne conectăm la sistemul Simpals-ID, utilizând login-ul sau parola contului pentru oricare dintre proiectele companiei.</p><p>Apoi, accesăm link-ul <a href=https://map.md/ru/api target=_blank rel="noopener noreffer">map.md/ro/api</a>, facem click pe butonul <code>Obțineți codul</code>, completăm formularul special și salvăm codul rezultat.</p><p>Informația detailată privind obținerea cheii API o puteți găsi în <a href=https://map.md/ro/blog/map-md-lanseaza-setul-de-servicii-api target=_blank rel="noopener noreffer">acest articol</a>.</p><h3 id=implementarea-metodelor-destinate-adresării-către-mapmd-api>Implementarea metodelor destinate adresării către Map.md API</h3><p>Pentru a geocodifica adresele conținute în fișierul de intrare, eu am realizat 3 metode care vor răspunde de:</p><ul><li>căutarea și obținerea identificatorului străzii;</li><li>obținerea datelor geospațiale ale străzii; și</li><li>obținerea datelor geospațiale ale străzii cu numărul casei indicat.</li></ul><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span><span class=lnt>11
+</span><span class=lnt>12
+</span><span class=lnt>13
+</span><span class=lnt>14
+</span><span class=lnt>15
+</span><span class=lnt>16
+</span><span class=lnt>17
+</span><span class=lnt>18
+</span><span class=lnt>19
+</span><span class=lnt>20
+</span><span class=lnt>21
+</span><span class=lnt>22
+</span><span class=lnt>23
+</span><span class=lnt>24
+</span><span class=lnt>25
+</span><span class=lnt>26
+</span><span class=lnt>27
+</span><span class=lnt>28
+</span><span class=lnt>29
+</span><span class=lnt>30
+</span><span class=lnt>31
+</span><span class=lnt>32
+</span><span class=lnt>33
+</span><span class=lnt>34
+</span><span class=lnt>35
+</span><span class=lnt>36
+</span><span class=lnt>37
+</span><span class=lnt>38
+</span><span class=lnt>39
+</span><span class=lnt>40
+</span><span class=lnt>41
+</span><span class=lnt>42
+</span><span class=lnt>43
+</span><span class=lnt>44
+</span><span class=lnt>45
+</span><span class=lnt>46
+</span><span class=lnt>47
+</span><span class=lnt>48
+</span><span class=lnt>49
+</span><span class=lnt>50
+</span><span class=lnt>51
+</span><span class=lnt>52
+</span><span class=lnt>53
+</span><span class=lnt>54
+</span><span class=lnt>55
+</span><span class=lnt>56
+</span><span class=lnt>57
+</span><span class=lnt>58
+</span><span class=lnt>59
+</span><span class=lnt>60
+</span><span class=lnt>61
+</span><span class=lnt>62
+</span><span class=lnt>63
+</span><span class=lnt>64
+</span><span class=lnt>65
+</span><span class=lnt>66
+</span><span class=lnt>67
+</span><span class=lnt>68
+</span><span class=lnt>69
+</span><span class=lnt>70
+</span><span class=lnt>71
+</span><span class=lnt>72
+</span><span class=lnt>73
+</span><span class=lnt>74
+</span><span class=lnt>75
+</span><span class=lnt>76
+</span><span class=lnt>77
+</span><span class=lnt>78
+</span><span class=lnt>79
+</span><span class=lnt>80
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-python data-lang=python><span class=line><span class=cl><span class=k>def</span> <span class=nf>__map_md_search_street</span><span class=p>(</span><span class=bp>self</span><span class=p>,</span> <span class=n>row</span><span class=p>,</span> <span class=n>street</span><span class=p>):</span>
+</span></span><span class=line><span class=cl>    <span class=s2>&#34;&#34;&#34; Map.md search street method.
+</span></span></span><span class=line><span class=cl><span class=s2>    param row: Row list.
+</span></span></span><span class=line><span class=cl><span class=s2>    type row: list of str
+</span></span></span><span class=line><span class=cl><span class=s2>    param street: Street.
+</span></span></span><span class=line><span class=cl><span class=s2>    type street: str
+</span></span></span><span class=line><span class=cl><span class=s2>    :return: False or JSON
+</span></span></span><span class=line><span class=cl><span class=s2>    :rtype: dict of str
+</span></span></span><span class=line><span class=cl><span class=s2>    &#34;&#34;&#34;</span>
+</span></span><span class=line><span class=cl>    <span class=c1># Se obține denumirea localității din rândul CSV.</span>
+</span></span><span class=line><span class=cl>    <span class=n>locality</span> <span class=o>=</span> <span class=n>row</span><span class=p>[</span><span class=bp>self</span><span class=o>.</span><span class=n>__locality_index</span><span class=p>]</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>    <span class=c1># Se face cerere către Map.md API, pentru a obține</span>
+</span></span><span class=line><span class=cl>    <span class=c1># identificatorul străzii.</span>
+</span></span><span class=line><span class=cl>    <span class=n>r</span> <span class=o>=</span> <span class=n>requests</span><span class=o>.</span><span class=n>get</span><span class=p>(</span>
+</span></span><span class=line><span class=cl>        <span class=s2>&#34;https://map.md/api/companies/webmap/search_street?&#34;</span> <span class=o>+</span>
+</span></span><span class=line><span class=cl>        <span class=s2>&#34;location=</span><span class=si>%s</span><span class=s2>&amp;q=</span><span class=si>%s</span><span class=s2>&#34;</span> <span class=o>%</span> <span class=p>(</span><span class=n>urllib</span><span class=o>.</span><span class=n>parse</span><span class=o>.</span><span class=n>quote</span><span class=p>(</span><span class=n>locality</span><span class=p>),</span>
+</span></span><span class=line><span class=cl>                                <span class=n>urllib</span><span class=o>.</span><span class=n>parse</span><span class=o>.</span><span class=n>quote</span><span class=p>(</span><span class=n>street</span><span class=p>)),</span>
+</span></span><span class=line><span class=cl>        <span class=n>auth</span><span class=o>=</span><span class=p>(</span><span class=bp>self</span><span class=o>.</span><span class=n>__api_key</span><span class=p>,</span> <span class=s2>&#34;&#34;</span><span class=p>))</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>    <span class=c1># Dacă nu a fost găsită strada sau a fost returnată o eroare,</span>
+</span></span><span class=line><span class=cl>    <span class=c1># rândul se scrie în fișierul cu adrese neidentificate și</span>
+</span></span><span class=line><span class=cl>    <span class=c1># metoda returnează False.</span>
+</span></span><span class=line><span class=cl>    <span class=k>if</span> <span class=ow>not</span> <span class=n>r</span> <span class=ow>or</span> <span class=ow>not</span> <span class=n>r</span><span class=o>.</span><span class=n>json</span><span class=p>():</span>
+</span></span><span class=line><span class=cl>        <span class=bp>self</span><span class=o>.</span><span class=n>__write_notfound_street_to_csv</span><span class=p>(</span><span class=n>row</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>        <span class=k>return</span> <span class=kc>False</span>
+</span></span><span class=line><span class=cl>    <span class=k>return</span> <span class=n>r</span><span class=o>.</span><span class=n>json</span><span class=p>()</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=k>def</span> <span class=nf>__map_md_get_street</span><span class=p>(</span><span class=bp>self</span><span class=p>,</span> <span class=n>street_id</span><span class=p>,</span> <span class=n>row</span><span class=p>):</span>
+</span></span><span class=line><span class=cl>    <span class=s2>&#34;&#34;&#34; Map.md get street method.
+</span></span></span><span class=line><span class=cl><span class=s2>    param street_id: The Map.md street id.
+</span></span></span><span class=line><span class=cl><span class=s2>    type street_id: int
+</span></span></span><span class=line><span class=cl><span class=s2>    param row: Row list.
+</span></span></span><span class=line><span class=cl><span class=s2>    type row: list of str
+</span></span></span><span class=line><span class=cl><span class=s2>    :return: False or JSON
+</span></span></span><span class=line><span class=cl><span class=s2>    :rtype: dict of str
+</span></span></span><span class=line><span class=cl><span class=s2>    &#34;&#34;&#34;</span>
+</span></span><span class=line><span class=cl>    <span class=c1># Se obține denumirea localității din rândul CSV.</span>
+</span></span><span class=line><span class=cl>    <span class=n>locality</span> <span class=o>=</span> <span class=n>row</span><span class=p>[</span><span class=bp>self</span><span class=o>.</span><span class=n>__locality_index</span><span class=p>]</span>
+</span></span><span class=line><span class=cl>    <span class=c1># Se face cerere către Map.md API, pentru a obține datele</span>
+</span></span><span class=line><span class=cl>    <span class=c1># geospațiale ale străzii.</span>
+</span></span><span class=line><span class=cl>    <span class=n>r</span> <span class=o>=</span> <span class=n>requests</span><span class=o>.</span><span class=n>get</span><span class=p>(</span>
+</span></span><span class=line><span class=cl>        <span class=s2>&#34;https://map.md/api/companies/webmap/get_street?&#34;</span> <span class=o>+</span>
+</span></span><span class=line><span class=cl>        <span class=s2>&#34;id=</span><span class=si>%s</span><span class=s2>&amp;location=</span><span class=si>%s</span><span class=s2>&#34;</span> <span class=o>%</span> <span class=p>(</span><span class=n>urllib</span><span class=o>.</span><span class=n>parse</span><span class=o>.</span><span class=n>quote</span><span class=p>(</span><span class=n>street_id</span><span class=p>),</span>
+</span></span><span class=line><span class=cl>                                <span class=n>urllib</span><span class=o>.</span><span class=n>parse</span><span class=o>.</span><span class=n>quote</span><span class=p>(</span><span class=n>locality</span><span class=p>)),</span>
+</span></span><span class=line><span class=cl>        <span class=n>auth</span><span class=o>=</span><span class=p>(</span><span class=bp>self</span><span class=o>.</span><span class=n>__api_key</span><span class=p>,</span> <span class=s2>&#34;&#34;</span><span class=p>))</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>    <span class=c1># Dacă nu a fost găsită strada sau a fost returnată o eroare,</span>
+</span></span><span class=line><span class=cl>    <span class=c1># rândul se scrie în fișierul cu adrese neidentificate și</span>
+</span></span><span class=line><span class=cl>    <span class=c1># metoda returnează False.</span>
+</span></span><span class=line><span class=cl>    <span class=k>if</span> <span class=ow>not</span> <span class=n>r</span> <span class=ow>or</span> <span class=ow>not</span> <span class=n>r</span><span class=o>.</span><span class=n>json</span><span class=p>():</span>
+</span></span><span class=line><span class=cl>        <span class=bp>self</span><span class=o>.</span><span class=n>__write_notfound_street_to_csv</span><span class=p>(</span><span class=n>row</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>        <span class=k>return</span> <span class=kc>False</span>
+</span></span><span class=line><span class=cl>    <span class=k>return</span> <span class=n>r</span><span class=o>.</span><span class=n>json</span><span class=p>()</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=k>def</span> <span class=nf>__map_md_search_street_with_house_number</span><span class=p>(</span><span class=bp>self</span><span class=p>,</span> <span class=n>row</span><span class=p>,</span> <span class=n>street_id</span><span class=p>,</span>
+</span></span><span class=line><span class=cl>                                                <span class=n>house_number</span><span class=p>):</span>
+</span></span><span class=line><span class=cl>    <span class=s2>&#34;&#34;&#34; Map.md search street with house number method.
+</span></span></span><span class=line><span class=cl><span class=s2>    param row: Row list.
+</span></span></span><span class=line><span class=cl><span class=s2>    type row: list of str
+</span></span></span><span class=line><span class=cl><span class=s2>    param house_number: House number.
+</span></span></span><span class=line><span class=cl><span class=s2>    type house_number: str
+</span></span></span><span class=line><span class=cl><span class=s2>    :return: False or JSON
+</span></span></span><span class=line><span class=cl><span class=s2>    :rtype: dict of str
+</span></span></span><span class=line><span class=cl><span class=s2>    &#34;&#34;&#34;</span>
+</span></span><span class=line><span class=cl>    <span class=c1># Se face cerere către Map.md API, pentru a obține datele</span>
+</span></span><span class=line><span class=cl>    <span class=c1># geospațiale ale străzii și numărului casei.</span>
+</span></span><span class=line><span class=cl>    <span class=n>r</span> <span class=o>=</span> <span class=n>requests</span><span class=o>.</span><span class=n>get</span><span class=p>(</span>
+</span></span><span class=line><span class=cl>        <span class=s2>&#34;https://map.md/api/companies/webmap/get_street?&#34;</span> <span class=o>+</span>
+</span></span><span class=line><span class=cl>        <span class=s2>&#34;id=</span><span class=si>%s</span><span class=s2>&amp;number=</span><span class=si>%s</span><span class=s2>&#34;</span> <span class=o>%</span> <span class=p>(</span><span class=n>urllib</span><span class=o>.</span><span class=n>parse</span><span class=o>.</span><span class=n>quote</span><span class=p>(</span><span class=n>street_id</span><span class=p>),</span>
+</span></span><span class=line><span class=cl>                                <span class=n>urllib</span><span class=o>.</span><span class=n>parse</span><span class=o>.</span><span class=n>quote</span><span class=p>(</span><span class=n>house_number</span><span class=p>)),</span>
+</span></span><span class=line><span class=cl>        <span class=n>auth</span><span class=o>=</span><span class=p>(</span><span class=bp>self</span><span class=o>.</span><span class=n>__api_key</span><span class=p>,</span> <span class=s2>&#34;&#34;</span><span class=p>))</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>    <span class=c1># Dacă nu a fost găsită strada și numărul casei sau a fost</span>
+</span></span><span class=line><span class=cl>    <span class=c1># returnată o eroare, rândul se scrie în fișierul cu adrese</span>
+</span></span><span class=line><span class=cl>    <span class=c1># neidentificate și metoda returnează False.</span>
+</span></span><span class=line><span class=cl>    <span class=k>if</span> <span class=ow>not</span> <span class=n>r</span> <span class=ow>or</span> <span class=ow>not</span> <span class=n>r</span><span class=o>.</span><span class=n>json</span><span class=p>():</span>
+</span></span><span class=line><span class=cl>        <span class=bp>self</span><span class=o>.</span><span class=n>__write_notfound_street_to_csv</span><span class=p>(</span><span class=n>row</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>        <span class=k>return</span> <span class=kc>False</span>
+</span></span><span class=line><span class=cl>    <span class=k>return</span> <span class=n>r</span><span class=o>.</span><span class=n>json</span><span class=p>()</span>
+</span></span></code></pre></td></tr></table></div></div><h2 id=utilizarea-bazei-de-date-spatialite-pentru-stocarea-adreselor-geocodificate>Utilizarea bazei de date SpatiaLite pentru stocarea adreselor geocodificate</h2><h3 id=de-ce-spatialite>De ce SpatiaLite</h3><p>Extensia MMQGIS, care a servit drept sursă de inspirație, salvează adresele geocodificate într-un fișier (ba chiar în mai multe 😏) cu extensia <a href=https://en.wikipedia.org/wiki/Shapefile target=_blank rel="noopener noreffer">ShapeFile</a> (*<em>.shp</em>).</p><p>Această metodă de a salva adresele geocodificate nu este favorabilă deoarece acest tip de fișier are următoarele <a href=https://en.wikipedia.org/wiki/Shapefile#Limitations target=_blank rel="noopener noreffer">limite</a> și dezavantaje:</p><ul><li>Lungimea denumirii coloanelor nu poate depăși 10 caractere;</li><li>Suport slab a codificării Unicode;</li><li>Pe lângă fișierul cu extensia_<em>.shp_, în aceeași mapă se mai stochează și <a href=http://desktop.arcgis.com/en/arcmap/latest/manage-data/shapefiles/geoprocessing-considerations-for-shapefile-output.htm#GUID-D880FCB5-066A-4639-BC18-160A8FEB36A3 target=_blank rel="noopener noreffer">alte fișiere cu diverse extensii</a> (_</em>.dbf_, <em>*.prj</em>, <em>*.qpj</em>, <em>*.shx</em>, etc.).</li></ul><p>Operând adesea cu date geospațiale, în ultimul timp le salvam, prin intermediul aplicației QGIS, în baze de date de tip SpatiaLite, care reprezintă nu altceva, decât baze de date de tip SQLite cu date geospațiale.</p><p>Aplicația QGIS permite de a manipula aceste baze de date, salvând o mulțime de straturi ale aplicației într-un singur fișier. Super! E ceea de ce am nevoie! 🤗</p><p>Problema consta în aceea, că cu baze de date de tip SQL reușisem să operez la un nivel superficial, însă nu aveam idee cum să proiectez baze de date de tip SpatiaLite.</p><p>Navigând pe Internet am găsit următoarea <a href=https://www.gaia-gis.it/gaia-sins/spatialite-cookbook/index.html#common target=_blank rel="noopener noreffer">serie de articole</a> care explică clar cum funcționează această bază de date. Minunat! E timpul pentru experimente 🧪💡.</p><h3 id=structura-bazei-de-date-spatialite>Structura bazei de date SpatiaLite</h3><p>Baza de date de tip SpatiaLite trebuie să conțină un tabel destinat pentru salvarea datelor geospațiale 🌍.</p><p>Baza de date și tabelul vor fi create la începutul geocodificării adreselor, adăugându-se coloanele tabelului în strictă corespundere cu coloanele din fișierul de intrare de tip CSV. Ulterior, se mai adaugă o coloană ce conține date geospațiale, în cazul dat, de tip <em>Point</em> cu geoproiecția <a href=https://en.wikipedia.org/wiki/World_Geodetic_System target=_blank rel="noopener noreffer">WGS84 (4326)</a> 🌏.</p><p>La final, este necesar de creat index pentru cheia primară și pentru coloana cu date geospațiale, pentru a îmbunătăți performanța bazei de date 📈.</p><h3 id=proiectarea-bazei-de-date-spatialite>Proiectarea bazei de date SpatiaLite</h3><p>Modalitatea de inițiere a bazei de date, creării tabelului pentru adrese geocodificate și a index-urilor este indicată în metoda de mai jos.</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span><span class=lnt>11
+</span><span class=lnt>12
+</span><span class=lnt>13
+</span><span class=lnt>14
+</span><span class=lnt>15
+</span><span class=lnt>16
+</span><span class=lnt>17
+</span><span class=lnt>18
+</span><span class=lnt>19
+</span><span class=lnt>20
+</span><span class=lnt>21
+</span><span class=lnt>22
+</span><span class=lnt>23
+</span><span class=lnt>24
+</span><span class=lnt>25
+</span><span class=lnt>26
+</span><span class=lnt>27
+</span><span class=lnt>28
+</span><span class=lnt>29
+</span><span class=lnt>30
+</span><span class=lnt>31
+</span><span class=lnt>32
+</span><span class=lnt>33
+</span><span class=lnt>34
+</span><span class=lnt>35
+</span><span class=lnt>36
+</span><span class=lnt>37
+</span><span class=lnt>38
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-python data-lang=python><span class=line><span class=cl><span class=k>def</span> <span class=nf>__init_spatialite_db</span><span class=p>(</span><span class=bp>self</span><span class=p>):</span>
+</span></span><span class=line><span class=cl>    <span class=s2>&#34;&#34;&#34; Init SpatiaLite database.&#34;&#34;&#34;</span>
+</span></span><span class=line><span class=cl>    <span class=k>with</span> <span class=n>sqlite3</span><span class=o>.</span><span class=n>connect</span><span class=p>(</span><span class=bp>self</span><span class=o>.</span><span class=n>__output_filename</span><span class=p>)</span> <span class=k>as</span> <span class=n>conn</span><span class=p>:</span>
+</span></span><span class=line><span class=cl>        <span class=n>conn</span><span class=o>.</span><span class=n>enable_load_extension</span><span class=p>(</span><span class=kc>True</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>        <span class=n>conn</span><span class=o>.</span><span class=n>load_extension</span><span class=p>(</span><span class=s2>&#34;mod_spatialite&#34;</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>        <span class=n>conn</span><span class=o>.</span><span class=n>execute</span><span class=p>(</span><span class=s2>&#34;SELECT InitSpatialMetaData(1);&#34;</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>        <span class=n>conn</span><span class=o>.</span><span class=n>execute</span><span class=p>(</span><span class=s2>&#34;&#34;&#34;CREATE TABLE IF NOT EXISTS </span><span class=si>%s</span><span class=s2> (
+</span></span></span><span class=line><span class=cl><span class=s2>                        PointId INTEGER NOT NULL
+</span></span></span><span class=line><span class=cl><span class=s2>                        PRIMARY KEY AUTOINCREMENT);&#34;&#34;&#34;</span> <span class=o>%</span> <span class=bp>self</span><span class=o>.</span><span class=n>__table_name</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>        <span class=n>conn</span><span class=o>.</span><span class=n>execute</span><span class=p>(</span><span class=s2>&#34;&#34;&#34;CREATE UNIQUE INDEX IF NOT EXISTS
+</span></span></span><span class=line><span class=cl><span class=s2>                        idx_</span><span class=si>%s</span><span class=s2>_id ON
+</span></span></span><span class=line><span class=cl><span class=s2>                        </span><span class=si>%s</span><span class=s2> (PointId);&#34;&#34;&#34;</span> <span class=o>%</span> <span class=p>(</span><span class=bp>self</span><span class=o>.</span><span class=n>__table_name</span><span class=p>,</span>
+</span></span><span class=line><span class=cl>                                            <span class=bp>self</span><span class=o>.</span><span class=n>__table_name</span><span class=p>))</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>        <span class=n>cur</span> <span class=o>=</span> <span class=n>conn</span><span class=o>.</span><span class=n>cursor</span><span class=p>()</span>
+</span></span><span class=line><span class=cl>        <span class=n>cur</span><span class=o>.</span><span class=n>execute</span><span class=p>(</span><span class=s2>&#34;PRAGMA table_info(&#39;</span><span class=si>%s</span><span class=s2>&#39;);&#34;</span> <span class=o>%</span> <span class=bp>self</span><span class=o>.</span><span class=n>__table_name</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>        <span class=n>db_columns</span> <span class=o>=</span> <span class=n>cur</span><span class=o>.</span><span class=n>fetchall</span><span class=p>()</span>
+</span></span><span class=line><span class=cl>        <span class=n>db_columns</span> <span class=o>=</span> <span class=p>(</span><span class=n>x</span><span class=p>[</span><span class=mi>1</span><span class=p>]</span> <span class=k>for</span> <span class=n>x</span> <span class=ow>in</span> <span class=n>db_columns</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>        <span class=n>db_columns</span> <span class=o>=</span> <span class=p>[</span><span class=bp>self</span><span class=o>.</span><span class=n>__quote_identifier</span><span class=p>(</span><span class=n>x</span><span class=p>)</span> <span class=k>for</span> <span class=n>x</span> <span class=ow>in</span> <span class=n>db_columns</span><span class=p>]</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>        <span class=k>for</span> <span class=n>column</span> <span class=ow>in</span> <span class=bp>self</span><span class=o>.</span><span class=n>__header</span><span class=p>:</span>
+</span></span><span class=line><span class=cl>            <span class=c1># Se adauga coloanele care nu au existat anterior</span>
+</span></span><span class=line><span class=cl>            <span class=k>if</span> <span class=n>column</span> <span class=ow>not</span> <span class=ow>in</span> <span class=n>db_columns</span><span class=p>:</span>
+</span></span><span class=line><span class=cl>                <span class=n>conn</span><span class=o>.</span><span class=n>execute</span><span class=p>(</span><span class=s2>&#34;&#34;&#34;ALTER TABLE </span><span class=si>%s</span><span class=s2>
+</span></span></span><span class=line><span class=cl><span class=s2>                                ADD COLUMN </span><span class=si>%s</span><span class=s2> TEXT&#34;&#34;&#34;</span> <span class=o>%</span>
+</span></span><span class=line><span class=cl>                                <span class=p>(</span><span class=bp>self</span><span class=o>.</span><span class=n>__table_name</span><span class=p>,</span> <span class=n>column</span><span class=p>))</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>        <span class=c1># Se adauga coloana ce contine date geospatiale</span>
+</span></span><span class=line><span class=cl>        <span class=c1># cu geoproiectia WSG 84 (4326)</span>
+</span></span><span class=line><span class=cl>        <span class=k>if</span> <span class=s2>&#34;Geometry&#34;</span> <span class=ow>not</span> <span class=ow>in</span> <span class=n>db_columns</span><span class=p>:</span>
+</span></span><span class=line><span class=cl>            <span class=n>conn</span><span class=o>.</span><span class=n>execute</span><span class=p>(</span>
+</span></span><span class=line><span class=cl>                <span class=s2>&#34;&#34;&#34;SELECT AddGeometryColumn(
+</span></span></span><span class=line><span class=cl><span class=s2>                    &#39;point_geometry&#39;, &#39;Geometry&#39;,
+</span></span></span><span class=line><span class=cl><span class=s2>                    4326, &#39;POINT&#39;, &#39;XY&#39;);&#34;&#34;&#34;</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>            <span class=c1># Se adauga index geospatial</span>
+</span></span><span class=line><span class=cl>            <span class=n>conn</span><span class=o>.</span><span class=n>execute</span><span class=p>(</span>
+</span></span><span class=line><span class=cl>                <span class=s2>&#34;SELECT CreateSpatialIndex(&#39;point_geometry&#39;, &#39;Geometry&#39;);&#34;</span><span class=p>)</span>
+</span></span></code></pre></td></tr></table></div></div><p>În fragmentul de cod ce urmează, este realizată funcționalitatea de adăugare a rândului CSV, ce a fost geocodificat cu succes, în tabelul bazei de date SpatiaLite și adăugarea coordinatelor punctului unde este localizată adresa sau intersecția.</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span><span class=lnt>11
+</span><span class=lnt>12
+</span><span class=lnt>13
+</span><span class=lnt>14
+</span><span class=lnt>15
+</span><span class=lnt>16
+</span><span class=lnt>17
+</span><span class=lnt>18
+</span><span class=lnt>19
+</span><span class=lnt>20
+</span><span class=lnt>21
+</span><span class=lnt>22
+</span><span class=lnt>23
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-python data-lang=python><span class=line><span class=cl><span class=k>def</span> <span class=nf>__add_row_to_db</span><span class=p>(</span><span class=bp>self</span><span class=p>,</span> <span class=n>row</span><span class=p>,</span> <span class=n>geometry</span><span class=p>):</span>
+</span></span><span class=line><span class=cl>    <span class=s2>&#34;&#34;&#34; Add CSV row to database.
+</span></span></span><span class=line><span class=cl><span class=s2>        param csv_row: CSV row.
+</span></span></span><span class=line><span class=cl><span class=s2>        type csv_row: list of str
+</span></span></span><span class=line><span class=cl><span class=s2>        param geometry: Point geometry.
+</span></span></span><span class=line><span class=cl><span class=s2>        type geometry: str
+</span></span></span><span class=line><span class=cl><span class=s2>        &#34;&#34;&#34;</span>
+</span></span><span class=line><span class=cl>    <span class=k>with</span> <span class=n>sqlite3</span><span class=o>.</span><span class=n>connect</span><span class=p>(</span><span class=bp>self</span><span class=o>.</span><span class=n>__output_filename</span><span class=p>)</span> <span class=k>as</span> <span class=n>conn</span><span class=p>:</span>
+</span></span><span class=line><span class=cl>        <span class=n>conn</span><span class=o>.</span><span class=n>enable_load_extension</span><span class=p>(</span><span class=kc>True</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>        <span class=n>conn</span><span class=o>.</span><span class=n>load_extension</span><span class=p>(</span><span class=s2>&#34;mod_spatialite&#34;</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>        <span class=n>cur</span> <span class=o>=</span> <span class=n>conn</span><span class=o>.</span><span class=n>cursor</span><span class=p>()</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>        <span class=c1># Insert it.</span>
+</span></span><span class=line><span class=cl>        <span class=n>sql</span> <span class=o>=</span> <span class=s2>&#34;&#34;&#34;INSERT INTO point_geometry
+</span></span></span><span class=line><span class=cl><span class=s2>                    (</span><span class=si>%s</span><span class=s2>, Geometry) VALUES
+</span></span></span><span class=line><span class=cl><span class=s2>                    (</span><span class=si>%s</span><span class=s2>, GeomFromText(&#39;</span><span class=si>%s</span><span class=s2>&#39;, 4326));&#34;&#34;&#34;</span> <span class=o>%</span> \
+</span></span><span class=line><span class=cl>        <span class=p>(</span>
+</span></span><span class=line><span class=cl>            <span class=s1>&#39;,&#39;</span><span class=o>.</span><span class=n>join</span><span class=p>(</span><span class=bp>self</span><span class=o>.</span><span class=n>__header</span><span class=p>),</span>
+</span></span><span class=line><span class=cl>            <span class=s1>&#39;,&#39;</span><span class=o>.</span><span class=n>join</span><span class=p>([</span><span class=bp>self</span><span class=o>.</span><span class=n>__quote_identifier</span><span class=p>(</span><span class=n>item</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>                      <span class=k>for</span> <span class=n>item</span> <span class=ow>in</span> <span class=n>row</span><span class=p>]),</span>
+</span></span><span class=line><span class=cl>            <span class=n>geometry</span>
+</span></span><span class=line><span class=cl>        <span class=p>)</span>
+</span></span><span class=line><span class=cl>        <span class=n>cur</span><span class=o>.</span><span class=n>execute</span><span class=p>(</span><span class=n>sql</span><span class=p>)</span>
+</span></span></code></pre></td></tr></table></div></div><h2 id=implementarea-procesului-de-geocodificare-propriu-zis>Implementarea procesului de geocodificare propriu-zis</h2><p>Extensia pe care am creato va implementa 4 tipuri de geocodificări, după cum urmează:</p><ul><li>Geocodificarea străzii, numărului casei și localității;</li><li>Geocodificarea străzii și localității, când numărul casei se conține în câmpul cu stradă;</li><li>Geocodificarea intersecțiilor (strada1, strada2, localitate);</li><li>Geocodificarea combinată (se alege una din cele menționate mai sus, în dependență de ce câmpuri în fișierul CSV sunt suplinite).</li></ul><h3 id=implementarea-metodelor-de-geocodificare-a-rândurilor-csv>Implementarea metodelor de geocodificare a rândurilor CSV</h3><p>În următoarele fragmente de cod, eu am implementat 2 metode ce vor geocodifica strada și numărul casei și, respectiv, intersecția a două străzi. Aceste metode vor apela la metodele create anterior care comunică cu serviciul API Geocodificare al site-ului <a href=https://map.md/ target=_blank rel="noopener noreffer">Map.md</a>.</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span><span class=lnt>11
+</span><span class=lnt>12
+</span><span class=lnt>13
+</span><span class=lnt>14
+</span><span class=lnt>15
+</span><span class=lnt>16
+</span><span class=lnt>17
+</span><span class=lnt>18
+</span><span class=lnt>19
+</span><span class=lnt>20
+</span><span class=lnt>21
+</span><span class=lnt>22
+</span><span class=lnt>23
+</span><span class=lnt>24
+</span><span class=lnt>25
+</span><span class=lnt>26
+</span><span class=lnt>27
+</span><span class=lnt>28
+</span><span class=lnt>29
+</span><span class=lnt>30
+</span><span class=lnt>31
+</span><span class=lnt>32
+</span><span class=lnt>33
+</span><span class=lnt>34
+</span><span class=lnt>35
+</span><span class=lnt>36
+</span><span class=lnt>37
+</span><span class=lnt>38
+</span><span class=lnt>39
+</span><span class=lnt>40
+</span><span class=lnt>41
+</span><span class=lnt>42
+</span><span class=lnt>43
+</span><span class=lnt>44
+</span><span class=lnt>45
+</span><span class=lnt>46
+</span><span class=lnt>47
+</span><span class=lnt>48
+</span><span class=lnt>49
+</span><span class=lnt>50
+</span><span class=lnt>51
+</span><span class=lnt>52
+</span><span class=lnt>53
+</span><span class=lnt>54
+</span><span class=lnt>55
+</span><span class=lnt>56
+</span><span class=lnt>57
+</span><span class=lnt>58
+</span><span class=lnt>59
+</span><span class=lnt>60
+</span><span class=lnt>61
+</span><span class=lnt>62
+</span><span class=lnt>63
+</span><span class=lnt>64
+</span><span class=lnt>65
+</span><span class=lnt>66
+</span><span class=lnt>67
+</span><span class=lnt>68
+</span><span class=lnt>69
+</span><span class=lnt>70
+</span><span class=lnt>71
+</span><span class=lnt>72
+</span><span class=lnt>73
+</span><span class=lnt>74
+</span><span class=lnt>75
+</span><span class=lnt>76
+</span><span class=lnt>77
+</span><span class=lnt>78
+</span><span class=lnt>79
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-python data-lang=python><span class=line><span class=cl><span class=k>def</span> <span class=nf>__geocode_street_and_house_number</span><span class=p>(</span><span class=bp>self</span><span class=p>,</span> <span class=n>row</span><span class=p>,</span> <span class=n>street</span><span class=p>,</span> <span class=n>house_number</span><span class=p>):</span>
+</span></span><span class=line><span class=cl>    <span class=s2>&#34;&#34;&#34; Geocode street1 and house number.
+</span></span></span><span class=line><span class=cl><span class=s2>    param row: Row list.
+</span></span></span><span class=line><span class=cl><span class=s2>    type row: list of str
+</span></span></span><span class=line><span class=cl><span class=s2>    param street: Street.
+</span></span></span><span class=line><span class=cl><span class=s2>    type street: str
+</span></span></span><span class=line><span class=cl><span class=s2>    param house_number: House number.
+</span></span></span><span class=line><span class=cl><span class=s2>    type house_number: str
+</span></span></span><span class=line><span class=cl><span class=s2>    :return: Return bool.
+</span></span></span><span class=line><span class=cl><span class=s2>    :rtype: bool
+</span></span></span><span class=line><span class=cl><span class=s2>    &#34;&#34;&#34;</span>
+</span></span><span class=line><span class=cl>    <span class=n>r</span> <span class=o>=</span> <span class=bp>self</span><span class=o>.</span><span class=n>__map_md_search_street</span><span class=p>(</span><span class=n>row</span><span class=p>,</span> <span class=n>street</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>    <span class=k>if</span> <span class=ow>not</span> <span class=n>r</span><span class=p>:</span>
+</span></span><span class=line><span class=cl>        <span class=k>return</span> <span class=kc>False</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>    <span class=c1># Se obtine lista cu numerele caselor adresei solicitate</span>
+</span></span><span class=line><span class=cl>    <span class=n>buildings</span> <span class=o>=</span> <span class=n>r</span><span class=p>[</span><span class=mi>0</span><span class=p>][</span><span class=s1>&#39;buildings&#39;</span><span class=p>]</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>    <span class=c1># Daca numarul casei nu se gaseste in lista,</span>
+</span></span><span class=line><span class=cl>    <span class=c1># nu se indeplineste cel de-al doilea request</span>
+</span></span><span class=line><span class=cl>    <span class=k>if</span> <span class=n>house_number</span> <span class=ow>not</span> <span class=ow>in</span> <span class=n>buildings</span><span class=p>:</span>
+</span></span><span class=line><span class=cl>        <span class=bp>self</span><span class=o>.</span><span class=n>__write_notfound_street_to_csv</span><span class=p>(</span><span class=n>row</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>        <span class=k>return</span> <span class=kc>False</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>    <span class=n>r</span> <span class=o>=</span> <span class=bp>self</span><span class=o>.</span><span class=n>__map_md_search_street_with_house_number</span><span class=p>(</span>
+</span></span><span class=line><span class=cl>        <span class=n>row</span><span class=p>,</span> <span class=n>r</span><span class=p>[</span><span class=mi>0</span><span class=p>][</span><span class=s1>&#39;id&#39;</span><span class=p>],</span> <span class=n>house_number</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>    <span class=k>if</span> <span class=ow>not</span> <span class=n>r</span><span class=p>:</span>
+</span></span><span class=line><span class=cl>        <span class=k>return</span> <span class=kc>False</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>    <span class=n>geometry</span> <span class=o>=</span> <span class=s2>&#34;POINT(</span><span class=si>%s</span><span class=s2> </span><span class=si>%s</span><span class=s2>)&#34;</span> <span class=o>%</span> <span class=p>(</span><span class=n>r</span><span class=p>[</span><span class=s1>&#39;point&#39;</span><span class=p>][</span><span class=s1>&#39;lon&#39;</span><span class=p>],</span>
+</span></span><span class=line><span class=cl>                                    <span class=n>r</span><span class=p>[</span><span class=s1>&#39;point&#39;</span><span class=p>][</span><span class=s1>&#39;lat&#39;</span><span class=p>])</span>
+</span></span><span class=line><span class=cl>    <span class=bp>self</span><span class=o>.</span><span class=n>__add_row_to_db</span><span class=p>(</span><span class=n>row</span><span class=p>,</span> <span class=n>geometry</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=k>def</span> <span class=nf>__geocode_street1_and_street2</span><span class=p>(</span><span class=bp>self</span><span class=p>,</span> <span class=n>row</span><span class=p>,</span> <span class=n>street1</span><span class=p>,</span> <span class=n>street2</span><span class=p>):</span>
+</span></span><span class=line><span class=cl>    <span class=s2>&#34;&#34;&#34; Geocode street1 and street2.
+</span></span></span><span class=line><span class=cl><span class=s2>    param row: Row list.
+</span></span></span><span class=line><span class=cl><span class=s2>    type row: list of str
+</span></span></span><span class=line><span class=cl><span class=s2>    param street: Street1.
+</span></span></span><span class=line><span class=cl><span class=s2>    type street: str
+</span></span></span><span class=line><span class=cl><span class=s2>    param street: Street2.
+</span></span></span><span class=line><span class=cl><span class=s2>    type street: str
+</span></span></span><span class=line><span class=cl><span class=s2>    :return: Return bool.
+</span></span></span><span class=line><span class=cl><span class=s2>    :rtype: bool
+</span></span></span><span class=line><span class=cl><span class=s2>    &#34;&#34;&#34;</span>
+</span></span><span class=line><span class=cl>    <span class=c1># Se cauta strada1 pentru a obtine identificatorul ei</span>
+</span></span><span class=line><span class=cl>    <span class=n>r1</span> <span class=o>=</span> <span class=bp>self</span><span class=o>.</span><span class=n>__map_md_search_street</span><span class=p>(</span><span class=n>row</span><span class=p>,</span> <span class=n>street1</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>    <span class=c1># Se cauta strada2 pentru a obtine identificatorul ei</span>
+</span></span><span class=line><span class=cl>    <span class=n>r2</span> <span class=o>=</span> <span class=bp>self</span><span class=o>.</span><span class=n>__map_md_search_street</span><span class=p>(</span><span class=n>row</span><span class=p>,</span> <span class=n>street2</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>    <span class=c1># Verificare strada1 si strada2</span>
+</span></span><span class=line><span class=cl>    <span class=k>if</span> <span class=ow>not</span> <span class=n>r1</span> <span class=ow>or</span> <span class=ow>not</span> <span class=n>r2</span><span class=p>:</span>
+</span></span><span class=line><span class=cl>        <span class=k>return</span> <span class=kc>False</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>    <span class=c1># Se obtine datele despre strada1 si strada2</span>
+</span></span><span class=line><span class=cl>    <span class=n>r1</span> <span class=o>=</span> <span class=bp>self</span><span class=o>.</span><span class=n>__map_md_get_street</span><span class=p>(</span><span class=n>r1</span><span class=p>[</span><span class=mi>0</span><span class=p>][</span><span class=s1>&#39;id&#39;</span><span class=p>],</span> <span class=n>row</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>    <span class=n>r2</span> <span class=o>=</span> <span class=bp>self</span><span class=o>.</span><span class=n>__map_md_get_street</span><span class=p>(</span><span class=n>r2</span><span class=p>[</span><span class=mi>0</span><span class=p>][</span><span class=s1>&#39;id&#39;</span><span class=p>],</span> <span class=n>row</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>    <span class=k>if</span> <span class=ow>not</span> <span class=n>r1</span> <span class=ow>or</span> <span class=ow>not</span> <span class=n>r2</span><span class=p>:</span>
+</span></span><span class=line><span class=cl>        <span class=k>return</span> <span class=kc>False</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>    <span class=n>r1_geo_json</span> <span class=o>=</span> <span class=n>r1</span><span class=p>[</span><span class=s1>&#39;geo_json&#39;</span><span class=p>]</span>
+</span></span><span class=line><span class=cl>    <span class=n>r2_geo_json</span> <span class=o>=</span> <span class=n>r2</span><span class=p>[</span><span class=s1>&#39;geo_json&#39;</span><span class=p>]</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>    <span class=n>s1</span> <span class=o>=</span> <span class=n>shape</span><span class=p>(</span><span class=n>r1_geo_json</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>    <span class=n>s2</span> <span class=o>=</span> <span class=n>shape</span><span class=p>(</span><span class=n>r2_geo_json</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>    <span class=k>if</span> <span class=ow>not</span> <span class=n>s1</span><span class=o>.</span><span class=n>intersects</span><span class=p>(</span><span class=n>s2</span><span class=p>):</span>
+</span></span><span class=line><span class=cl>        <span class=bp>self</span><span class=o>.</span><span class=n>__write_notfound_street_to_csv</span><span class=p>(</span><span class=n>row</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>        <span class=k>return</span> <span class=kc>False</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>    <span class=n>geometry</span> <span class=o>=</span> <span class=n>s1</span><span class=o>.</span><span class=n>intersection</span><span class=p>(</span><span class=n>s2</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>    <span class=c1># In cazul ca se identifica MultiPoint,</span>
+</span></span><span class=line><span class=cl>    <span class=c1># se ia primul Point in consideratie</span>
+</span></span><span class=line><span class=cl>    <span class=k>if</span> <span class=nb>isinstance</span><span class=p>(</span><span class=n>geometry</span><span class=p>,</span>
+</span></span><span class=line><span class=cl>                    <span class=n>shapely</span><span class=o>.</span><span class=n>geometry</span><span class=o>.</span><span class=n>multipoint</span><span class=o>.</span><span class=n>MultiPoint</span><span class=p>):</span>
+</span></span><span class=line><span class=cl>        <span class=n>geometry</span> <span class=o>=</span> <span class=n>geometry</span><span class=p>[</span><span class=mi>0</span><span class=p>]</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>    <span class=bp>self</span><span class=o>.</span><span class=n>__add_row_to_db</span><span class=p>(</span><span class=n>row</span><span class=p>,</span> <span class=n>geometry</span><span class=o>.</span><span class=n>wkt</span><span class=p>)</span>
+</span></span></code></pre></td></tr></table></div></div><h3 id=implementarea-metodei-de-rulare-a-procesului-de-geocodificare>Implementarea metodei de rulare a procesului de geocodificare</h3><p>Pentru a rula procesul de geocodificare, instrucțiunile destinate acestui scop au fost plasate în metoda <a href=https://qgis.org/pyqgis/master/core/QgsTask.html#qgis.core.QgsTask.run target=_blank rel="noopener noreffer">run</a>, din motiv că managerul de sarcini al aplicației QGIS apelează anume această metodă când se adaugă o sarcină nouă în acesta (metoda <a href=https://qgis.org/pyqgis/master/core/QgsTaskManager.html#qgis.core.QgsTaskManager.addTask target=_blank rel="noopener noreffer">addTask</a>).</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span><span class=lnt>11
+</span><span class=lnt>12
+</span><span class=lnt>13
+</span><span class=lnt>14
+</span><span class=lnt>15
+</span><span class=lnt>16
+</span><span class=lnt>17
+</span><span class=lnt>18
+</span><span class=lnt>19
+</span><span class=lnt>20
+</span><span class=lnt>21
+</span><span class=lnt>22
+</span><span class=lnt>23
+</span><span class=lnt>24
+</span><span class=lnt>25
+</span><span class=lnt>26
+</span><span class=lnt>27
+</span><span class=lnt>28
+</span><span class=lnt>29
+</span><span class=lnt>30
+</span><span class=lnt>31
+</span><span class=lnt>32
+</span><span class=lnt>33
+</span><span class=lnt>34
+</span><span class=lnt>35
+</span><span class=lnt>36
+</span><span class=lnt>37
+</span><span class=lnt>38
+</span><span class=lnt>39
+</span><span class=lnt>40
+</span><span class=lnt>41
+</span><span class=lnt>42
+</span><span class=lnt>43
+</span><span class=lnt>44
+</span><span class=lnt>45
+</span><span class=lnt>46
+</span><span class=lnt>47
+</span><span class=lnt>48
+</span><span class=lnt>49
+</span><span class=lnt>50
+</span><span class=lnt>51
+</span><span class=lnt>52
+</span><span class=lnt>53
+</span><span class=lnt>54
+</span><span class=lnt>55
+</span><span class=lnt>56
+</span><span class=lnt>57
+</span><span class=lnt>58
+</span><span class=lnt>59
+</span><span class=lnt>60
+</span><span class=lnt>61
+</span><span class=lnt>62
+</span><span class=lnt>63
+</span><span class=lnt>64
+</span><span class=lnt>65
+</span><span class=lnt>66
+</span><span class=lnt>67
+</span><span class=lnt>68
+</span><span class=lnt>69
+</span><span class=lnt>70
+</span><span class=lnt>71
+</span><span class=lnt>72
+</span><span class=lnt>73
+</span><span class=lnt>74
+</span><span class=lnt>75
+</span><span class=lnt>76
+</span><span class=lnt>77
+</span><span class=lnt>78
+</span><span class=lnt>79
+</span><span class=lnt>80
+</span><span class=lnt>81
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-python data-lang=python><span class=line><span class=cl><span class=k>def</span> <span class=nf>run</span><span class=p>(</span><span class=bp>self</span><span class=p>):</span>
+</span></span><span class=line><span class=cl>    <span class=s2>&#34;&#34;&#34; Geocode addresses using Map.md API.
+</span></span></span><span class=line><span class=cl><span class=s2>    return: Return bool type.
+</span></span></span><span class=line><span class=cl><span class=s2>    type: bool
+</span></span></span><span class=line><span class=cl><span class=s2>    &#34;&#34;&#34;</span>
+</span></span><span class=line><span class=cl>    <span class=n>QgsMessageLog</span><span class=o>.</span><span class=n>logMessage</span><span class=p>(</span><span class=s2>&#34;Început geocodificare.&#34;</span><span class=p>,</span> <span class=n>level</span><span class=o>=</span><span class=n>Qgis</span><span class=o>.</span><span class=n>Info</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>    <span class=c1># Se initializeaza baza de date SpatiaLite</span>
+</span></span><span class=line><span class=cl>    <span class=bp>self</span><span class=o>.</span><span class=n>__init_spatialite_db</span><span class=p>()</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>    <span class=n>pattern</span> <span class=o>=</span> <span class=sa>r</span><span class=s2>&#34;^((?:[a-z0-9ăîșțâ]+[\., ]+)+)(\d{1,3}(?:[\/ ]?\w{1,2})?)$&#34;</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>    <span class=k>if</span> <span class=bp>self</span><span class=o>.</span><span class=n>__street1_index</span> <span class=o>==</span> <span class=o>-</span><span class=mi>1</span> <span class=ow>and</span> <span class=bp>self</span><span class=o>.</span><span class=n>__locality_index</span> <span class=o>==</span> <span class=o>-</span><span class=mi>1</span><span class=p>:</span>
+</span></span><span class=line><span class=cl>        <span class=bp>self</span><span class=o>.</span><span class=n>exception</span> <span class=o>=</span> <span class=ne>Exception</span><span class=p>(</span>
+</span></span><span class=line><span class=cl>            <span class=s2>&#34;Indicele câmpurilor street1 și/sau locality sunt goale!&#34;</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>    <span class=c1># Se omite primul rand, deoarece contine denumirile coloanelor</span>
+</span></span><span class=line><span class=cl>    <span class=n>iter_rows</span> <span class=o>=</span> <span class=nb>iter</span><span class=p>(</span><span class=bp>self</span><span class=o>.</span><span class=n>read_csv</span><span class=p>())</span>
+</span></span><span class=line><span class=cl>    <span class=nb>next</span><span class=p>(</span><span class=n>iter_rows</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>    <span class=k>for</span> <span class=n>index</span><span class=p>,</span> <span class=n>row</span> <span class=ow>in</span> <span class=nb>enumerate</span><span class=p>(</span><span class=n>iter_rows</span><span class=p>):</span>
+</span></span><span class=line><span class=cl>        <span class=bp>self</span><span class=o>.</span><span class=n>setProgress</span><span class=p>(</span><span class=n>index</span><span class=o>*</span><span class=mi>100</span><span class=o>/</span><span class=bp>self</span><span class=o>.</span><span class=n>__count_csv_lines</span><span class=p>())</span>
+</span></span><span class=line><span class=cl>        <span class=c1># verifică isCanceled() pentru a gestiona anularea geocodificării</span>
+</span></span><span class=line><span class=cl>        <span class=k>if</span> <span class=bp>self</span><span class=o>.</span><span class=n>isCanceled</span><span class=p>():</span>
+</span></span><span class=line><span class=cl>            <span class=k>return</span> <span class=kc>False</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>        <span class=k>if</span> <span class=ow>not</span> <span class=n>row</span><span class=p>[</span><span class=bp>self</span><span class=o>.</span><span class=n>__street1_index</span><span class=p>]</span> <span class=ow>and</span> \
+</span></span><span class=line><span class=cl>                <span class=ow>not</span> <span class=n>row</span><span class=p>[</span><span class=bp>self</span><span class=o>.</span><span class=n>__locality_index</span><span class=p>]:</span>
+</span></span><span class=line><span class=cl>            <span class=bp>self</span><span class=o>.</span><span class=n>__write_notfound_street_to_csv</span><span class=p>(</span><span class=n>row</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>        <span class=k>elif</span> <span class=bp>self</span><span class=o>.</span><span class=n>__street2_index</span> <span class=o>&gt;</span> <span class=o>-</span><span class=mi>1</span> <span class=ow>and</span> \
+</span></span><span class=line><span class=cl>                <span class=n>row</span><span class=p>[</span><span class=bp>self</span><span class=o>.</span><span class=n>__street2_index</span><span class=p>]:</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>            <span class=n>QgsMessageLog</span><span class=o>.</span>\
+</span></span><span class=line><span class=cl>                <span class=n>logMessage</span><span class=p>(</span><span class=s2>&#34;Street1 + Street2 + Locality&#34;</span><span class=p>,</span>
+</span></span><span class=line><span class=cl>                            <span class=n>level</span><span class=o>=</span><span class=n>Qgis</span><span class=o>.</span><span class=n>Info</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>            <span class=n>geocode_street1_and_street2</span> <span class=o>=</span> \
+</span></span><span class=line><span class=cl>                <span class=bp>self</span><span class=o>.</span><span class=n>__geocode_street1_and_street2</span><span class=p>(</span>
+</span></span><span class=line><span class=cl>                    <span class=n>row</span><span class=p>,</span>
+</span></span><span class=line><span class=cl>                    <span class=n>row</span><span class=p>[</span><span class=bp>self</span><span class=o>.</span><span class=n>__street1_index</span><span class=p>],</span>
+</span></span><span class=line><span class=cl>                    <span class=n>row</span><span class=p>[</span><span class=bp>self</span><span class=o>.</span><span class=n>__street2_index</span><span class=p>])</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>            <span class=k>if</span> <span class=ow>not</span> <span class=n>geocode_street1_and_street2</span><span class=p>:</span>
+</span></span><span class=line><span class=cl>                <span class=k>continue</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>        <span class=k>elif</span> <span class=bp>self</span><span class=o>.</span><span class=n>__house_number_index</span> <span class=o>&gt;</span> <span class=o>-</span><span class=mi>1</span> <span class=ow>and</span> \
+</span></span><span class=line><span class=cl>                <span class=n>row</span><span class=p>[</span><span class=bp>self</span><span class=o>.</span><span class=n>__house_number_index</span><span class=p>]:</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>            <span class=n>QgsMessageLog</span><span class=o>.</span>\
+</span></span><span class=line><span class=cl>                <span class=n>logMessage</span><span class=p>(</span><span class=s2>&#34;Street1 + House number + Locality&#34;</span><span class=p>,</span>
+</span></span><span class=line><span class=cl>                            <span class=n>level</span><span class=o>=</span><span class=n>Qgis</span><span class=o>.</span><span class=n>Info</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>            <span class=n>geocode_street_and_house_number</span> <span class=o>=</span> \
+</span></span><span class=line><span class=cl>                <span class=bp>self</span><span class=o>.</span><span class=n>__geocode_street_and_house_number</span><span class=p>(</span>
+</span></span><span class=line><span class=cl>                    <span class=n>row</span><span class=p>,</span>
+</span></span><span class=line><span class=cl>                    <span class=n>row</span><span class=p>[</span><span class=bp>self</span><span class=o>.</span><span class=n>__street1_index</span><span class=p>],</span>
+</span></span><span class=line><span class=cl>                    <span class=n>row</span><span class=p>[</span><span class=bp>self</span><span class=o>.</span><span class=n>__house_number_index</span><span class=p>])</span>
+</span></span><span class=line><span class=cl>            <span class=k>if</span> <span class=ow>not</span> <span class=n>geocode_street_and_house_number</span><span class=p>:</span>
+</span></span><span class=line><span class=cl>                <span class=k>continue</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>        <span class=k>else</span><span class=p>:</span>
+</span></span><span class=line><span class=cl>            <span class=n>QgsMessageLog</span><span class=o>.</span><span class=n>logMessage</span><span class=p>(</span><span class=s2>&#34;Street1 + Locality&#34;</span><span class=p>,</span>
+</span></span><span class=line><span class=cl>                                        <span class=n>level</span><span class=o>=</span><span class=n>Qgis</span><span class=o>.</span><span class=n>Info</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>            <span class=n>match</span> <span class=o>=</span> <span class=n>re</span><span class=o>.</span><span class=n>search</span><span class=p>(</span><span class=n>pattern</span><span class=p>,</span>
+</span></span><span class=line><span class=cl>                                <span class=n>row</span><span class=p>[</span><span class=bp>self</span><span class=o>.</span><span class=n>__street1_index</span><span class=p>],</span>
+</span></span><span class=line><span class=cl>                                <span class=n>re</span><span class=o>.</span><span class=n>IGNORECASE</span> <span class=o>|</span> <span class=n>re</span><span class=o>.</span><span class=n>UNICODE</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>            <span class=k>if</span> <span class=ow>not</span> <span class=n>match</span><span class=p>:</span>
+</span></span><span class=line><span class=cl>                <span class=bp>self</span><span class=o>.</span><span class=n>__write_notfound_street_to_csv</span><span class=p>(</span><span class=n>row</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>                <span class=k>continue</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>            <span class=n>street</span> <span class=o>=</span> <span class=n>match</span><span class=o>.</span><span class=n>group</span><span class=p>(</span><span class=mi>1</span><span class=p>)</span><span class=o>.</span><span class=n>replace</span><span class=p>(</span><span class=s1>&#39;,&#39;</span><span class=p>,</span> <span class=s1>&#39;&#39;</span><span class=p>)</span><span class=o>.</span><span class=n>strip</span><span class=p>()</span>
+</span></span><span class=line><span class=cl>            <span class=n>house_number</span> <span class=o>=</span> <span class=n>match</span><span class=o>.</span><span class=n>group</span><span class=p>(</span><span class=mi>2</span><span class=p>)</span><span class=o>.</span><span class=n>strip</span><span class=p>()</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>            <span class=n>geocode_street_and_house_number</span> <span class=o>=</span> \
+</span></span><span class=line><span class=cl>                <span class=bp>self</span><span class=o>.</span><span class=n>__geocode_street_and_house_number</span><span class=p>(</span>
+</span></span><span class=line><span class=cl>                    <span class=n>row</span><span class=p>,</span> <span class=n>street</span><span class=p>,</span> <span class=n>house_number</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>            <span class=k>if</span> <span class=ow>not</span> <span class=n>geocode_street_and_house_number</span><span class=p>:</span>
+</span></span><span class=line><span class=cl>                <span class=k>continue</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>    <span class=k>return</span> <span class=kc>True</span>
+</span></span></code></pre></td></tr></table></div></div><h3 id=implementarea-metodei-de-finisare-a-procesului-de-geocodificare>Implementarea metodei de finisare a procesului de geocodificare</h3><p>Clasa QgsTask mai implementează o metodă denumită <a href=https://qgis.org/pyqgis/master/core/QgsTask.html#qgis.core.QgsTask.finished target=_blank rel="noopener noreffer">finished</a>, care va fi apelată după finalizarea sarcinii (fie prin finalizare cu succes, fie prin anulare la cererea utilizatorului). Argumentul <em>result</em> reflectă dacă sarcina a fost finalizată cu succes sau nu. Această metodă este întotdeauna apelată de la thread-ul principal, deci se permite de a adăuga stratul cu puncte geocodificate în aplicație.</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span><span class=lnt>11
+</span><span class=lnt>12
+</span><span class=lnt>13
+</span><span class=lnt>14
+</span><span class=lnt>15
+</span><span class=lnt>16
+</span><span class=lnt>17
+</span><span class=lnt>18
+</span><span class=lnt>19
+</span><span class=lnt>20
+</span><span class=lnt>21
+</span><span class=lnt>22
+</span><span class=lnt>23
+</span><span class=lnt>24
+</span><span class=lnt>25
+</span><span class=lnt>26
+</span><span class=lnt>27
+</span><span class=lnt>28
+</span><span class=lnt>29
+</span><span class=lnt>30
+</span><span class=lnt>31
+</span><span class=lnt>32
+</span><span class=lnt>33
+</span><span class=lnt>34
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-python data-lang=python><span class=line><span class=cl><span class=k>def</span> <span class=nf>finished</span><span class=p>(</span><span class=bp>self</span><span class=p>,</span> <span class=n>result</span><span class=p>):</span>
+</span></span><span class=line><span class=cl>    <span class=s2>&#34;&#34;&#34;
+</span></span></span><span class=line><span class=cl><span class=s2>    This function is automatically called when the task has
+</span></span></span><span class=line><span class=cl><span class=s2>    completed (successfully or not).
+</span></span></span><span class=line><span class=cl><span class=s2>    You implement finished() to do whatever follow-up stuff
+</span></span></span><span class=line><span class=cl><span class=s2>    should happen after the task is complete.
+</span></span></span><span class=line><span class=cl><span class=s2>    finished is always called from the main thread, so it&#39;s safe
+</span></span></span><span class=line><span class=cl><span class=s2>    to do GUI operations and raise Python exceptions here.
+</span></span></span><span class=line><span class=cl><span class=s2>    result is the return value from self.run.
+</span></span></span><span class=line><span class=cl><span class=s2>    &#34;&#34;&#34;</span>
+</span></span><span class=line><span class=cl>    <span class=k>if</span> <span class=n>result</span><span class=p>:</span>
+</span></span><span class=line><span class=cl>        <span class=c1># Se adauga stratul in QGIS</span>
+</span></span><span class=line><span class=cl>        <span class=bp>self</span><span class=o>.</span><span class=n>__add_spatialite_layer_to_qgis</span><span class=p>()</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>        <span class=n>csv_row_count</span> <span class=o>=</span> <span class=bp>self</span><span class=o>.</span><span class=n>__count_csv_lines</span><span class=p>()</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>        <span class=n>QgsMessageLog</span><span class=o>.</span><span class=n>logMessage</span><span class=p>(</span>
+</span></span><span class=line><span class=cl>            <span class=s2>&#34;Sfârșit geocodificare.&#34;</span> <span class=o>+</span>
+</span></span><span class=line><span class=cl>            <span class=s2>&#34;Au fost geocodificate </span><span class=si>%i</span><span class=s2> din </span><span class=si>%i</span><span class=s2> adrese.&#34;</span> <span class=o>%</span>
+</span></span><span class=line><span class=cl>            <span class=p>(</span><span class=n>csv_row_count</span><span class=o>-</span><span class=bp>self</span><span class=o>.</span><span class=n>__not_found_count</span><span class=p>,</span> <span class=n>csv_row_count</span><span class=p>),</span>
+</span></span><span class=line><span class=cl>            <span class=n>level</span><span class=o>=</span><span class=n>Qgis</span><span class=o>.</span><span class=n>Success</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>    <span class=k>elif</span> <span class=bp>self</span><span class=o>.</span><span class=n>exception</span> <span class=ow>is</span> <span class=kc>None</span><span class=p>:</span>
+</span></span><span class=line><span class=cl>        <span class=c1># Se adauga stratul in QGIS</span>
+</span></span><span class=line><span class=cl>        <span class=bp>self</span><span class=o>.</span><span class=n>__add_spatialite_layer_to_qgis</span><span class=p>()</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>        <span class=n>QgsMessageLog</span><span class=o>.</span><span class=n>logMessage</span><span class=p>(</span>
+</span></span><span class=line><span class=cl>            <span class=s2>&#34;Geocodificarea a fost anulată. &#34;</span> <span class=o>+</span>
+</span></span><span class=line><span class=cl>            <span class=s2>&#34;Se afișează rezultatele obținute până la moment.&#34;</span><span class=p>,</span>
+</span></span><span class=line><span class=cl>            <span class=n>level</span><span class=o>=</span><span class=n>Qgis</span><span class=o>.</span><span class=n>Warning</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>    <span class=k>else</span><span class=p>:</span>
+</span></span><span class=line><span class=cl>        <span class=n>QgsMessageLog</span><span class=o>.</span><span class=n>logMessage</span><span class=p>(</span>
+</span></span><span class=line><span class=cl>            <span class=s2>&#34;Procesul de geocodificare a returnat o excepție:</span><span class=se>\n</span><span class=si>%s</span><span class=s2>&#34;</span> <span class=o>%</span>
+</span></span><span class=line><span class=cl>            <span class=nb>str</span><span class=p>(</span><span class=bp>self</span><span class=o>.</span><span class=n>exception</span><span class=p>),</span> <span class=n>level</span><span class=o>=</span><span class=n>Qgis</span><span class=o>.</span><span class=n>Critical</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>        <span class=k>raise</span> <span class=bp>self</span><span class=o>.</span><span class=n>exception</span>
+</span></span></code></pre></td></tr></table></div></div><h2 id=implementarea-logicii-pentru-interfața-dialogul-de-geocodificare>Implementarea logicii pentru interfața dialogul de geocodificare</h2><p>Interfața dialogului extensiei creată anterior este lipsită de un oarecare funcțional, cu alte cuvinte nu implementează nici-o logică. E timpul să reparăm acest lucru 🤗.</p><h3 id=importarea-bibliotecilor-necesare>Importarea bibliotecilor necesare</h3><p>În primul rând, ne asigurăm că am importat tot de ce vom avea nevoie pe parcurs:</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span><span class=lnt>4
+</span><span class=lnt>5
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-python data-lang=python><span class=line><span class=cl><span class=kn>import</span> <span class=nn>os</span>
+</span></span><span class=line><span class=cl><span class=kn>from</span> <span class=nn>PyQt5</span> <span class=kn>import</span> <span class=n>uic</span>
+</span></span><span class=line><span class=cl><span class=kn>from</span> <span class=nn>PyQt5</span> <span class=kn>import</span> <span class=n>QtWidgets</span>
+</span></span><span class=line><span class=cl><span class=kn>from</span> <span class=nn>PyQt5.QtWidgets</span> <span class=kn>import</span> <span class=n>QFileDialog</span><span class=p>,</span> <span class=n>QDialogButtonBox</span>
+</span></span><span class=line><span class=cl><span class=kn>from</span> <span class=nn>.map_md_utils</span> <span class=kn>import</span> <span class=n>MapMdUtils</span>
+</span></span></code></pre></td></tr></table></div></div><h3 id=asigurarea-conexiunii-evenimentelor-cu-metodele-respective>Asigurarea conexiunii evenimentelor cu metodele respective</h3><p>Ulterior, la constructorul clasei MapMdDialog, implementăm conexiunile evenimentelor de modificare a textului, de apăsare click pe butoane cu metodele corespunzătoare.</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span><span class=lnt>11
+</span><span class=lnt>12
+</span><span class=lnt>13
+</span><span class=lnt>14
+</span><span class=lnt>15
+</span><span class=lnt>16
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-python data-lang=python><span class=line><span class=cl><span class=bp>self</span><span class=o>.</span><span class=n>button_box</span><span class=o>.</span><span class=n>button</span><span class=p>(</span><span class=n>QDialogButtonBox</span><span class=o>.</span><span class=n>Ok</span><span class=p>)</span><span class=o>.</span><span class=n>setEnabled</span><span class=p>(</span><span class=kc>False</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=c1># Conectăm evenimentele de modificare a textului cu metoda ce va</span>
+</span></span><span class=line><span class=cl><span class=c1># activa butonul OK.</span>
+</span></span><span class=line><span class=cl><span class=bp>self</span><span class=o>.</span><span class=n>input_filename</span><span class=o>.</span><span class=n>textChanged</span><span class=o>.</span><span class=n>connect</span><span class=p>(</span><span class=bp>self</span><span class=o>.</span><span class=n>is_ready_to_geocode</span><span class=p>)</span>
+</span></span><span class=line><span class=cl><span class=bp>self</span><span class=o>.</span><span class=n>output_spatialite_filename</span><span class=o>.</span><span class=n>textChanged</span><span class=o>.</span><span class=n>connect</span><span class=p>(</span><span class=bp>self</span><span class=o>.</span><span class=n>is_ready_to_geocode</span><span class=p>)</span>
+</span></span><span class=line><span class=cl><span class=bp>self</span><span class=o>.</span><span class=n>output_notfound_filename</span><span class=o>.</span><span class=n>textChanged</span><span class=o>.</span><span class=n>connect</span><span class=p>(</span><span class=bp>self</span><span class=o>.</span><span class=n>is_ready_to_geocode</span><span class=p>)</span>
+</span></span><span class=line><span class=cl><span class=bp>self</span><span class=o>.</span><span class=n>api_key</span><span class=o>.</span><span class=n>textChanged</span><span class=o>.</span><span class=n>connect</span><span class=p>(</span><span class=bp>self</span><span class=o>.</span><span class=n>is_ready_to_geocode</span><span class=p>)</span>
+</span></span><span class=line><span class=cl><span class=bp>self</span><span class=o>.</span><span class=n>street_field1</span><span class=o>.</span><span class=n>currentTextChanged</span><span class=o>.</span><span class=n>connect</span><span class=p>(</span><span class=bp>self</span><span class=o>.</span><span class=n>is_ready_to_geocode</span><span class=p>)</span>
+</span></span><span class=line><span class=cl><span class=bp>self</span><span class=o>.</span><span class=n>locality_field</span><span class=o>.</span><span class=n>currentTextChanged</span><span class=o>.</span><span class=n>connect</span><span class=p>(</span><span class=bp>self</span><span class=o>.</span><span class=n>is_ready_to_geocode</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=c1># Conectarea evenimentelor click pe butoane cu metodele ce vor</span>
+</span></span><span class=line><span class=cl><span class=c1># afișa dialoguri de deschidere/salvare a fișierelor.</span>
+</span></span><span class=line><span class=cl><span class=bp>self</span><span class=o>.</span><span class=n>browse_infile</span><span class=o>.</span><span class=n>clicked</span><span class=o>.</span><span class=n>connect</span><span class=p>(</span><span class=bp>self</span><span class=o>.</span><span class=n>browse_infile_dialog</span><span class=p>)</span>
+</span></span><span class=line><span class=cl><span class=bp>self</span><span class=o>.</span><span class=n>browse_spatialite</span><span class=o>.</span><span class=n>clicked</span><span class=o>.</span><span class=n>connect</span><span class=p>(</span><span class=bp>self</span><span class=o>.</span><span class=n>browse_spatialite_file_dialog</span><span class=p>)</span>
+</span></span><span class=line><span class=cl><span class=bp>self</span><span class=o>.</span><span class=n>browse_notfound</span><span class=o>.</span><span class=n>clicked</span><span class=o>.</span><span class=n>connect</span><span class=p>(</span><span class=bp>self</span><span class=o>.</span><span class=n>browse_notfound_file_dialog</span><span class=p>)</span>
+</span></span></code></pre></td></tr></table></div></div><h3 id=implementarea-metodei-de-alegere-a-fișierului-de-intrare>Implementarea metodei de alegere a fișierului de intrare</h3><p>În fragmentul de cod ce urmează, este implementat funcționalul de alegere a fișierului de intrare de tip CSV UTF-8. Pentru aceasta, după apăsarea click pe primul buton <em>Browse…</em>, se va afișa dialogul de deschidere a fișierului.</p><p>După alegerea fișierului de intrare, în câmpul fișierului de ieșire se va salva calea absolută a fișierului de intrare, aceeași denumire ca și fișierul de intrare + extensia <em>.db</em>, iar în câmpul fișierului cu adrese neidentificate – calea absolută a fișierului de intrare cu denumirea fișierului <em>notfound.csv</em>.</p><p>După aceasta, toate elementele combobox vor fi suplinite cu denumirile coloanelor fișierului de intrare, pentru a permite utilizatorului de a asocia câmpurile extensiei cu coloanele din fișierul de intrare.</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span><span class=lnt>11
+</span><span class=lnt>12
+</span><span class=lnt>13
+</span><span class=lnt>14
+</span><span class=lnt>15
+</span><span class=lnt>16
+</span><span class=lnt>17
+</span><span class=lnt>18
+</span><span class=lnt>19
+</span><span class=lnt>20
+</span><span class=lnt>21
+</span><span class=lnt>22
+</span><span class=lnt>23
+</span><span class=lnt>24
+</span><span class=lnt>25
+</span><span class=lnt>26
+</span><span class=lnt>27
+</span><span class=lnt>28
+</span><span class=lnt>29
+</span><span class=lnt>30
+</span><span class=lnt>31
+</span><span class=lnt>32
+</span><span class=lnt>33
+</span><span class=lnt>34
+</span><span class=lnt>35
+</span><span class=lnt>36
+</span><span class=lnt>37
+</span><span class=lnt>38
+</span><span class=lnt>39
+</span><span class=lnt>40
+</span><span class=lnt>41
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-python data-lang=python><span class=line><span class=cl><span class=k>def</span> <span class=nf>browse_infile_dialog</span><span class=p>(</span><span class=bp>self</span><span class=p>):</span>
+</span></span><span class=line><span class=cl>    <span class=s2>&#34;&#34;&#34; Browse input CSV file dialog &#34;&#34;&#34;</span>
+</span></span><span class=line><span class=cl>    <span class=n>input_file_name</span><span class=p>,</span> <span class=n>_</span> <span class=o>=</span> <span class=n>QFileDialog</span><span class=o>.</span><span class=n>getOpenFileName</span><span class=p>(</span>
+</span></span><span class=line><span class=cl>        <span class=kc>None</span><span class=p>,</span> <span class=s2>&#34;Address CSV Input File&#34;</span><span class=p>,</span>
+</span></span><span class=line><span class=cl>        <span class=bp>self</span><span class=o>.</span><span class=n>input_filename</span><span class=o>.</span><span class=n>displayText</span><span class=p>(),</span>
+</span></span><span class=line><span class=cl>        <span class=s2>&#34;CSV File (*.csv *.txt)&#34;</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>    <span class=k>if</span> <span class=n>input_file_name</span> <span class=ow>and</span> <span class=nb>len</span><span class=p>(</span><span class=n>input_file_name</span><span class=p>)</span> <span class=o>&gt;</span> <span class=mi>4</span><span class=p>:</span>
+</span></span><span class=line><span class=cl>        <span class=n>abspath</span> <span class=o>=</span> <span class=n>os</span><span class=o>.</span><span class=n>path</span><span class=o>.</span><span class=n>abspath</span><span class=p>(</span><span class=n>input_file_name</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>        <span class=c1># Se seteaza calea fisierului de intrare</span>
+</span></span><span class=line><span class=cl>        <span class=bp>self</span><span class=o>.</span><span class=n>input_filename</span><span class=o>.</span><span class=n>setText</span><span class=p>(</span><span class=n>abspath</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>        <span class=c1># Se seteaza calea spre fisierul de iesire (SpatiaLite)</span>
+</span></span><span class=line><span class=cl>        <span class=c1># Se inlocuieste extensia &#39;.csv&#39; cu &#39;.db&#39;</span>
+</span></span><span class=line><span class=cl>        <span class=bp>self</span><span class=o>.</span><span class=n>output_spatialite_filename</span><span class=o>.</span><span class=n>setText</span><span class=p>(</span>
+</span></span><span class=line><span class=cl>            <span class=n>os</span><span class=o>.</span><span class=n>path</span><span class=o>.</span><span class=n>join</span><span class=p>(</span>
+</span></span><span class=line><span class=cl>                <span class=n>os</span><span class=o>.</span><span class=n>path</span><span class=o>.</span><span class=n>dirname</span><span class=p>(</span><span class=n>abspath</span><span class=p>),</span> <span class=n>os</span><span class=o>.</span><span class=n>path</span><span class=o>.</span><span class=n>splitext</span><span class=p>(</span>
+</span></span><span class=line><span class=cl>                    <span class=n>os</span><span class=o>.</span><span class=n>path</span><span class=o>.</span><span class=n>basename</span><span class=p>(</span><span class=n>abspath</span><span class=p>))[</span><span class=mi>0</span><span class=p>]</span> <span class=o>+</span> <span class=s1>&#39;.db&#39;</span><span class=p>))</span>
+</span></span><span class=line><span class=cl>        <span class=c1># Se seteaza calea spre fisierul CSV cu adrese neidentificate</span>
+</span></span><span class=line><span class=cl>        <span class=bp>self</span><span class=o>.</span><span class=n>output_notfound_filename</span><span class=o>.</span><span class=n>setText</span><span class=p>(</span>
+</span></span><span class=line><span class=cl>            <span class=n>os</span><span class=o>.</span><span class=n>path</span><span class=o>.</span><span class=n>join</span><span class=p>(</span><span class=n>os</span><span class=o>.</span><span class=n>path</span><span class=o>.</span><span class=n>dirname</span><span class=p>(</span><span class=n>abspath</span><span class=p>),</span> <span class=s1>&#39;notfound.csv&#39;</span><span class=p>))</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>        <span class=n>combolist</span> <span class=o>=</span> <span class=p>[</span><span class=bp>self</span><span class=o>.</span><span class=n>street_field1</span><span class=p>,</span> <span class=bp>self</span><span class=o>.</span><span class=n>street_field2</span><span class=p>,</span>
+</span></span><span class=line><span class=cl>                        <span class=bp>self</span><span class=o>.</span><span class=n>house_number_field</span><span class=p>,</span> <span class=bp>self</span><span class=o>.</span><span class=n>locality_field</span><span class=p>]</span>
+</span></span><span class=line><span class=cl>        <span class=k>for</span> <span class=n>box</span> <span class=ow>in</span> <span class=n>combolist</span><span class=p>:</span>
+</span></span><span class=line><span class=cl>            <span class=n>box</span><span class=o>.</span><span class=n>clear</span><span class=p>()</span>
+</span></span><span class=line><span class=cl>            <span class=n>box</span><span class=o>.</span><span class=n>addItem</span><span class=p>(</span><span class=s2>&#34;(none)&#34;</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>            <span class=n>box</span><span class=o>.</span><span class=n>setCurrentIndex</span><span class=p>(</span><span class=mi>0</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>        <span class=n>map_md_utils</span> <span class=o>=</span> <span class=n>MapMdUtils</span><span class=p>(</span>
+</span></span><span class=line><span class=cl>            <span class=bp>self</span><span class=o>.</span><span class=n>input_filename</span><span class=o>.</span><span class=n>displayText</span><span class=p>())</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>        <span class=k>try</span><span class=p>:</span>
+</span></span><span class=line><span class=cl>            <span class=n>header</span> <span class=o>=</span> <span class=nb>next</span><span class=p>(</span><span class=n>map_md_utils</span><span class=o>.</span><span class=n>read_csv</span><span class=p>())</span>
+</span></span><span class=line><span class=cl>            <span class=n>header</span> <span class=o>=</span> <span class=p>[</span><span class=n>field</span> <span class=k>for</span> <span class=n>field</span> <span class=ow>in</span> <span class=n>header</span><span class=p>]</span>
+</span></span><span class=line><span class=cl>            <span class=k>if</span> <span class=n>header</span> <span class=ow>is</span> <span class=kc>None</span><span class=p>:</span>
+</span></span><span class=line><span class=cl>                <span class=k>return</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>            <span class=k>for</span> <span class=n>index</span> <span class=ow>in</span> <span class=n>header</span><span class=p>:</span>
+</span></span><span class=line><span class=cl>                <span class=k>for</span> <span class=n>box</span> <span class=ow>in</span> <span class=n>combolist</span><span class=p>:</span>
+</span></span><span class=line><span class=cl>                    <span class=n>box</span><span class=o>.</span><span class=n>addItem</span><span class=p>(</span><span class=n>index</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>        <span class=k>except</span> <span class=ne>StopIteration</span><span class=p>:</span>
+</span></span><span class=line><span class=cl>            <span class=k>pass</span>
+</span></span></code></pre></td></tr></table></div></div><h3 id=implementarea-metodei-de-alegere-a-căilor-spre-fișierele-de-ieșire>Implementarea metodei de alegere a căilor spre fișierele de ieșire</h3><p>Cum am menționat anterior, după alegerea fișierului de intrare, în mod implicit se modifică și calea spre fișierele de ieșire și a celui ce conține adrese neidentificate, însă aceste căi (precum și denumirea fișierelor) pot fi modificate la cererea utilizatorului, apăsând pe butoanele <em>Browse…</em> în drept cu câmpurile menționate.</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span><span class=lnt>11
+</span><span class=lnt>12
+</span><span class=lnt>13
+</span><span class=lnt>14
+</span><span class=lnt>15
+</span><span class=lnt>16
+</span><span class=lnt>17
+</span><span class=lnt>18
+</span><span class=lnt>19
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-python data-lang=python><span class=line><span class=cl><span class=k>def</span> <span class=nf>browse_spatialite_file_dialog</span><span class=p>(</span><span class=bp>self</span><span class=p>):</span>
+</span></span><span class=line><span class=cl>    <span class=s2>&#34;&#34;&#34; Browse SpatiaLite file dialog. &#34;&#34;&#34;</span>
+</span></span><span class=line><span class=cl>    <span class=n>output_file_name</span><span class=p>,</span> <span class=n>_</span> <span class=o>=</span> <span class=n>QFileDialog</span><span class=o>.</span><span class=n>getSaveFileName</span><span class=p>(</span>
+</span></span><span class=line><span class=cl>        <span class=kc>None</span><span class=p>,</span> <span class=s2>&#34;Output SpatiaLite File&#34;</span><span class=p>,</span>
+</span></span><span class=line><span class=cl>        <span class=bp>self</span><span class=o>.</span><span class=n>output_spatialite_filename</span><span class=o>.</span><span class=n>displayText</span><span class=p>(),</span>
+</span></span><span class=line><span class=cl>        <span class=s2>&#34;SpatiaLite File (*.db *.sqlite)&#34;</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>    <span class=k>if</span> <span class=n>output_file_name</span><span class=p>:</span>
+</span></span><span class=line><span class=cl>        <span class=bp>self</span><span class=o>.</span><span class=n>output_spatialite_filename</span><span class=o>.</span><span class=n>setText</span><span class=p>(</span>
+</span></span><span class=line><span class=cl>            <span class=n>os</span><span class=o>.</span><span class=n>path</span><span class=o>.</span><span class=n>abspath</span><span class=p>(</span><span class=n>output_file_name</span><span class=p>))</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=k>def</span> <span class=nf>browse_notfound_file_dialog</span><span class=p>(</span><span class=bp>self</span><span class=p>):</span>
+</span></span><span class=line><span class=cl>    <span class=s2>&#34;&#34;&#34; Browse Not Found file dialog. &#34;&#34;&#34;</span>
+</span></span><span class=line><span class=cl>    <span class=n>output_file_name</span><span class=p>,</span> <span class=n>_</span> <span class=o>=</span> <span class=n>QFileDialog</span><span class=o>.</span><span class=n>getSaveFileName</span><span class=p>(</span>
+</span></span><span class=line><span class=cl>        <span class=kc>None</span><span class=p>,</span> <span class=s2>&#34;Output Not Found File&#34;</span><span class=p>,</span>
+</span></span><span class=line><span class=cl>        <span class=bp>self</span><span class=o>.</span><span class=n>output_notfound_filename</span><span class=o>.</span><span class=n>displayText</span><span class=p>(),</span>
+</span></span><span class=line><span class=cl>        <span class=s2>&#34;CSV File (*.csv *.txt)&#34;</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>    <span class=k>if</span> <span class=n>output_file_name</span><span class=p>:</span>
+</span></span><span class=line><span class=cl>        <span class=bp>self</span><span class=o>.</span><span class=n>output_notfound_filename</span><span class=o>.</span><span class=n>setText</span><span class=p>(</span>
+</span></span><span class=line><span class=cl>            <span class=n>os</span><span class=o>.</span><span class=n>path</span><span class=o>.</span><span class=n>abspath</span><span class=p>(</span><span class=n>output_file_name</span><span class=p>))</span>
+</span></span></code></pre></td></tr></table></div></div><h3 id=verificarea-disponibilității-procedurii-de-geocodificare>Verificarea disponibilității procedurii de geocodificare</h3><ul><li>Câmpul cu calea spre fișierul de intrare să nu fie gol;</li><li>Câmpul cu calea spre fișierul de ieșire să nu fie gol;</li><li>Câmpul cu cheia API să nu fie gol;</li><li>Componentul combobox cu denumirea <em>Street 1 field</em> să nu fie gol;</li><li>Componentul combobox cu denumirea <em>Locality field</em> să nu fie gol.</li></ul><p>După satisfacerea acestor condiții, butonul <em>OK</em> al interfeței dialogului extensiei va fi pornit și va fi posibil de apăsat.</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span><span class=lnt>11
+</span><span class=lnt>12
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-python data-lang=python><span class=line><span class=cl><span class=k>def</span> <span class=nf>is_ready_to_geocode</span><span class=p>(</span><span class=bp>self</span><span class=p>):</span>
+</span></span><span class=line><span class=cl>    <span class=s2>&#34;&#34;&#34; Enable or disable OK button whether all
+</span></span></span><span class=line><span class=cl><span class=s2>    required field are filled. &#34;&#34;&#34;</span>
+</span></span><span class=line><span class=cl>    <span class=n>is_ready</span> <span class=o>=</span> <span class=bp>self</span><span class=o>.</span><span class=n>input_filename</span><span class=o>.</span><span class=n>displayText</span><span class=p>()</span> \
+</span></span><span class=line><span class=cl>        <span class=ow>and</span> <span class=bp>self</span><span class=o>.</span><span class=n>output_spatialite_filename</span><span class=o>.</span><span class=n>displayText</span><span class=p>()</span> \
+</span></span><span class=line><span class=cl>        <span class=ow>and</span> <span class=bp>self</span><span class=o>.</span><span class=n>output_notfound_filename</span><span class=o>.</span><span class=n>displayText</span><span class=p>()</span> \
+</span></span><span class=line><span class=cl>        <span class=ow>and</span> <span class=bp>self</span><span class=o>.</span><span class=n>api_key</span><span class=o>.</span><span class=n>displayText</span><span class=p>()</span> \
+</span></span><span class=line><span class=cl>        <span class=ow>and</span> <span class=bp>self</span><span class=o>.</span><span class=n>street_field1</span><span class=o>.</span><span class=n>currentIndex</span><span class=p>()</span> <span class=o>&gt;</span> <span class=mi>0</span> \
+</span></span><span class=line><span class=cl>        <span class=ow>and</span> <span class=bp>self</span><span class=o>.</span><span class=n>locality_field</span><span class=o>.</span><span class=n>currentIndex</span><span class=p>()</span> <span class=o>&gt;</span> <span class=mi>0</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>    <span class=bp>self</span><span class=o>.</span><span class=n>button_box</span><span class=o>.</span><span class=n>button</span><span class=p>(</span><span class=n>QDialogButtonBox</span><span class=o>.</span><span class=n>Ok</span><span class=p>)</span><span class=o>.</span><span class=n>setEnabled</span><span class=p>(</span>
+</span></span><span class=line><span class=cl>        <span class=nb>bool</span><span class=p>(</span><span class=n>is_ready</span><span class=p>))</span>
+</span></span></code></pre></td></tr></table></div></div><h2 id=modificarea-fișierului-principal-al-extensiei>Modificarea fișierului principal al extensiei</h2><p>În fișierul <em>map_md.py</em> ne asigurăm că am importat următoarele biblioteci:</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span><span class=lnt>4
+</span><span class=lnt>5
+</span><span class=lnt>6
+</span><span class=lnt>7
+</span><span class=lnt>8
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-python data-lang=python><span class=line><span class=cl><span class=kn>import</span> <span class=nn>os.path</span>
+</span></span><span class=line><span class=cl><span class=kn>from</span> <span class=nn>PyQt5.QtCore</span> <span class=kn>import</span> <span class=n>QSettings</span><span class=p>,</span> <span class=n>QTranslator</span><span class=p>,</span> <span class=n>qVersion</span><span class=p>,</span> <span class=n>QCoreApplication</span>
+</span></span><span class=line><span class=cl><span class=kn>from</span> <span class=nn>PyQt5.QtGui</span> <span class=kn>import</span> <span class=n>QIcon</span>
+</span></span><span class=line><span class=cl><span class=kn>from</span> <span class=nn>PyQt5.QtWidgets</span> <span class=kn>import</span> <span class=n>QAction</span>
+</span></span><span class=line><span class=cl><span class=kn>from</span> <span class=nn>qgis.core</span> <span class=kn>import</span> <span class=n>QgsApplication</span><span class=p>,</span> <span class=n>QgsMessageLog</span>
+</span></span><span class=line><span class=cl><span class=kn>from</span> <span class=nn>.resources</span> <span class=kn>import</span> <span class=o>*</span>
+</span></span><span class=line><span class=cl><span class=kn>from</span> <span class=nn>.map_md_dialog</span> <span class=kn>import</span> <span class=n>MapMdDialog</span>
+</span></span><span class=line><span class=cl><span class=kn>from</span> <span class=nn>.map_md_utils</span> <span class=kn>import</span> <span class=n>MapMdUtils</span>
+</span></span></code></pre></td></tr></table></div></div><h3 id=obținerea-datelor-din-interfața-dialogului-extensiei-și-adăugarea-procesului-de-geocodificare-în-managerul-de-sarcini>Obținerea datelor din interfața dialogului extensiei și adăugarea procesului de geocodificare în managerul de sarcini</h3><p>În constructorul clasei <em>MapMd</em>, atribuim o variabilă care va obține obiectul managerului de sarcini al aplicației QGIS.</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-python data-lang=python><span class=line><span class=cl><span class=bp>self</span><span class=o>.</span><span class=n>task_manager</span> <span class=o>=</span> <span class=n>QgsApplication</span><span class=o>.</span><span class=n>taskManager</span><span class=p>()</span>
+</span></span></code></pre></td></tr></table></div></div><p>Ulterior, dacă a fost apăsat butonul <em>OK</em> din interfața dialogului extensiei, atunci se obține toți parametrii setați în aceasta, se crează o nouă instanță a clasei <em>MapMdUtils</em>, care extinde clasa <em>QgsTask</em> și o transmite metodei <em>addTask</em> a obiectului <em>taskManager</em>.</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span><span class=lnt>11
+</span><span class=lnt>12
+</span><span class=lnt>13
+</span><span class=lnt>14
+</span><span class=lnt>15
+</span><span class=lnt>16
+</span><span class=lnt>17
+</span><span class=lnt>18
+</span><span class=lnt>19
+</span><span class=lnt>20
+</span><span class=lnt>21
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-python data-lang=python><span class=line><span class=cl><span class=k>if</span> <span class=n>result</span><span class=p>:</span>
+</span></span><span class=line><span class=cl>    <span class=c1># Init variables</span>
+</span></span><span class=line><span class=cl>    <span class=n>api_key</span> <span class=o>=</span> <span class=bp>self</span><span class=o>.</span><span class=n>dlg</span><span class=o>.</span><span class=n>api_key</span><span class=o>.</span><span class=n>displayText</span><span class=p>()</span>
+</span></span><span class=line><span class=cl>    <span class=n>street1_index</span> <span class=o>=</span> <span class=bp>self</span><span class=o>.</span><span class=n>dlg</span><span class=o>.</span><span class=n>street_field1</span><span class=o>.</span><span class=n>currentIndex</span><span class=p>()</span> <span class=o>-</span> <span class=mi>1</span>
+</span></span><span class=line><span class=cl>    <span class=n>street2_index</span> <span class=o>=</span> <span class=bp>self</span><span class=o>.</span><span class=n>dlg</span><span class=o>.</span><span class=n>street_field2</span><span class=o>.</span><span class=n>currentIndex</span><span class=p>()</span> <span class=o>-</span> <span class=mi>1</span>
+</span></span><span class=line><span class=cl>    <span class=n>house_number_index</span> <span class=o>=</span> <span class=bp>self</span><span class=o>.</span><span class=n>dlg</span><span class=o>.</span><span class=n>house_number_field</span><span class=o>.</span><span class=n>currentIndex</span><span class=p>()</span> <span class=o>-</span> <span class=mi>1</span>
+</span></span><span class=line><span class=cl>    <span class=n>locality_index</span> <span class=o>=</span> <span class=bp>self</span><span class=o>.</span><span class=n>dlg</span><span class=o>.</span><span class=n>locality_field</span><span class=o>.</span><span class=n>currentIndex</span><span class=p>()</span> <span class=o>-</span> <span class=mi>1</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>    <span class=n>input_filename</span> <span class=o>=</span> <span class=bp>self</span><span class=o>.</span><span class=n>dlg</span><span class=o>.</span><span class=n>input_filename</span><span class=o>.</span><span class=n>displayText</span><span class=p>()</span>
+</span></span><span class=line><span class=cl>    <span class=n>output_filename</span> <span class=o>=</span> <span class=bp>self</span><span class=o>.</span><span class=n>dlg</span><span class=o>.</span><span class=n>output_spatialite_filename</span><span class=o>.</span><span class=n>displayText</span><span class=p>()</span>
+</span></span><span class=line><span class=cl>    <span class=n>notfound_filename</span> <span class=o>=</span> <span class=bp>self</span><span class=o>.</span><span class=n>dlg</span><span class=o>.</span><span class=n>output_notfound_filename</span><span class=o>.</span><span class=n>displayText</span><span class=p>()</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>    <span class=n>map_md_utils</span> <span class=o>=</span> <span class=n>MapMdUtils</span><span class=p>(</span><span class=n>input_filename</span><span class=p>,</span> <span class=n>output_filename</span><span class=p>,</span>
+</span></span><span class=line><span class=cl>                              <span class=n>notfound_filename</span><span class=p>,</span> <span class=n>api_key</span><span class=p>,</span>
+</span></span><span class=line><span class=cl>                              <span class=n>street1_index</span><span class=p>,</span> <span class=n>street2_index</span><span class=p>,</span>
+</span></span><span class=line><span class=cl>                              <span class=n>house_number_index</span><span class=p>,</span> <span class=n>locality_index</span><span class=p>,</span>
+</span></span><span class=line><span class=cl>                             <span class=p>)</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>    <span class=c1># Geocoding CSV rows</span>
+</span></span><span class=line><span class=cl>    <span class=n>task_id</span> <span class=o>=</span> <span class=bp>self</span><span class=o>.</span><span class=n>task_manager</span><span class=o>.</span><span class=n>addTask</span><span class=p>(</span><span class=n>map_md_utils</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>    <span class=n>QgsMessageLog</span><span class=o>.</span><span class=n>logMessage</span><span class=p>(</span><span class=s2>&#34;Atribuită sarcină nr. </span><span class=si>%s</span><span class=s2>&#34;</span> <span class=o>%</span> <span class=nb>str</span><span class=p>(</span><span class=n>task_id</span><span class=p>))</span>
+</span></span></code></pre></td></tr></table></div></div><h2 id=încheire>Încheire</h2><p>La primele testări, această extensie funcționează bine. Extensia o puteți găsi pe <a href=https://plugins.qgis.org/plugins/map_md/ target=_blank rel="noopener noreffer">depozitul Plugin-urilor QGIS</a> sau pe <a href=https://github.com/victor-pogor/map.md-geocoding target=_blank rel="noopener noreffer">repository oficial Github</a></p></div><div class=post-footer id=post-footer><div class=post-info><div class=post-info-line><div class=post-info-mod><span>Actualizat la 2020-08-09&nbsp;<a class=git-hash href=https://github.com/sunt-programator/sunt-programator-site/commit/1933f4a95d160364fbf47857e3dde6e4eb30a23f target=_blank title="commit by Victor Pogor(victor.pogor@outlook.com) 1933f4a95d160364fbf47857e3dde6e4eb30a23f: post: minor changes">
+<i class="fas fa-hashtag fa-fw"></i>1933f4a</a></span></div><div class=post-info-license></div></div><div class=post-info-line><div class=post-info-md><span><a class=link-to-markdown href=/2019/08/qgis-plugin-implementarea-serviciului-map-md-api/index.md target=_blank>Citire Markdown</a></span></div><div class=post-info-share><span><a href=javascript:void(0); title="Distribuie pe Twitter" data-sharer=twitter data-url=http://suntprogramator.dev/2019/08/qgis-plugin-implementarea-serviciului-map-md-api/ data-title="QGIS Plugin: Implementarea serviciului Map.md API" data-hashtags=pyqgis,pyqt5,python,qgis><i class="fab fa-twitter fa-fw"></i></a><a href=javascript:void(0); title="Distribuie pe Facebook" data-sharer=facebook data-url=http://suntprogramator.dev/2019/08/qgis-plugin-implementarea-serviciului-map-md-api/ data-hashtag=pyqgis><i class="fab fa-facebook-square fa-fw"></i></a><a href=javascript:void(0); title="Distribuie pe Linkedin" data-sharer=linkedin data-url=http://suntprogramator.dev/2019/08/qgis-plugin-implementarea-serviciului-map-md-api/><i class="fab fa-linkedin fa-fw"></i></a><a href=javascript:void(0); title="Distribuie pe WhatsApp" data-sharer=whatsapp data-url=http://suntprogramator.dev/2019/08/qgis-plugin-implementarea-serviciului-map-md-api/ data-title="QGIS Plugin: Implementarea serviciului Map.md API" data-web><i class="fab fa-whatsapp fa-fw"></i></a><a href=javascript:void(0); title="Distribuie pe VK" data-sharer=vk data-url=http://suntprogramator.dev/2019/08/qgis-plugin-implementarea-serviciului-map-md-api/ data-title="QGIS Plugin: Implementarea serviciului Map.md API" data-image=/images/2019/08/qgis-plugin-implementarea-serviciului-map-md-api/maxresdefault.jpg><i class="fab fa-vk fa-fw"></i></a><a href=javascript:void(0); title="Distribuie pe OK.RU" data-sharer=okru data-url=http://suntprogramator.dev/2019/08/qgis-plugin-implementarea-serviciului-map-md-api/ data-title="QGIS Plugin: Implementarea serviciului Map.md API"><i class="fab fa-odnoklassniki fa-fw"></i></a><a href=javascript:void(0); title="Distribuie pe Evernote" data-sharer=evernote data-url=http://suntprogramator.dev/2019/08/qgis-plugin-implementarea-serviciului-map-md-api/ data-title="QGIS Plugin: Implementarea serviciului Map.md API"><i class="fab fa-evernote fa-fw"></i></a><a href=javascript:void(0); title="Distribuie pe Skype" data-sharer=skype data-url=http://suntprogramator.dev/2019/08/qgis-plugin-implementarea-serviciului-map-md-api/ data-title="QGIS Plugin: Implementarea serviciului Map.md API"><i class="fab fa-skype fa-fw"></i></a></span></div></div></div><div class=post-info-more><section class=post-tags><i class="fas fa-tags fa-fw"></i>&nbsp;<a href=/tags/pyqgis/>pyqgis</a>,&nbsp;<a href=/tags/pyqt5/>pyqt5</a>,&nbsp;<a href=/tags/python/>python</a>,&nbsp;<a href=/tags/qgis/>qgis</a></section><section><span><a href=javascript:void(0); onclick=window.history.back()>Înapoi</a></span>&nbsp;|&nbsp;<span><a href=/>Acasă</a></span></section></div><div class=post-nav><a href=/2020/08/latex-involute-of-a-circle/ class=next rel=next title="LaTeX: Proiectarea și animarea evolventei unui cerc">LaTeX: Proiectarea și animarea evolventei unui cerc<i class="fas fa-angle-right fa-fw"></i></a></div></div><div id=comments><div id=utterances></div><noscript>Please enable JavaScript to view the comments powered by <a href=https://utteranc.es/>Utterances</a>.</noscript></div></article></div></main><footer class=footer><div class=footer-container><div class=footer-line>Realizat de către <a href=https://gohugo.io/ target=_blank rel="noopener noreffer" title="Hugo 0.100.2">Hugo</a> | Temă - <a href=https://github.com/dillonzq/LoveIt target=_blank rel="noopener noreffer" title="LoveIt 0.2.10"><i class="far fa-kiss-wink-heart fa-fw"></i> LoveIt</a></div><div class=footer-line><i class="far fa-copyright fa-fw"></i><span itemprop=copyrightYear>2020 - 2022</span><span class=author itemprop=copyrightHolder>&nbsp;<a href=https://suntprogramator.dev/ target=_blank>Victor Pogor</a></span>&nbsp;|&nbsp;<span class=license><a rel="license external nofollow noopener noreffer" href=https://creativecommons.org/licenses/by-nc/4.0/ target=_blank>CC BY-NC 4.0</a></span></div></div></footer></div><div id=fixed-buttons><a href=# id=back-to-top class=fixed-button title="Înapoi Sus"><i class="fas fa-arrow-up fa-fw"></i>
+</a><a href=# id=view-comments class=fixed-button title="Vizualizare Comentarii"><i class="fas fa-comment fa-fw"></i></a></div><link rel=stylesheet href=https://cdn.jsdelivr.net/npm/lightgallery.js@1.2.0/dist/css/lightgallery.min.css><link rel=stylesheet href=https://cdn.jsdelivr.net/npm/katex@0.11.1/dist/katex.min.css><link rel=stylesheet href=https://cdn.jsdelivr.net/npm/katex@0.11.1/dist/contrib/copy-tex.min.css><script type=text/javascript src=https://cdn.jsdelivr.net/npm/smooth-scroll@16.1.3/dist/smooth-scroll.min.js></script><script type=text/javascript src=https://cdn.jsdelivr.net/npm/autocomplete.js@0.37.1/dist/autocomplete.min.js></script><script type=text/javascript src=https://cdn.jsdelivr.net/npm/algoliasearch@4.2.0/dist/algoliasearch-lite.umd.min.js></script><script type=text/javascript src=https://cdn.jsdelivr.net/npm/lazysizes@5.2.2/lazysizes.min.js></script><script type=text/javascript src=https://cdn.jsdelivr.net/npm/lightgallery.js@1.2.0/dist/js/lightgallery.min.js></script><script type=text/javascript src=https://cdn.jsdelivr.net/npm/lg-thumbnail.js@1.2.0/dist/lg-thumbnail.min.js></script><script type=text/javascript src=https://cdn.jsdelivr.net/npm/lg-zoom.js@1.2.0/dist/lg-zoom.min.js></script><script type=text/javascript src=https://cdn.jsdelivr.net/npm/clipboard@2.0.6/dist/clipboard.min.js></script><script type=text/javascript src=https://cdn.jsdelivr.net/npm/sharer.js@0.4.0/sharer.min.js></script><script type=text/javascript src=https://cdn.jsdelivr.net/npm/katex@0.11.1/dist/katex.min.js></script><script type=text/javascript src=https://cdn.jsdelivr.net/npm/katex@0.11.1/dist/contrib/auto-render.min.js></script><script type=text/javascript src=https://cdn.jsdelivr.net/npm/katex@0.11.1/dist/contrib/copy-tex.min.js></script><script type=text/javascript src=https://cdn.jsdelivr.net/npm/katex@0.11.1/dist/contrib/mhchem.min.js></script><script type=text/javascript>window.config={code:{copyTitle:"Copiați în clipboard",maxShownLines:10},comment:{utterances:{darkTheme:"github-dark",issueTerm:"pathname",label:"post-comment",lightTheme:"github-light",repo:"sunt-programator/sunt-programator-site"}},lightGallery:{actualSize:!1,exThumbImage:"data-thumbnail",hideBarsDelay:2e3,selector:".lightgallery",speed:400,thumbContHeight:80,thumbWidth:80,thumbnail:!0},math:{delimiters:[{display:!0,left:"$$",right:"$$"},{display:!0,left:"\\[",right:"\\]"},{display:!1,left:"$",right:"$"},{display:!1,left:"\\(",right:"\\)"}],strict:!1},search:{algoliaAppID:"4A20M7PBC9",algoliaIndex:"SUNT_PROGRAMATOR_RO",algoliaSearchKey:"4191092b0e773be76573fa4f7b22a8b7",highlightTag:"em",maxResultLength:10,noResultsFound:"Nici un rezultat gasit",snippetLength:30,type:"algolia"}}</script><script type=text/javascript src=/js/theme.min.js></script><script type=text/javascript>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments)}gtag('js',new Date),gtag('config','UA-174142374-1',{anonymize_ip:!0})</script><script type=text/javascript src="https://www.googletagmanager.com/gtag/js?id=UA-174142374-1" async></script></body></html>
